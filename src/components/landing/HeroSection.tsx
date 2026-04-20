@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import AnimatedButton from "../common/AnimatedButton";
+import Image from "next/image";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -111,8 +112,10 @@ export default function HeroSection() {
       <div className="sticky z-10 flex flex-col items-center gap-6 max-w-3xl w-full">
 
         {/* Badge sigma */}
-        <div ref={badgeRef} className="flex items-center gap-2">
-          <div className="w-5 h-5 bg-indigo-400 rounded-md" />
+        <div ref={badgeRef} className="flex justify-center items-center gap-2 -mb-3">
+          <div className="flex items-center justify-center -mb-2">
+            <Image src="/logo.png" alt="Sigma Badge" width={30} height={30} unoptimized />
+          </div>
           <span className="text-xl tracking-wide font-medium text-gray-700">
             𝖘𝖎𝖌𝖒𝖆
           </span>

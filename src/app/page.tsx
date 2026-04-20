@@ -16,18 +16,18 @@ export default function Home() {
 
     <main>
 
-      {/* <div className="fixed inset-0 pointer-events-none z-0">
-        <MathParticles count={40} opacity={0.045} />
-      </div> */}
+      <div className="fixed inset-0 pointer-events-none z-0">
+        <MathParticles count={30} opacity={0.15} />
+      </div>
 
       <ScrollAnim >
         <Navbar />
-        {/* <HeroSection />
+        <HeroSection />
         <ContentSections />
         <Quotes />
-        <Teamm />
-        <Footer /> */}
         <TeamIntro />
+        <Teamm />
+        <Footer />
       </ScrollAnim>
 
     </main>

@@ -88,18 +88,18 @@ export default function TeamIntro() {
   return (
     <section
       ref={sectionRef}
-      className="relative bg-white py-24 px-6 md:px-16 lg:px-24 overflow-hidden"
+      className="relative py-24 px-6 md:px-16 lg:px-24 overflow-hidden bg-gray-100"
     >
       {/* ── Dekorasi background ─────────────────────────────────────────── */}
       <div className="absolute top-0 right-0 w-80 h-80 bg-indigo-50 rounded-full blur-3xl opacity-50 pointer-events-none" />
       <div className="absolute bottom-0 left-0 w-56 h-56 bg-gray-100 rounded-full blur-2xl opacity-70 pointer-events-none" />
 
-      <div className="relative max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-16 md:gap-24">
+      <div className="relative max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-center gap-16 md:gap-36">
 
         {/* ── Kiri: Stack foto ───────────────────────────────────────────── */}
         <div
           ref={photoRef}
-          className="shrink-0 w-56 h-56 md:w-72 md:h-72 lg:w-80 lg:h-80"
+          className="shrink-0 w-56 h-56 md:w-72 md:h-72 lg:w-96 lg:h-96"
         >
           <Stack
             randomRotation={true}
@@ -138,12 +138,10 @@ export default function TeamIntro() {
             ref={descRef}
             className="text-gray-500 text-sm md:text-base leading-relaxed"
           >
-            Kami bukan jenius kalkulus — kami cuma sekumpulan mahasiswa
-            yang nekat bikin platform belajar karena bosan sama cara belajar
-            yang itu-itu aja. Berbekal semangat, deadline mepet, dan
+            Kami percaya setiap orang bisa memahami kalkulus, asalkan disajikan dengan cara yang tepat. Kelompok 9 yang terdiri dari 6 mahasiswa membangun ruang belajar yang interaktif, visual, dan menyenangkan — karena matematika seharusnya bukan hal yang ditakuti. Berbekal semangat, deadline mepet, dan
             bergelas-gelas kopi, lahirlah{" "}
             <span className="font-semibold text-gray-700">Sigma</span>.
-            Semoga bermanfaat, setidaknya untuk nilai UAS kalian. 😄
+            Semoga bermanfaat, yakkk. 😄
           </p>
 
           {/* Divider */}
@@ -162,14 +160,6 @@ export default function TeamIntro() {
               </div>
             ))}
           </div>
-
-          {/* Hint */}
-          <p
-            ref={hintRef}
-            className="text-[11px] text-gray-300 italic mt-1"
-          >
-            * klik foto untuk lihat yang lain ✦
-          </p>
         </div>
       </div>
     </section>

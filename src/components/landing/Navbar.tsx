@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { gsap } from 'gsap'
+import Image from 'next/image'
 
 // ── Icons ──────────────────────────────────────────────
 function IconHome() {
@@ -42,21 +43,21 @@ function IconGamepad() {
 
 // ── Nav items ──────────────────────────────────────────
 const NAV_ITEMS = [
-  { href: '/',        label: 'Beranda',    icon: IconHome    },
-  { href: '/materi',  label: 'Materi',  icon: IconBook    },
-  { href: '/latihan', label: 'Latihan', icon: IconPencil  },
-  { href: '/games',   label: 'Game',    icon: IconGamepad },
+  { href: '/', label: 'Beranda', icon: IconHome },
+  { href: '/materi', label: 'Materi', icon: IconBook },
+  { href: '/latihan', label: 'Latihan', icon: IconPencil },
+  { href: '/games', label: 'Game', icon: IconGamepad },
 ]
 
 // ── Component ──────────────────────────────────────────
 export default function Navbar() {
-  const pathname   = usePathname()
+  const pathname = usePathname()
   const [scrolled, setScrolled] = useState(false)
-  const [hovered,  setHovered]  = useState<number | null>(null)
+  const [hovered, setHovered] = useState<number | null>(null)
 
-  const navRef     = useRef<HTMLElement>(null)
-  const labelsRef  = useRef<(HTMLSpanElement | null)[]>([])
-  const tlRef      = useRef<gsap.core.Timeline | null>(null)
+  const navRef = useRef<HTMLElement>(null)
+  const labelsRef = useRef<(HTMLSpanElement | null)[]>([])
+  const tlRef = useRef<gsap.core.Timeline | null>(null)
 
   // ── scroll detect ──
   useEffect(() => {
@@ -73,12 +74,12 @@ export default function Navbar() {
     if (scrolled) {
       // Collapse: label fade + width = 0
       gsap.to(labels, {
-        opacity:   0,
-        maxWidth:  0,
+        opacity: 0,
+        maxWidth: 0,
         marginLeft: 0,
-        duration:  0.32,
-        ease:      'power2.inOut',
-        stagger:   0.03,
+        duration: 0.32,
+        ease: 'power2.inOut',
+        stagger: 0.03,
       })
       // Navbar shrink
       if (navRef.current) {
@@ -91,12 +92,12 @@ export default function Navbar() {
     } else {
       // Expand: label fade in
       gsap.to(labels, {
-        opacity:    1,
-        maxWidth:   80,
+        opacity: 1,
+        maxWidth: 80,
         marginLeft: 6,
-        duration:   0.38,
-        ease:       'power2.out',
-        stagger:    0.04,
+        duration: 0.38,
+        ease: 'power2.out',
+        stagger: 0.04,
       })
       if (navRef.current) {
         gsap.to(navRef.current, {
@@ -138,18 +139,20 @@ export default function Navbar() {
       style={{ borderColor: 'rgba(200,205,230,0.7)' }}
     >
       {/* Logo */}
-      <Link
-        href="/"
-        className="text-xl font-black tracking-tight text-gray-900 select-none shrink-0"
-        style={{ fontFamily: '"Georgia", serif', fontStyle: 'italic' }}
-      >
-        sigma
-      </Link>
+      <div className="flex items-center gap-1">
+        <Image src="/logo.png" alt="Sigma Logo" width={20} height={20} unoptimized/>
+        <span
+          className="text-xl font-black tracking-tight text-gray-900 select-none shrink-0"
+          style={{ fontFamily: '"Georgia", serif', fontStyle: 'italic' }}
+        >
+          sigma
+        </span>
+      </div>
 
       {/* Nav items */}
       <div className="flex items-center gap-1">
         {NAV_ITEMS.map((item, i) => {
-          const Icon     = item.icon
+          const Icon = item.icon
           const isActive = item.href === '/'
             ? pathname === '/'
             : pathname.startsWith(item.href)
@@ -181,10 +184,10 @@ export default function Navbar() {
                 ref={(el) => { labelsRef.current[i] = el }}
                 className="overflow-hidden whitespace-nowrap"
                 style={{
-                  maxWidth:   80,
+                  maxWidth: 80,
                   marginLeft: 6,
-                  opacity:    1,
-                  display:    'inline-block',
+                  opacity: 1,
+                  display: 'inline-block',
                 }}
               >
                 {item.label}

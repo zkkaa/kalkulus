@@ -26,9 +26,9 @@ function VideoCard({
   };
 
   const sizeMap = {
-    "top-left": "w-48 h-36 md:w-64 md:h-48",
-    "mid-left": "w-44 h-32 md:w-56 md:h-40",
-    "bottom-left": "w-40 h-28 md:w-48 md:h-36",
+    "top-left": "w-64 h-48",
+    "mid-left": "w-56 h-40",
+    "bottom-left": "w-48 h-36",
   };
 
   return (
@@ -108,7 +108,7 @@ function FeatureCarousel() {
   const feat = featuresData[active];
 
   return (
-    <div className="flex flex-col md:flex-row items-center gap-12 md:gap-20 py-16 md:py-24 px-6 md:px-16 lg:px-24">
+    <div className="flex flex-col md:flex-row items-center justify-center gap-12 md:gap-20 py-16 md:py-24 px-6 md:px-16 lg:px-24 bg-yellow-200">
       {/* ── Kartu video (kiri) ─────────────────────────────────────────── */}
       <div className="relative w-64 h-64 md:w-80 md:h-80 shrink-0 ml-8 md:ml-16">
         {cardOrder.map((featureIdx, posIdx) => (
