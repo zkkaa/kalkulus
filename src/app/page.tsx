@@ -1,3 +1,5 @@
+"use client"
+
 import MathParticles from '@/components/ui/MathParticles'
 import Navbar from '@/components/landing/Navbar'
 import HeroSection from '@/components/landing/HeroSection'
@@ -7,6 +9,7 @@ import Teamm from '@/components/landing/Teamm'
 import ScrollAnim from '@/components/common/ScrollAnim'
 import Quotes from '@/components/landing/quotes'
 import ContentSections from '@/components/landing/ContentSections'
+import TeamIntro from '@/components/landing/TeamIntro'
 
 export default function Home() {
   return (
@@ -19,11 +22,12 @@ export default function Home() {
 
       <ScrollAnim >
         <Navbar />
-        <HeroSection />
+        {/* <HeroSection />
         <ContentSections />
         <Quotes />
         <Teamm />
-        <Footer />
+        <Footer /> */}
+        <TeamIntro />
       </ScrollAnim>
 
     </main>
