@@ -279,7 +279,7 @@ export default function ContentSections() {
   return (
     <div
       ref={wrapperRef}
-      className="relative z-10 mx-10 bg-gray-50 rounded-4xl"
+      className="relative z-10 mx-10 bg-gray-100 rounded-4xl"
     >
       {/* ── Bagian 2: Pengenalan Fitur ──────────────────────────────────── */}
       <div className="border-b border-gray-200">
