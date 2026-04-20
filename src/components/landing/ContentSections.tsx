@@ -26,9 +26,9 @@ function VideoCard({
   };
 
   const sizeMap = {
-    "top-left": "w-64 h-48",
-    "mid-left": "w-56 h-40",
-    "bottom-left": "w-48 h-36",
+    "top-left": "w-80 h-56",
+    "mid-left": "w-72 h-48",
+    "bottom-left": "w-62 h-40",
   };
 
   return (
@@ -108,7 +108,7 @@ function FeatureCarousel() {
   const feat = featuresData[active];
 
   return (
-    <div className="flex flex-col md:flex-row items-center justify-center gap-12 md:gap-20 py-16 md:py-24 px-6 md:px-16 lg:px-24 bg-yellow-200">
+    <div className="flex flex-col md:flex-row items-center justify-center gap-12 md:gap-20 py-16 md:py-24 px-6 md:px-16 lg:px-24">
       {/* ── Kartu video (kiri) ─────────────────────────────────────────── */}
       <div className="relative w-64 h-64 md:w-80 md:h-80 shrink-0 ml-8 md:ml-16">
         {cardOrder.map((featureIdx, posIdx) => (
@@ -161,11 +161,10 @@ function FeatureCarousel() {
                 if (i === active || animating) return;
                 setActive(i);
               }}
-              className={`h-1.5 rounded-full transition-all duration-300 ${
-                i === active
+              className={`h-1.5 rounded-full transition-all duration-300 ${i === active
                   ? "w-6 bg-gray-800"
                   : "w-2 bg-gray-300 hover:bg-gray-400"
-              }`}
+                }`}
             />
           ))}
         </div>
@@ -279,10 +278,10 @@ export default function ContentSections() {
   return (
     <div
       ref={wrapperRef}
-      className="relative z-10 mx-10 bg-gray-100 rounded-4xl"
+      className="relative z-10 mx-10 bg-indigo-50 rounded-4xl"
     >
       {/* ── Bagian 2: Pengenalan Fitur ──────────────────────────────────── */}
-      <div className="border-b border-gray-200">
+      <div className="">
         <div className="px-6 md:px-16 lg:px-24 pt-16 md:pt-20">
           <TextHeading
             subtitle="Semua yang kamu butuhkan"
@@ -292,7 +291,6 @@ export default function ContentSections() {
             animateOnScroll
           />
         </div>
-
         <FeatureCarousel />
       </div>
 
