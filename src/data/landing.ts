@@ -91,148 +91,142 @@ export const HOW_IT_WORKS = [
   },
 ]
 
-// ── STATS ─────────────────────────────────────────────────────────────
-export const STATS = [
-  { label: 'Topik Materi',  value: 6,  suffix: '' },
-  { label: 'Soal Latihan',  value: 60, suffix: '+' },
-  { label: 'Mode Game',     value: 1,  suffix: '' },
-]
-
-// ── TEAM MEMBERS ──────────────────────────────────────────────────────
-export const MEMBERS = [
-  {
-    name: 'Muhammad Azka Fakhri Fairuz',
-    npm: '257006111019',
-    role: 'Lead Project · Designer · Full Stack Developer',
-    emoji: '👑',
-    isLead: true,
-  },
-  {
-    name: 'Salma Fauziah',
-    npm: '257006111020',
-    role: 'Designer · Front-End Developer',
-    emoji: '🎨',
-    isLead: false,
-  },
-  {
-    name: 'Aulia Syakhira Raina Hakim',
-    npm: '257006111021',
-    role: 'Designer · Front-End Developer',
-    emoji: '✨',
-    isLead: false,
-  },
-  {
-    name: 'Wildan Nurohim',
-    npm: '257006111026',
-    role: 'Designer · Front-End Developer',
-    emoji: '💻',
-    isLead: false,
-  },
-  {
-    name: 'Zaki Khoirullah',
-    npm: '257006111028',
-    role: 'Designer · Front-End Developer',
-    emoji: '🚀',
-    isLead: false,
-  },
-  {
-    name: 'Natasya Ibnaty Salsabila',
-    npm: '257006111033',
-    role: 'Designer · Front-End Developer',
-    emoji: '🌟',
-    isLead: false,
-  },
-]
-
 // ── FOOTER ────────────────────────────────────────────────────────────
 export const FOOTER = {
   desc: 'platform pembelajaran kalkulus interaktif berbasis teknologi yang tidak membuatmu bosan belajar.',
   year: new Date().getFullYear(),
 }
 
-export interface Project {
+// ── Team ──────────────────────────────────────────────────────────────────────
+export interface TeamMember {
   id: number;
-  title: string;
-  description: string;
+  name: string;
+  nim: string;
+  role: string;
+  skills: string[];
   image: string;
-  year: string;
-  category: string;
-  link: string;
 }
 
-export const projectsData: Project[] = [
+export const teamData: TeamMember[] = [
   {
     id: 1,
-    title: "Executive Spaces",
-    description: "A modern workspace booking platform with real-time availability and seamless payment integration. Built with focus on user experience and performance.",
+    name: "Muhammad Azka Fakhri Fairuz",
+    nim: "257006111019",
+    role: "Lead Project",
+    skills: ["Designer", "Full Stack Developer"],
     image: "/gift/plenger2.webp",
-    year: "2024",
-    category: "Web App",
-    link: "/projects/executive-spaces",
   },
   {
     id: 2,
-    title: "E-Commerce Platform",
-    description: "Full-featured online store with advanced filtering, cart management, and secure checkout. Optimized for mobile shopping experience.",
+    name: "Salma Fauziah",
+    nim: "257006111020",
+    role: "",
+    skills: ["Designer", "Front-End Developer"],
     image: "/gift/plenger2.webp",
-    year: "2024",
-    category: "E-Commerce",
-    link: "/projects/ecommerce",
   },
   {
     id: 3,
-    title: "Analytics Dashboard",
-    description: "Real-time data visualization dashboard with interactive charts and customizable widgets. Designed for business intelligence.",
+    name: "Aulia Syakhira Raina Hakim",
+    nim: "257006111021",
+    role: "",
+    skills: ["Designer", "Front-End Developer"],
     image: "/gift/plenger2.webp",
-    year: "2023",
-    category: "Dashboard",
-    link: "/projects/analytics",
   },
   {
     id: 4,
-    title: "Social Media App",
-    description: "Connect with friends and share moments. Features include real-time messaging, stories, and content recommendations.",
+    name: "Wildan Nurohim",
+    nim: "257006111026",
+    role: "",
+    skills: ["Designer", "Front-End Developer"],
     image: "/gift/plenger2.webp",
-    year: "2023",
-    category: "Social",
-    link: "/projects/social-app",
   },
   {
     id: 5,
-    title: "Portfolio CMS",
-    description: "Content management system for creative professionals. Drag-and-drop interface with powerful customization options.",
+    name: "Zaki Khoirullah",
+    nim: "257006111028",
+    role: "",
+    skills: ["Designer", "Front-End Developer"],
     image: "/gift/plenger2.webp",
-    year: "2023",
-    category: "CMS",
-    link: "/projects/portfolio-cms",
   },
   {
     id: 6,
-    title: "Fitness Tracker",
-    description: "Track your workouts, nutrition, and progress. AI-powered recommendations and social features to keep you motivated.",
+    name: "Natasya Ibnaty Salsabila",
+    nim: "257006111033",
+    role: "",
+    skills: ["Designer", "Front-End Developer"],
     image: "/gift/plenger2.webp",
-    year: "2022",
-    category: "Mobile App",
-    link: "/projects/fitness-tracker",
   },
 ];
 
-export const getProjectsByYear = (year: string) => 
-  projectsData.filter(p => p.year === year);
+// ── Feature Carousel ───────────────────────────────────────────────────────────
+export interface Feature {
+  id: number;
+  label: string;
+  title: string;
+  description: string;
+  cta: string;
+  video: string;
+}
 
-export const getProjectsByCategory = (category: string) => 
-  projectsData.filter(p => p.category === category);
+export const featuresData: Feature[] = [
+  {
+    id: 0,
+    label: "Game",
+    title: "Game",
+    description:
+      "SIGMA (Smart Interactive Graphing & Math Application) adalah platform pembelajaran matematika berbasis teknologi yang membantu pengguna memahami konsep secara lebih mudah dan interaktif.",
+    cta: "lihat semuanya",
+    video: "/videos/game.mp4",
+  },
+  {
+    id: 1,
+    label: "Materi",
+    title: "Materi",
+    description:
+      "Pelajari konsep kalkulus dari dasar hingga mahir. Setiap materi dilengkapi visualisasi interaktif, rumus yang bisa dieksplorasi, dan contoh soal yang membuat belajar terasa menyenangkan.",
+    cta: "lihat semuanya",
+    video: "/videos/materi.mp4",
+  },
+  {
+    id: 2,
+    label: "Latihan",
+    title: "Latihan",
+    description:
+      "Uji pemahamanmu dengan soal-soal latihan yang disertai pembahasan lengkap. Dapatkan feedback instan dan lacak perkembangan belajarmu dari waktu ke waktu.",
+    cta: "lihat semuanya",
+    video: "/videos/latihan.mp4",
+  },
+];
 
-export const getProjectById = (id: number) => 
-  projectsData.find(p => p.id === id);
+// ── Materi Cards ───────────────────────────────────────────────────────────────
+export interface MateriCard {
+  id: number;
+  symbol: string;
+  title: string;
+  description: string;
+  color: string;
+}
 
-export const getAllCategories = () => {
-  const categories = projectsData.map(p => p.category);
-  return Array.from(new Set(categories));
-};
-
-export const getAllYears = () => {
-  const years = projectsData.map(p => p.year);
-  const uniqueYears = Array.from(new Set(years));
-  return uniqueYears.sort((a, b) => parseInt(b) - parseInt(a));
-};
+export const materiCardsData: MateriCard[] = [
+  {
+    id: 0,
+    symbol: "f'(x)",
+    title: "Turunan",
+    description: "Laju perubahan fungsi terhadap variabelnya.",
+    color: "text-indigo-500",
+  },
+  {
+    id: 1,
+    symbol: "f'(x)",
+    title: "Turunan",
+    description: "Laju perubahan fungsi terhadap variabelnya.",
+    color: "text-indigo-500",
+  },
+  {
+    id: 2,
+    symbol: "f'(x)",
+    title: "Turunan",
+    description: "Laju perubahan fungsi terhadap variabelnya.",
+    color: "text-indigo-500",
+  },
+];

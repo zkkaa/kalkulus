@@ -1,132 +1,155 @@
-'use client'
+"use client";
 
-import { useEffect, useRef, useState } from 'react'
-import Link from 'next/link'
-import { motion, cubicBezier } from 'framer-motion'
-import { SITE_DESC, STATS } from '@/data/landing'
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import AnimatedButton from "../common/AnimatedButton";
 
-// ─────────────────────────────────────────────
-//  HeroSection
-// ─────────────────────────────────────────────
+gsap.registerPlugin(ScrollTrigger);
 
-function Counter({ to, suffix = '' }: { to: number; suffix?: string }) {
-  const [count, setCount] = useState(0)
-  const ref = useRef<HTMLSpanElement>(null)
-  const started = useRef(false)
+// ─── Helper: pecah teks jadi span per karakter ───────────────────────────────
+function SplitText({
+  text,
+  className = "",
+  wordClassName = "",
+}: {
+  text: string;
+  className?: string;
+  wordClassName?: string;
+}) {
+  const words = text.split(" ");
+  return (
+    <span className={className} aria-label={text}>
+      {words.map((word, wi) => (
+        <span
+          key={wi}
+          className={`inline-block overflow-hidden ${wordClassName}`}
+        >
+          {word.split("").map((char, ci) => (
+            <span key={ci} className="char inline-block" aria-hidden="true">
+              {char}
+            </span>
+          ))}
+          {wi < words.length - 1 && (
+            <span className="inline-block" aria-hidden="true">
+              &nbsp;
+            </span>
+          )}
+        </span>
+      ))}
+    </span>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+export default function HeroSection() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const badgeRef = useRef<HTMLDivElement>(null);
+  const line1Ref = useRef<HTMLSpanElement>(null);
+  const line2Ref = useRef<HTMLSpanElement>(null);
+  const descRef = useRef<HTMLParagraphElement>(null);
+  const ctaRef = useRef<HTMLDivElement>(null);
+  const peekRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting && !started.current) {
-        started.current = true
-        const duration = 1600
-        const steps = 60
-        const increment = to / steps
-        let current = 0
-        const timer = setInterval(() => {
-          current = Math.min(current + increment, to)
-          setCount(Math.floor(current))
-          if (current >= to) clearInterval(timer)
-        }, duration / steps)
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+      // 1. Badge sigma: slide dari atas ke bawah
+      tl.from(badgeRef.current, {
+        y: -40,
+        opacity: 0,
+        duration: 0.7,
+      });
+
+      // 2. Judul baris 1: stagger per .char
+      if (line1Ref.current) {
+        const chars1 = line1Ref.current.querySelectorAll(".char");
+        tl.from(
+          chars1,
+          { y: "110%", opacity: 0, duration: 0.55, stagger: 0.028 },
+          "-=0.2"
+        );
       }
-    })
-    if (ref.current) observer.observe(ref.current)
-    return () => observer.disconnect()
-  }, [to])
 
-  return <span ref={ref}>{count}{suffix}</span>
-}
+      // 3. Judul baris 2: stagger per .char
+      if (line2Ref.current) {
+        const chars2 = line2Ref.current.querySelectorAll(".char");
+        tl.from(
+          chars2,
+          { y: "110%", opacity: 0, duration: 0.55, stagger: 0.025 },
+          "-=0.4"
+        );
+      }
 
-const stagger = {
-  container: {
-    hidden: {},
-    show: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } },
-  },
-  item: {
-    hidden: { opacity: 0, y: 28 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: cubicBezier(0.22, 1, 0.36, 1) } },
-  },
-}
+      // 4. Deskripsi: fade in + slide naik
+      tl.from(descRef.current, { y: 22, opacity: 0, duration: 0.7 }, "-=0.15");
 
-export default function HeroSection() {
+      // 5. CTA button
+      tl.from(ctaRef.current, { y: 20, opacity: 0, duration: 0.6 }, "-=0.3");
+
+      // 6. Peek box (kotak abu di bawah): fade in lambat
+      tl.from(peekRef.current, { opacity: 0, duration: 1 }, "-=0.2");
+
+      tl.from(sectionRef.current, {}, "-=0.2000");
+
+      // Hero harus tetap sticky di tempatnya.
+      // Tidak perlu memindahkan hero dengan GSAP karena efek tertutup
+      // bisa dicapai oleh bagian abu yang muncul kemudian.
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
     <section
+      ref={sectionRef}
       id="tentang"
-      className="relative min-h-screen flex flex-col items-center justify-center text-center px-6 pt-28 pb-16 overflow-hidden"
+      className="sticky top-0 min-h-[80vh] flex flex-col items-center justify-center text-center px-6 pt-28 pb-0 overflow-hidden -z-10y"
     >
-      {/* Gradient lingkaran besar di belakang */}
-      <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-200 h-200 rounded-full pointer-events-none"
-        style={{
-          background:
-            'radial-gradient(circle, rgba(99,102,241,0.06) 0%, rgba(59,130,246,0.04) 40%, transparent 70%)',
-        }}
-      />
-      {/* Gradien warna halus di pojok */}
-      <div className="absolute top-0 left-0 w-96 h-96 rounded-full pointer-events-none"
-        style={{ background: 'radial-gradient(circle, rgba(139,92,246,0.05) 0%, transparent 70%)' }} />
-      <div className="absolute bottom-0 right-0 w-96 h-96 rounded-full pointer-events-none"
-        style={{ background: 'radial-gradient(circle, rgba(16,185,129,0.05) 0%, transparent 70%)' }} />
+      {/* ── Konten utama ─────────────────────────────────────────────────── */}
+      <div className="sticky z-10 flex flex-col items-center gap-6 max-w-3xl w-full">
 
-      <motion.div
-        variants={stagger.container}
-        initial="hidden"
-        animate="show"
-        className="relative z-10 flex flex-col items-center gap-5 max-w-3xl"
-      >
-        {/* Badge */}
-        <div className='flex items-center gap-2 ' >
-          <div className='w-5 h-5 bg-blue-300 rounded-md'></div>
-          <span className="text-xl">𝖘𝖎𝖌𝖒𝖆</span>
+        {/* Badge sigma */}
+        <div ref={badgeRef} className="flex items-center gap-2">
+          <div className="w-5 h-5 bg-indigo-400 rounded-md" />
+          <span className="text-xl tracking-wide font-medium text-gray-700">
+            𝖘𝖎𝖌𝖒𝖆
+          </span>
         </div>
 
-        {/* Headline */}
-        <motion.h1
-          variants={stagger.item}
-          className="text-2xl md:text-5xl font-black tracking-tighter leading-[1.05] text-gray-900"
+        {/* Judul */}
+        <h1
+          className="leading-[1.08] tracking-tight text-gray-900 select-none"
           style={{ fontFamily: '"Georgia", serif' }}
         >
-          Smart Interactive Graphing 
-          <br />
-          <span className='text-gray-500'>& Math Application</span>
-        </motion.h1>
+          <span className="block text-3xl md:text-5xl font-black">
+            <span ref={line1Ref}>
+              <SplitText text="Smart Interactive Graphing" />
+            </span>
+          </span>
+          <span className="block text-3xl md:text-5xl font-black mt-1">
+            <span ref={line2Ref} className="text-indigo-500">
+              <SplitText text="& Math Application" />
+            </span>
+          </span>
+        </h1>
 
-        {/* Sub */}
-        <motion.p
-          variants={stagger.item}
-          className="text-gray-500 text-lg max-w-xl leading-relaxed"
+        {/* Deskripsi */}
+        <p
+          ref={descRef}
+          className="text-gray-500 text-base md:text-lg max-w-xl leading-relaxed"
         >
-          {SITE_DESC}
-        </motion.p>
+          Platform pembelajaran kalkulus berbasis teknologi yang membantu kamu
+          memahami konsep secara lebih mudah dan interaktif.
+        </p>
 
-        {/* CTA buttons */}
-        <motion.div variants={stagger.item} className="flex flex-wrap gap-3 justify-center mt-1">
-          <Link
-            href="/materi"
-            className="bg-gray-900 text-white font-bold px-7 py-3.5 rounded-full text-sm hover:bg-gray-700 transition-all hover:scale-105 active:scale-95 shadow-lg shadow-gray-900/20"
-          >
-            Jelajahi Materi →
-          </Link>
-          
-        </motion.div>
-
-        {/* Stats */}
-        
-      </motion.div>
-
-      {/* Scroll hint */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.2 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-gray-300 text-xs"
-      >
-        <span className="tracking-widest uppercase text-[10px]">scroll</span>
-        <motion.div
-          animate={{ y: [0, 7, 0] }}
-          transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
-          className="w-px h-6 bg-linear-to-b from-gray-300 to-transparent rounded-full"
-        />
-      </motion.div>
+        <div ref={ctaRef}>
+          <AnimatedButton href="/projects" className="" variant="sigma" size="sm">
+            Lihat Lebih Lanjut
+          </AnimatedButton>
+        </div>
+      </div>
     </section>
-  )
+  );
 }

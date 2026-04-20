@@ -2,17 +2,15 @@
 
 import { useRef, useEffect } from "react";
 import Image from "next/image";
-import { gsap } from "@/lib/gsap";
-import { useRouter } from "next/navigation";
-import { projectsData, type Project } from "@/data/landing";
+import { gsap, ScrollTrigger } from "@/lib/gsap";
 import TextHeading from "../ui/TextHeading";
-import AnimatedButton from "../common/AnimatedButton";
+import { teamData, type TeamMember } from "@/data/landing";
 
+// ── Main Component ─────────────────────────────────────────────────────────────
 export default function Teamm() {
     const sectionRef = useRef<HTMLDivElement>(null);
     const scrollContainerRef = useRef<HTMLDivElement>(null);
     const titleRef = useRef<HTMLDivElement>(null);
-    const router = useRouter();
 
     useEffect(() => {
         const section = sectionRef.current;
@@ -26,25 +24,24 @@ export default function Teamm() {
             const ctx = gsap.context(() => {
                 const scrollWidth = scrollContainer.scrollWidth - window.innerWidth;
 
-                const introduceSection = document.getElementById("introduce-section") ||
+                const introduceSection =
+                    document.getElementById("introduce-section") ||
                     document.querySelector('[ref="containerRef"]');
 
                 let offsetY = 0;
                 if (introduceSection) {
-                    const introduceScrollHeight = introduceSection.scrollHeight || window.innerHeight;
+                    const introduceScrollHeight =
+                        introduceSection.scrollHeight || window.innerHeight;
                     offsetY = introduceScrollHeight * 2;
                 }
 
-                const horizontalScroll = gsap.to(scrollContainer, {
+                gsap.to(scrollContainer, {
                     x: -scrollWidth,
                     ease: "none",
                     scrollTrigger: {
                         id: "horizontal-projects-section",
                         trigger: section,
-                        start: () => {
-                            const startPos = `5% top+=${offsetY}`;
-                            return startPos;
-                        },
+                        start: () => `5% top+=${offsetY}`,
                         end: () => `+=${scrollWidth * 2}`,
                         scrub: 1.5,
                         pin: true,
@@ -62,7 +59,7 @@ export default function Teamm() {
         const timeoutId = setTimeout(() => {
             const ctx = initScrollTrigger();
 
-            window.addEventListener('load', () => {
+            window.addEventListener("load", () => {
                 ScrollTrigger.refresh();
             });
 
@@ -80,62 +77,59 @@ export default function Teamm() {
     return (
         <section
             ref={sectionRef}
-            className="relative min-h-screen bg-gradient-to-b from-white to-gray-100 dark:from-gray-900 dark:to-gray-800 overflow-hidden"
+            className="relative min-h-screen bg-white overflow-hidden"
         >
             <div
                 ref={scrollContainerRef}
                 className="flex items-center h-screen"
                 style={{ width: "fit-content" }}
             >
-                {/* Title Section - Responsive */}
-                <div ref={titleRef} className="flex-shrink-0 w-[90vw] sm:w-[80vw] md:w-[70vw] lg:w-[40vw] px-6 sm:px-10 md:px-16 lg:px-20 mr-8 sm:mr-12 md:mr-16 lg:mr-20 z-10">
-                    <TextHeading subtitle="My Last" title="PROJECT" titleItalic />
-                    <p className="mt-4 sm:mt-6 lg:mt-8 text-gray-700 dark:text-gray-300 leading-relaxed text-xs sm:text-sm md:text-base lg:text-base">
-                        These are a few of my latest projects that I built while learning
-                        and exploring more about web development. Nothing too fancy, but
-                        each one taught me something new.
+                {/* ── Title Section ─────────────────────────────────────────────── */}
+                <div
+                    ref={titleRef}
+                    className="shrink-0 w-[85vw] sm:w-[60vw] md:w-[50vw] lg:w-[35vw] px-6 sm:px-10 md:px-16 lg:px-20 mr-4 sm:mr-8 md:mr-12 lg:mr-16 z-10"
+                >
+                    <TextHeading subtitle="Tim" title="Penyusun" titleItalic={true} />
+                    <p className="mt-4 sm:mt-5 lg:mt-6 text-gray-600 leading-relaxed text-xs sm:text-sm md:text-sm lg:text-base">
+                        Kami adalah sekumpulan mahasiswa yang membangun Sigma dengan semangat dan secangkir kopi ☕
                     </p>
-                    <AnimatedButton href="/projects" className="mt-3 sm:mt-4 lg:mt-5">Learn More</AnimatedButton>
                 </div>
 
-                {/* Projects - Responsive */}
-                <div className="flex gap-12 sm:gap-16 md:gap-20 lg:gap-28 px-6 sm:px-10 md:px-16 lg:px-20">
-                    {projectsData.map((project, index) => (
-                        <div key={project.id} className="flex gap-12 sm:gap-16 md:gap-20 lg:gap-28 items-center">
-                            <ProjectRow
-                                project={project}
-                                index={index}
-                            />
+                {/* ── Team Cards ────────────────────────────────────────────────── */}
+                <div className="flex gap-6 sm:gap-8 md:gap-10 lg:gap-12">
+                    {teamData.map((member, index) => (
+                        <div
+                            key={member.id}
+                            className="flex gap-6 sm:gap-8 md:gap-10 lg:gap-12 items-center"
+                        >
+                            <TeamCard member={member} />
 
-                            {index < projectsData.length - 1 && (
-                                <div className="relative h-48 sm:h-64 md:h-80 lg:h-96 w-px bg-slate-400 dark:bg-white"></div>
+                            {index < teamData.length - 1 && (
+                                <div className="h-48 sm:h-56 md:h-64 lg:h-80 w-px bg-gray-400 shrink-0" />
                             )}
                         </div>
                     ))}
                 </div>
 
-                <div className="w-[20vw] flex-shrink-0" />
+                <div className="w-[15vw] shrink-0" />
             </div>
         </section>
     );
 }
 
-interface ProjectRowProps {
-    project: Project;
-    index: number;
+// ── Card Component ─────────────────────────────────────────────────────────────
+interface TeamCardProps {
+    member: TeamMember;
 }
 
-function ProjectRow({ project, index }: ProjectRowProps) {
+function TeamCard({ member }: TeamCardProps) {
     const imageRef = useRef<HTMLDivElement>(null);
-    const imagePosition = index % 2 === 0 ? "left" : "right";
 
     const handleMouseEnter = () => {
         if (!imageRef.current) return;
         gsap.to(imageRef.current, {
-            scale: 1.15,
-            rotationY: 10,
-            rotationX: -5,
-            duration: 0.6,
+            scale: 1.06,
+            duration: 0.4,
             ease: "power2.out",
         });
     };
@@ -144,97 +138,73 @@ function ProjectRow({ project, index }: ProjectRowProps) {
         if (!imageRef.current) return;
         gsap.to(imageRef.current, {
             scale: 1,
-            rotationY: 0,
-            rotationX: 0,
-            duration: 0.6,
+            duration: 0.4,
             ease: "power2.out",
         });
     };
 
     return (
-        <div className="project-row flex-shrink-0 w-[55vw] sm:w-[75vw] md:w-[70vw] lg:w-[60vw] relative" style={{ perspective: "1000px" }}>
-            {/* Number - Responsive */}
-            <div className="absolute -top-8 sm:-top-10 md:-top-12 lg:-top-16 left-0 text-5xl sm:text-6xl md:text-7xl lg:text-9xl font-bold text-gray-600 dark:text-gray-300 leading-none z-20">
-                {String(index + 1).padStart(2, "0")}
+        <div
+            className="shrink-0 flex flex-row items-start gap-3 sm:gap-4 md:gap-5 lg:gap-6
+                  w-[78vw] sm:w-[50vw] md:w-[42vw] lg:w-[34vw]"
+        >
+            {/* ── Foto ──────────────────────────────────────────────────────── */}
+            <div
+                ref={imageRef}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+                className="shrink-0 relative rounded-2xl overflow-hidden bg-gray-200 shadow-sm cursor-pointer
+                   w-28 h-36 sm:w-36 sm:h-48 md:w-44 md:h-56 lg:w-60 lg:h-80"
+            >
+                <Image
+                    src={member.image}
+                    alt={member.name}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 640px) 112px, (max-width: 768px) 144px, (max-width: 1024px) 176px, 208px"
+                />
             </div>
 
-            {imagePosition === "left" ? (
-                <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 md:gap-7 lg:gap-8 items-start sm:items-center">
-                    {/* Image */}
-                    <div
-                        className="relative w-full sm:w-1/2 h-40 sm:h-48 md:h-64 lg:h-96 rounded-xl sm:rounded-2xl overflow-hidden bg-gray-200 dark:bg-gray-700 flex-shrink-0 shadow-xl"
-                        onMouseEnter={handleMouseEnter}
-                        onMouseLeave={handleMouseLeave}
-                        style={{ transformStyle: "preserve-3d" }}
-                    >
-                        <div ref={imageRef} className="w-full h-full">
-                            <Image
-                                src="/gift/plenger2.webp"
-                                alt="Project Image"
-                                fill
-                                className="object-cover"
-                            />
-                        </div>
-                        <div className="absolute inset-0 mix-blend-multiply opacity-10" />
-                    </div>
+            {/* ── Info Teks ─────────────────────────────────────────────────── */}
+            <div className="flex flex-col justify-start pt-5 gap-1 sm:gap-1.5">
 
-                    {/* Content */}
-                    <div className="space-y-2 sm:space-y-3 lg:space-y-4 flex-1">
-                        <a
-                            href={project.link}
-                            className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-black dark:text-white hover:text-sky-500 dark:hover:text-sky-400 transition-colors duration-300 inline-block"
-                        >
-                            {project.title}
-                        </a>
-                        <p className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
-                            {project.description}
-                        </p>
-                        <div className="flex gap-2 sm:gap-3 lg:gap-4 text-xs sm:text-sm text-gray-500 dark:text-gray-400">
-                            <span className="font-medium">{project.year}</span>
-                            <span>•</span>
-                            <span className="font-medium">{project.category}</span>
-                        </div>
-                    </div>
-                </div>
-            ) : (
-                <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 md:gap-7 lg:gap-8 items-start sm:items-center">
-                    {/* Content */}
-                    <div className="space-y-2 sm:space-y-3 lg:space-y-4 flex-1 order-2 sm:order-1">
-                        <a
-                            href={project.link}
-                            className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-black dark:text-white hover:text-sky-500 dark:hover:text-sky-400 transition-colors duration-300 inline-block"
-                        >
-                            {project.title}
-                        </a>
-                        <p className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
-                            {project.description}
-                        </p>
-                        <div className="flex gap-2 sm:gap-3 lg:gap-4 text-xs sm:text-sm text-gray-500 dark:text-gray-400">
-                            <span className="font-medium">{project.year}</span>
-                            <span>•</span>
-                            <span className="font-medium">{project.category}</span>
-                        </div>
-                    </div>
+                {/* Nama */}
+                <p className="font-bold text-black leading-tight
+                      text-sm sm:text-base md:text-xl lg:text-3xl">
+                    {member.name}
+                </p>
 
-                    {/* Image */}
-                    <div
-                        className="relative w-full sm:w-1/2 h-40 sm:h-48 md:h-64 lg:h-96 rounded-xl sm:rounded-2xl overflow-hidden bg-gray-200 dark:bg-gray-700 flex-shrink-0 shadow-xl order-1 sm:order-2"
-                        onMouseEnter={handleMouseEnter}
-                        onMouseLeave={handleMouseLeave}
-                        style={{ transformStyle: "preserve-3d" }}
-                    >
-                        <div ref={imageRef} className="w-full h-full">
-                            <Image
-                                src={project.image}
-                                alt={project.title}
-                                fill
-                                className="object-cover"
-                            />
-                        </div>
-                        <div className="absolute inset-0 mix-blend-multiply opacity-10" />
-                    </div>
+                <div className="flex gap-2 items-center">
+                    {/* NIM */}
+                    <p className="text-gray-600 italic text-[9px] sm:text-[10px] md:text-xs lg:text-xs">
+                        {member.nim}
+                    </p>
+
+                    {member.role && (
+                        <>
+                            <div className="w-1 h-1 rounded-full bg-gray-300" />
+                            <p className="text-gray-500 italic text-[9px] sm:text-[10px] md:text-xs lg:text-xs">
+                                {member.role}
+                            </p>
+                        </>
+                    )}
                 </div>
-            )}
+
+                {/* Divider */}
+                <div className="w-8 h-px bg-gray-300 mt-1 mb-10" />
+
+                {/* Skills */}
+                <ul className="flex flex-col gap-0.5">
+                    {member.skills.map((skill) => (
+                        <li
+                            key={skill}
+                            className="text-gray-700 text-[10px] sm:text-xs md:text-sm lg:text-sm"
+                        >
+                            {skill}
+                        </li>
+                    ))}
+                </ul>
+            </div>
         </div>
     );
 }

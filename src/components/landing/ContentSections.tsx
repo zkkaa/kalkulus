@@ -1,152 +1,305 @@
-'use client'
+"use client";
 
-import { motion } from 'framer-motion'
-import Link from 'next/link'
-import { TOPICS } from '@/data/landing'
+import { useEffect, useRef, useState, useCallback } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import TextHeading from "@/components/ui/TextHeading";
+import AnimatedButton from "../common/AnimatedButton";
+import { featuresData, materiCardsData, type MateriCard } from "@/data/landing";
 
-// ─────────────────────────────────────────────
-//  HowItWorksSection
-// ─────────────────────────────────────────────
-export function HowItWorksSection() {
+gsap.registerPlugin(ScrollTrigger);
+
+// ─── VideoCard ─────────────────────────────────────────────────────────────────
+function VideoCard({
+  video,
+  label,
+  position,
+}: {
+  video: string;
+  label: string;
+  position: "top-left" | "mid-left" | "bottom-left";
+}) {
+  const posMap = {
+    "top-left": "translate-x-0 translate-y-0 z-30",
+    "mid-left": "-translate-x-6 translate-y-16 z-20",
+    "bottom-left": "-translate-x-12 translate-y-32 z-10",
+  };
+
+  const sizeMap = {
+    "top-left": "w-48 h-36 md:w-64 md:h-48",
+    "mid-left": "w-44 h-32 md:w-56 md:h-40",
+    "bottom-left": "w-40 h-28 md:w-48 md:h-36",
+  };
+
   return (
-    <section className="py-24 px-6 bg-gray-50/60">
-      <div className="max-w-5xl mx-auto">
-        <div>
-          <div className='flex items-center gap-2 '>
-            <span className='text-lg'>Semua yang kamu butuhkan</span>
-            <div className='bg-gray-300 w-28 h-1.5 mt-1'></div>
-          </div>
-          <div>
-            <span className='text-4xl font-extrabold italic'>dalam satu tempat</span>
-          </div>
-        </div>
-        <div className=' w-full h-80 mt-7 flex'>
-          <div className=' w-6/12 h-full flex items-center justify-center'>
-            <div className=' w-60 h-60 rounded-2xl bg-gray-400'></div>
-          </div>
-          <div className=' w-6/12 h-full flex flex-col gap-6 justify-center'>
-            <span className='text-4xl font-semibold'>Game</span>
-            <span className='mr-4'>SIGMA (Smart Interactive Graphing & Math Application) adalah platform pembelajaran matematika berbasis teknologi yang membantu pengguna memahami konsep secara lebih mudah dan interaktif.</span>
-            <button className=' w-48 text-start cursor-pointer leading-8'>lihat semuanya -{'>'}</button>
-          </div>
-        </div>
-        <div className='flex flex-col items-end mt-14'>
-          <div className='flex items-center gap-5 '>
-            <div className='bg-gray-300 w-28 h-1.5 mt-1'></div>
-            <span className='text-lg'>materi apa saja yang</span>
-          </div>
-          <div>
-            <span className='text-4xl font-extrabold italic'>bisa dipelajari?</span>
-          </div>
-          </div>
-        <div className=' w-full h-80 mt-7 flex'>
-          <div className=' w-full h-full flex items-center justify-center gap-5'>
-            <div className=' w-full h-44 rounded-2xl flex flex-col p-5 gap-2 justify-center bg-gray-400'>
-              <span className='text-2xl font-semibold'>f'(x) </span>
-              <span className='text-xs  font-semibold'>Turunan</span>
-              <span className=''>Laju perubahan fungsi terhadap variabelnya.</span>
-            </div>
-            <div className=' w-full h-44 rounded-2xl flex flex-col p-5 gap-2 justify-center bg-gray-400'>
-              <span className='text-2xl font-semibold'>f'(x) </span>
-              <span className='text-xs  font-semibold'>Turunan</span>
-              <span className=''>Laju perubahan fungsi terhadap variabelnya.</span>
-            </div>
-            <div className=' w-full h-44 rounded-2xl flex flex-col p-5 gap-2 justify-center bg-gray-400'>
-              <span className='text-2xl font-semibold'>f'(x) </span>
-              <span className='text-xs  font-semibold'>Turunan</span>
-              <span className=''>Laju perubahan fungsi terhadap variabelnya.</span>
-            </div>
-          </div>
-        </div>
-        <div className='w-full flex justify-center'>
-          <Link
-            href="/materi"
-            className="bg-gray-900 text-white font-bold px-7 py-3.5 rounded-full text-sm hover:bg-gray-700 transition-all hover:scale-105 active:scale-95 shadow-lg shadow-gray-900/20"
-          >
-            Jelajahi Materi →
-          </Link>
-        </div>
-      </div>
-    </section>
-  )
+    <div
+      className={`absolute left-0 top-0 ${posMap[position]} ${sizeMap[position]} rounded-2xl overflow-hidden shadow-xl bg-gray-300`}
+      style={{ transition: "all 0.7s cubic-bezier(0.4, 0, 0.2, 1)" }}
+    >
+      <video
+        src={video}
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="w-full h-full object-cover"
+      />
+      <div className="absolute inset-0 bg-black/10" />
+    </div>
+  );
 }
 
+// ─── FeatureCarousel ───────────────────────────────────────────────────────────
+function FeatureCarousel() {
+  const [active, setActive] = useState(0);
+  const [animating, setAnimating] = useState(false);
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const descRef = useRef<HTMLParagraphElement>(null);
+  const ctaRef = useRef<HTMLAnchorElement>(null);
 
-// ─────────────────────────────────────────────
-//  TopicsSection — preview materi
-// ─────────────────────────────────────────────
-export function TopicsSection() {
+  const [cardOrder, setCardOrder] = useState([0, 1, 2]);
+  const cardRefs = [
+    useRef<HTMLDivElement>(null),
+    useRef<HTMLDivElement>(null),
+    useRef<HTMLDivElement>(null),
+  ];
+
+  const positions: Array<"top-left" | "mid-left" | "bottom-left"> = [
+    "top-left",
+    "mid-left",
+    "bottom-left",
+  ];
+
+  const goNext = useCallback(() => {
+    if (animating) return;
+    setAnimating(true);
+
+    const tl = gsap.timeline({
+      onComplete: () => {
+        setActive((prev) => (prev + 1) % featuresData.length);
+        setCardOrder((prev) => [prev[1], prev[2], prev[0]]);
+        setAnimating(false);
+      },
+    });
+
+    tl.to([titleRef.current, descRef.current, ctaRef.current], {
+      x: -40,
+      opacity: 0,
+      duration: 0.35,
+      stagger: 0.06,
+      ease: "power2.in",
+    });
+  }, [animating]);
+
+  useEffect(() => {
+    gsap.fromTo(
+      [titleRef.current, descRef.current, ctaRef.current],
+      { x: 40, opacity: 0 },
+      {
+        x: 0,
+        opacity: 1,
+        duration: 0.5,
+        stagger: 0.08,
+        ease: "power3.out",
+      }
+    );
+  }, [active]);
+
+  const feat = featuresData[active];
+
   return (
-    <section className="py-24 px-6 bg-gray-50/60">
-      <div className="max-w-5xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mb-12"
-        >
-          <span className="text-blue-500 text-xs font-bold uppercase tracking-[0.2em]">Topik Tersedia</span>
-          <h2 className="text-4xl font-black tracking-tight text-gray-900 mt-2">
-            Apa saja yang bisa{' '}
-            <span
-              style={{
-                background: 'linear-gradient(135deg, #3b82f6, #8b5cf6)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-              }}
-            >
-              dipelajari?
-            </span>
-          </h2>
-        </motion.div>
+    <div className="flex flex-col md:flex-row items-center gap-12 md:gap-20 py-16 md:py-24 px-6 md:px-16 lg:px-24">
+      {/* ── Kartu video (kiri) ─────────────────────────────────────────── */}
+      <div className="relative w-64 h-64 md:w-80 md:h-80 shrink-0 ml-8 md:ml-16">
+        {cardOrder.map((featureIdx, posIdx) => (
+          <div key={featureIdx} ref={cardRefs[posIdx]}>
+            <VideoCard
+              video={featuresData[featureIdx].video}
+              label={featuresData[featureIdx].label}
+              position={positions[posIdx]}
+            />
+          </div>
+        ))}
+      </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-          {TOPICS.map((topic, i) => (
-            <motion.div
-              key={topic.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.08, duration: 0.4 }}
-              whileHover={{ y: -3, scale: 1.02 }}
-              className="group p-5 rounded-xl border border-gray-100 bg-white hover:border-blue-200 hover:shadow-md transition-all cursor-pointer"
-            >
-              <div
-                className="text-2xl font-black mb-2"
-                style={{
-                  background: 'linear-gradient(135deg, #3b82f6, #8b5cf6)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                }}
-              >
-                {topic.symbol}
-              </div>
-              <div className="font-black text-sm text-gray-900 mb-1 group-hover:text-blue-600 transition-colors">
-                {topic.title}
-              </div>
-              <div className="text-xs text-gray-400 leading-relaxed">{topic.desc}</div>
-            </motion.div>
+      {/* ── Teks (kanan) ───────────────────────────────────────────────── */}
+      <div className="flex flex-col gap-5 max-w-md">
+        <button
+          onClick={goNext}
+          className="flex items-center gap-2 group w-fit"
+          aria-label="Fitur selanjutnya"
+        >
+          <h2
+            ref={titleRef}
+            className="text-2xl md:text-4xl font-bold text-gray-900"
+          >
+            {feat.title}
+          </h2>
+          <span className="text-2xl md:text-3xl text-gray-400 group-hover:translate-x-1 transition-transform duration-200">
+            ›
+          </span>
+        </button>
+
+        <p ref={descRef} className="text-gray-500 text-sm md:text-base leading-relaxed">
+          {feat.description}
+        </p>
+
+        <a
+          ref={ctaRef}
+          href="#"
+          className="text-sm text-gray-400 hover:text-gray-700 transition-colors duration-200 underline underline-offset-4"
+        >
+          {feat.cta} →
+        </a>
+
+        {/* Dot indicator */}
+        <div className="flex gap-2 mt-2">
+          {featuresData.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => {
+                if (i === active || animating) return;
+                setActive(i);
+              }}
+              className={`h-1.5 rounded-full transition-all duration-300 ${
+                i === active
+                  ? "w-6 bg-gray-800"
+                  : "w-2 bg-gray-300 hover:bg-gray-400"
+              }`}
+            />
           ))}
         </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.5 }}
-          className="text-center mt-10"
-        >
-          <Link
-            href="/materi"
-            className="inline-flex items-center gap-2 border border-gray-200 text-gray-700 font-semibold px-6 py-3 rounded-full text-sm hover:border-blue-300 hover:text-blue-600 transition-all hover:scale-105"
-          >
-            Lihat semua materi
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
-              <path d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
-          </Link>
-        </motion.div>
       </div>
-    </section>
-  )
+    </div>
+  );
+}
+
+// ─── MateriCards ───────────────────────────────────────────────────────────────
+function MateriCards() {
+  return (
+    <div className="px-6 md:px-16 lg:px-24 pb-20">
+      <div className="flex justify-end mb-10">
+        <TextHeading
+          subtitle="Materi apa saja yang"
+          title="bisa dipelajari?"
+          titleItalic
+          align="right"
+          subtitleSize="sm"
+          animateOnScroll
+        />
+      </div>
+
+      {/* Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 stagger-container">
+        {materiCardsData.map((card, i) => (
+          <MateriCard key={i} card={card} index={i} />
+        ))}
+      </div>
+
+      {/* CTA */}
+      <div className="flex justify-center mt-10">
+        <AnimatedButton href="/materi" className="" variant="sigma" size="sm">
+          Lihat semua materi
+        </AnimatedButton>
+      </div>
+    </div>
+  );
+}
+
+function MateriCard({
+  card,
+  index,
+}: {
+  card: MateriCard;
+  index: number;
+}) {
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const el = cardRef.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width - 0.5) * 12;
+    const y = ((e.clientY - rect.top) / rect.height - 0.5) * -12;
+    gsap.to(el, { rotateX: y, rotateY: x, duration: 0.3, ease: "power2.out" });
+  };
+
+  const handleMouseLeave = () => {
+    const el = cardRef.current;
+    if (!el) return;
+    gsap.to(el, { rotateX: 0, rotateY: 0, duration: 0.5, ease: "power2.out" });
+  };
+
+  return (
+    <div
+      ref={cardRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className="stagger-item group relative bg-white rounded-2xl p-6 border border-gray-100 shadow-sm
+                 hover:shadow-md transition-shadow duration-300 cursor-pointer"
+      style={{ perspective: "800px", transformStyle: "preserve-3d" }}
+    >
+      <p className={`text-2xl font-bold ${card.color} mb-3 font-mono`}>
+        {card.symbol}
+      </p>
+      <p className="font-semibold text-gray-800 mb-2 group-hover:text-indigo-600 transition-colors duration-200">
+        {card.title}
+      </p>
+      <p className="text-xs text-gray-400 leading-relaxed">{card.description}</p>
+      <div className="absolute bottom-0 left-6 right-6 h-0.5 bg-indigo-200 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-full" />
+    </div>
+  );
+}
+
+// ─── Main Export ───────────────────────────────────────────────────────────────
+export default function ContentSections() {
+  const wrapperRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        wrapperRef.current,
+        { y: 60 },
+        {
+          y: 0,
+          ease: "none",
+          scrollTrigger: {
+            trigger: wrapperRef.current,
+            start: "top bottom",
+            end: "top top",
+            scrub: true,
+          },
+        }
+      );
+    });
+
+    return () => ctx.revert();
+  }, []);
+
+  return (
+    <div
+      ref={wrapperRef}
+      className="relative z-10 mx-10 bg-gray-50 rounded-4xl"
+    >
+      {/* ── Bagian 2: Pengenalan Fitur ──────────────────────────────────── */}
+      <div className="border-b border-gray-200">
+        <div className="px-6 md:px-16 lg:px-24 pt-16 md:pt-20">
+          <TextHeading
+            subtitle="Semua yang kamu butuhkan"
+            title="dalam satu tempat"
+            titleItalic
+            subtitleSize="sm"
+            animateOnScroll
+          />
+        </div>
+
+        <FeatureCarousel />
+      </div>
+
+      {/* ── Bagian 3: Materi ────────────────────────────────────────────── */}
+      <div className="pt-16">
+        <MateriCards />
+      </div>
+    </div>
+  );
 }

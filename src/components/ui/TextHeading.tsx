@@ -2,6 +2,9 @@
 
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 interface TextHeadingProps {
   subtitle?: string;
@@ -23,7 +26,7 @@ export default function TextHeading({
   title,
   titleItalic = false,
   subtitleItalic = false,
-  lineColor = "bg-gray-500 dark:bg-gray-200",
+  lineColor = "bg-gray-400",
   className = "",
   animateOnScroll = true,
   align = "left",
@@ -37,15 +40,19 @@ export default function TextHeading({
   const subtitleRef = useRef<HTMLSpanElement>(null);
   const titleRef = useRef<HTMLSpanElement>(null);
 
-  // Alignment classes
-  const alignmentClasses = {
-    left: "justify-start text-left",
-    center: "justify-center text-center",
-    right: "justify-end text-right",
-  };
+  const flexAlign = {
+    left: "justify-start",
+    center: "justify-center",
+    right: "justify-end",
+  }[align];
 
-  // Subtitle size variants
-  const subtitleSizes = {
+  const textAlign = {
+    left: "text-left",
+    center: "text-center",
+    right: "text-right",
+  }[align];
+
+  const subtitleSizes: Record<string, string> = {
     sm: "text-base sm:text-lg md:text-xl",
     md: "text-xl sm:text-2xl md:text-3xl",
     lg: "text-2xl sm:text-3xl md:text-4xl",
@@ -53,8 +60,7 @@ export default function TextHeading({
     "8xl": "text-8xl sm:text-[5rem] md:text-[6rem]",
   };
 
-  // Title size variants
-  const titleSizes = {
+  const titleSizes: Record<string, string> = {
     sm: "text-xl sm:text-2xl md:text-3xl",
     md: "text-2xl sm:text-3xl md:text-4xl",
     lg: "text-3xl sm:text-4xl md:text-5xl",
@@ -65,8 +71,7 @@ export default function TextHeading({
     "9xl": "text-9xl sm:text-[5.625rem] md:text-[6.25rem]",
   };
 
-  // Line width variants
-  const lineWidths = {
+  const lineWidths: Record<string, string> = {
     sm: "w-8 sm:w-12 md:w-16",
     md: "w-12 sm:w-16 md:w-20",
     lg: "w-16 sm:w-20 md:w-24",
@@ -79,16 +84,16 @@ export default function TextHeading({
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: containerRef.current,
-          start: "top 80%",
+          start: "top 82%",
           toggleActions: "play none none reverse",
         },
       });
 
       if (subtitle && subtitleRef.current) {
         tl.from(subtitleRef.current, {
-          x: -30,
+          x: align === "right" ? 30 : -30,
           opacity: 0,
-          duration: 1,
+          duration: 0.9,
           ease: "power2.out",
         });
       }
@@ -96,50 +101,57 @@ export default function TextHeading({
       if (showLine && lineRef.current) {
         tl.from(
           lineRef.current,
-          {
-            width: 0,
-            duration: 0.9,
-            ease: "power2.out",
-          },
-          subtitle ? "-=0.3" : 0
+          { width: 0, duration: 0.9, ease: "power2.out" },
+          subtitle ? "-=0.4" : 0
         );
       }
 
       if (titleRef.current) {
         tl.from(
           titleRef.current,
-          {
-            y: 20,
-            opacity: 0,
-            duration: 1,
-            ease: "power2.out",
-          },
-          "-=0.4"
+          { y: 24, opacity: 0, duration: 1, ease: "power2.out" },
+          "-=0.5"
         );
       }
     }, containerRef);
 
     return () => ctx.revert();
-  }, [animateOnScroll, subtitle, showLine]);
+  }, [animateOnScroll, subtitle, showLine, align]);
+
+  const subtitleRow = subtitle && (
+    <div className={`flex items-center gap-2 ${flexAlign}`}>
+      {showLine && align === "right" && (
+        <div
+          ref={lineRef}
+          className={`h-0.5 sm:h-1 ${lineWidths[lineWidth]} ${lineColor} shrink-0`}
+        />
+      )}
+
+      <span
+        ref={subtitleRef}
+        className={`${subtitleSizes[subtitleSize]} font-semibold leading-tight`}
+      >
+        {subtitleItalic ? <i>{subtitle}</i> : subtitle}
+      </span>
+
+      {showLine && align !== "right" && (
+        <div
+          ref={lineRef}
+          className={`h-0.5 sm:h-1 ${lineWidths[lineWidth]} ${lineColor} shrink-0`}
+        />
+      )}
+    </div>
+  );
 
   return (
-    <div ref={containerRef} className={`text-black dark:text-gray-200 ${className}`}>
-      {subtitle && (
-        <div className={`flex items-center ${alignmentClasses[align]}`}>
-          <span ref={subtitleRef} className={`${subtitleSizes[subtitleSize]} font-semibold`}>
-            {subtitleItalic ? <i>{subtitle}</i> : subtitle}
-          </span>
-          {showLine && (
-            <div 
-              ref={lineRef} 
-              className={`h-0.5 sm:h-1 ${lineWidths[lineWidth]} ${lineColor} ml-2`} 
-            />
-          )}
-        </div>
-      )}
-      <span 
-        ref={titleRef} 
-        className={`${titleSizes[titleSize]} font-bold block mt-1 ${alignmentClasses[align].split(' ')[1]}`}
+    <div
+      ref={containerRef}
+      className={`text-black ${className}`}
+    >
+      {subtitleRow}
+      <span
+        ref={titleRef}
+        className={`${titleSizes[titleSize]} font-bold block mt-1 ${textAlign}`}
       >
         {titleItalic ? <i>{title}</i> : title}
       </span>

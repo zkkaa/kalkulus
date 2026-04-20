@@ -1,37 +1,31 @@
 import MathParticles from '@/components/ui/MathParticles'
 import Navbar from '@/components/landing/Navbar'
 import HeroSection from '@/components/landing/HeroSection'
-import {
-  HowItWorksSection,
-  TopicsSection,
-} from '@/components/landing/ContentSections'
-import { Footer } from '@/components/landing/CTAFooter'
+import { Footer } from '@/components/landing/Footer'
 // import Quote from '@/components/landing/Quote'
-// import Teamm from '@/components/landing/Teamm'
+import Teamm from '@/components/landing/Teamm'
+import ScrollAnim from '@/components/common/ScrollAnim'
+import Quotes from '@/components/landing/quotes'
+import ContentSections from '@/components/landing/ContentSections'
 
 export default function Home() {
   return (
-    <main className="relative bg-white min-h-screen overflow-x-hidden">
 
-      {/*
-        MathParticles — background partikel simbol matematika
-        Reusable: tinggal panggil <MathParticles /> di halaman lain
-        Props: count (jumlah), opacity (ketebalan)
-      */}
-      <div className="fixed inset-0 pointer-events-none z-0">
+    <main>
+
+      {/* <div className="fixed inset-0 pointer-events-none z-0">
         <MathParticles count={40} opacity={0.045} />
-      </div>
+      </div> */}
 
-      {/* Semua konten di atas partikel */}
-      <div className="relative z-10">
+      <ScrollAnim >
         <Navbar />
         <HeroSection />
-        {/* <Teamm /> */}
-        <HowItWorksSection />
-        {/* <Quote /> */}
-        <TopicsSection />
+        <ContentSections />
+        <Quotes />
+        <Teamm />
         <Footer />
-      </div>
+      </ScrollAnim>
+
     </main>
   )
 }

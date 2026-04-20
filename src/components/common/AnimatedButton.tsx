@@ -9,7 +9,7 @@ interface AnimatedButtonProps {
   children: React.ReactNode;
   className?: string;
   arrowColor?: string;
-  variant?: "primary" | "secondary" | "outline";
+  variant?: "primary" | "secondary" | "outline" | "sigma";
   size?: "sm" | "md" | "lg";
   disabled?: boolean;
 }
@@ -38,14 +38,14 @@ export default function AnimatedButton({
 
   // Size variants
   const sizeClasses = {
-    sm: "py-1.5 px-4 sm:px-6 text-xs sm:text-sm",
+    sm: "py-2 px-4 sm:px-6 text-xs sm:text-base",
     md: "py-2 px-6 sm:px-8 text-sm sm:text-base",
     lg: "py-3 px-8 sm:px-10 text-base sm:text-lg",
   };
 
   // Icon size variants
   const iconSizes = {
-    sm: "w-5 h-5 sm:w-6 sm:h-6",
+    sm: "w-5 h-5 sm:w-7 sm:h-7",
     md: "w-6 h-6 sm:w-8 sm:h-8",
     lg: "w-7 h-7 sm:w-9 sm:h-9",
   };
@@ -58,6 +58,7 @@ export default function AnimatedButton({
     primary: "border-black dark:border-gray-200 before:bg-sky-400 hover:border-gray-800 hover:dark:border-gray-300",
     secondary: "border-purple-500 dark:border-purple-400 before:bg-purple-400 hover:border-purple-700 hover:dark:border-purple-300",
     outline: "border-gray-400 dark:border-gray-500 before:bg-gray-400 hover:border-gray-600 hover:dark:border-gray-400",
+    sigma : "hover:text-white bg-gray-900 font-bold rounded-full text-sm hover:bg-gray-700 transition-all hover:scale-105 active:scale-95 shadow-lg shadow-gray-900/20"
   };
 
   return (
@@ -73,7 +74,7 @@ export default function AnimatedButton({
         before:hover:w-full before:-left-full before:hover:left-0 
         before:rounded-full before:-z-10 before:aspect-square 
         before:hover:scale-150 before:hover:duration-700 
-        relative z-10 overflow-hidden border-2 rounded-full group
+        relative z-10 overflow-hidden border border-gray-400 rounded-full group
         transition-all duration-300
         ${sizeClasses[size]}
         ${variantClasses[variant]}

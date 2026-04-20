@@ -8,12 +8,12 @@ import { FOOTER, HAMBURGER_MENU, SITE_NAME } from '@/data/landing'
 // ─────────────────────────────────────────────
 export function Footer() {
   return (
-    <footer className="border-t border-gray-100 bg-gray-50/50 py-12 px-6">
+    <footer className="relative border-t border-gray-100 bg-gray-100 py-12 px-6">
       <div className="max-w-5xl mx-auto">
         <div className="flex flex-col md:flex-row justify-between gap-8 mb-8">
 
           {/* Brand */}
-          <div className="max-w-xs">
+          <div className="max-w-xs cursor-default">
             <p
               className="text-2xl font-black text-gray-900 tracking-tight mb-2"
               style={{ fontFamily: '"Georgia", serif', fontStyle: 'italic' }}
@@ -25,7 +25,7 @@ export function Footer() {
 
           {/* Nav links */}
           <div>
-            <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Navigasi</p>
+            <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4 cursor-default">Navigasi</p>
             <ul className="flex flex-col gap-2">
               {HAMBURGER_MENU.map((item) => (
                 <li key={item.href}>
@@ -41,7 +41,7 @@ export function Footer() {
           </div>
 
           {/* Info */}
-          <div>
+          <div className='cursor-default'>
             <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Info</p>
             <ul className="flex flex-col gap-2 text-sm text-gray-500">
               <li>Kelompok 9</li>
