@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, useCallback } from "react";
+import type { Chart as ChartJS } from "chart.js";
 import { motion } from "framer-motion";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -46,7 +47,7 @@ function seqPreview(terms: number[]): string {
 // ─── Chart Canvas ─────────────────────────────────────────────────────────────
 function SeriesChart({ mode, a, r, N }: { mode: string; a: number; r: number; N: number }) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const chartRef  = useRef<any>(null);
+  const chartRef  = useRef<ChartJS | null>(null);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -169,7 +170,7 @@ function SeriesChart({ mode, a, r, N }: { mode: string; a: number; r: number; N:
   );
 }
 
-function updateChart(chart: any, mode: string, a: number, r: number, N: number) {
+function updateChart(chart: ChartJS, mode: string, a: number, r: number, N: number) {
   const terms    = getTerms(mode, a, r, N);
   const partials = getPartialSums(terms);
   const sInf     = getSInf(mode, a, r);
