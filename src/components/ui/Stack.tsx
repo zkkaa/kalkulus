@@ -117,10 +117,10 @@ export default function Stack({
 
   // Default cards pakai <img> biasa — tidak butuh position/height dari parent
   const defaultCards = [
-    { id: 1, src: '/team/team-1.png', alt: 'Foto tim 1' },
-    { id: 2, src: '/team/team-2.png', alt: 'Foto tim 2' },
-    { id: 3, src: '/team/team-3.png', alt: 'Foto tim 3' },
-    { id: 4, src: '/team/team-4.png', alt: 'Foto tim 4' },
+    { id: 1, src: '/team/team-1.webp', alt: 'Foto tim 1' },
+    { id: 2, src: '/team/team-2.webp', alt: 'Foto tim 2' },
+    { id: 3, src: '/team/team-3.jpeg', alt: 'Foto tim 3' },
+    { id: 4, src: '/team/team-4.webp', alt: 'Foto tim 4' },
   ];
 
   const [stack, setStack] = useState<

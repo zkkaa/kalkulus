@@ -79,10 +79,10 @@ export default function MateriHero() {
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-[80vh] flex flex-col justify-center px-6 md:px-16 lg:px-24 pt-28 pb-16 bg-white overflow-hidden"
+      className="sticky top-0 min-h-[80vh] flex flex-col justify-center px-6 md:px-16 lg:px-24 pt-28 pb-16 bg-white overflow-hidden"
     >
       {/* ── Background decoration (sama seperti TeamIntro) ──────────────── */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-indigo-50 rounded-full blur-3xl opacity-60 pointer-events-none" />
+      <div className="absolute top-0 right-0 w-125 h-125 bg-indigo-50 rounded-full blur-3xl opacity-60 pointer-events-none" />
       <div className="absolute bottom-0 left-0 w-72 h-72 bg-indigo-50 rounded-full blur-3xl opacity-40 pointer-events-none" />
 
       {/* Subtle grid pattern */}
@@ -105,7 +105,7 @@ export default function MateriHero() {
           </span>
           <span className="mx-2 text-gray-300">·</span>
           <span className="text-xs font-semibold tracking-widest text-indigo-400 uppercase">
-            Kurikulum Kalkulus
+            Kalkulus Lanjut
           </span>
         </div>
 
@@ -129,7 +129,7 @@ export default function MateriHero() {
         {/* ── Garis dekoratif ───────────────────────────────────────────── */}
         <div
           ref={decorLineRef}
-          className="h-px bg-gradient-to-r from-indigo-300 via-indigo-100 to-transparent mb-8"
+          className="h-px bg-linier-to-r from-indigo-300 via-indigo-100 to-transparent mb-8"
           style={{ transformOrigin: "left" }}
         />
 
@@ -141,29 +141,6 @@ export default function MateriHero() {
           Dari limit hingga barisan & deret — kuasai konsep kalkulus satu per satu
           dengan pendekatan visual kinetik yang interaktif.
         </p>
-
-        {/* ── Meta stats ────────────────────────────────────────────────── */}
-        <div ref={metaRef} className="flex items-center gap-8 flex-wrap">
-          {[
-            { value: "8", label: "Modul" },
-            { value: "3", label: "Level Kesulitan" },
-            { value: "∞", label: "Latihan Soal" },
-          ].map((stat) => (
-            <div key={stat.label} className="flex flex-col gap-0.5">
-              <span className="text-2xl md:text-3xl font-bold text-gray-900" style={{ fontFamily: '"Georgia", serif' }}>
-                {stat.value}
-              </span>
-              <span className="text-xs text-gray-400 tracking-wide">{stat.label}</span>
-            </div>
-          ))}
-
-          <div className="ml-auto hidden md:flex items-center gap-2">
-            <div className="w-2 h-2 rounded-full bg-indigo-400 animate-pulse" />
-            <span className="text-indigo-500 text-sm font-medium tracking-wide">
-              Semua modul aktif
-            </span>
-          </div>
-        </div>
 
         {/* ── Scroll hint ───────────────────────────────────────────────── */}
         <div ref={scrollHintRef} className="mt-14 flex items-center gap-3">

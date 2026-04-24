@@ -194,7 +194,7 @@ function ModeToggle({ mode, onChange }: { mode: string; onChange: (m: string) =>
           style={
             mode === m
               ? { background: "#4F46E5", borderColor: "#4F46E5", color: "#fff", fontWeight: 700 }
-              : { background: "transparent", borderColor: "#E5E7EB", color: "#9CA3AF" }
+              : { background: "transparent", borderColor: "#4F46E5", color: "#4F46E5" }
           }
         >
           {m}
@@ -212,7 +212,7 @@ function NPills({ value, onChange }: { value: number; onChange: (v: number) => v
         <button
           key={n}
           onClick={() => onChange(n)}
-          className="text-[9px] font-mono px-2.5 py-1 rounded-full border transition-all duration-150"
+          className="text-sm font-mono px-2.5 py-1 rounded-full border transition-all duration-150"
           style={
             value === n
               ? { background: "rgba(79,70,229,0.08)", borderColor: "rgba(79,70,229,0.3)", color: "#4F46E5" }
@@ -274,7 +274,7 @@ export default function MateriFeature() {
     : "#EF4444";
 
   return (
-    <section ref={sectionRef} className="relative z-10 px-6 md:px-16 lg:px-24 py-16 bg-indigo-50">
+    <section ref={sectionRef} className="relative z-10 rounded-4xl mx-10 px-4 md:px-10 lg:px-20 py-16 bg-indigo-50">
       {/* ── Section label (sama dengan ContentSections) ───────────────── */}
       <div className="mb-10">
         <TextHeading
@@ -337,47 +337,27 @@ export default function MateriFeature() {
         {/* ── Kanan: Content ─────────────────────────────────────────────── */}
         <div className="p-8 md:p-10 flex flex-col justify-between gap-6 bg-white">
           <div>
-            {/* Tags */}
-            <div className="flex items-center gap-3 mb-5">
-              <span className="text-[9px] font-medium tracking-widest text-indigo-600 border border-indigo-200 bg-indigo-50 px-3 py-1 rounded-full">
-                FEATURED
-              </span>
-              <span className="text-[9px] text-gray-400 tracking-wide">Kalkulus Lanjut</span>
-            </div>
 
             {/* Judul */}
             <h2
               className="text-4xl md:text-[42px] font-black text-gray-900 leading-none mb-3"
               style={{ fontFamily: '"Georgia", serif', letterSpacing: "-1px" }}
             >
-              Barisan<br />& Deret
+              Barisan & Deret
             </h2>
 
             {/* Deskripsi */}
-            <p className="text-gray-500 text-[13px] leading-relaxed max-w-70 mb-3">
+            <p className="text-gray-500 text-[13px] leading-relaxed max-w-120 mb-3">
               Amati bagaimana suku-suku barisan membentuk jumlah parsial yang perlahan
               mendekati limit konvergensi —&nbsp;<em className="text-indigo-500">S∞</em>.
               Ubah parameter untuk melihat perubahan secara langsung.
             </p>
 
             {/* Sequence preview */}
-            <p className="font-mono text-[10px] text-indigo-400">{seqPreview(terms)}</p>
+            <p className="font-mono text-xl text-indigo-400">{seqPreview(terms)}</p>
           </div>
 
           <div className="flex flex-col gap-4">
-            {/* Meta */}
-            <div className="flex gap-6">
-              {[
-                { label: "DURASI EST.", val: "90 Menit", cls: "text-gray-800" },
-                { label: "TINGKAT",     val: "Lanjut",   cls: "text-amber-500" },
-                { label: "SOAL",        val: "12 Soal",  cls: "text-gray-800" },
-              ].map((m) => (
-                <div key={m.label}>
-                  <p className="text-[9px] font-mono text-gray-400 tracking-widest mb-1">{m.label}</p>
-                  <p className={`text-[13px] font-semibold ${m.cls}`}>{m.val}</p>
-                </div>
-              ))}
-            </div>
 
             {/* Controls */}
             <div className="rounded-xl p-3.5 flex flex-col gap-3 bg-gray-50 border border-gray-100">
@@ -425,8 +405,8 @@ export default function MateriFeature() {
               </div>
 
               {/* N pills */}
-              <div>
-                <span className="text-[9px] font-mono text-gray-400 tracking-widest">JUMLAH SUKU</span>
+              <div className="mt-8">
+                <span className="text-sm font-mono text-gray-400 tracking-widest">JUMLAH SUKU</span>
                 <NPills value={N} onChange={setN} />
               </div>
             </div>

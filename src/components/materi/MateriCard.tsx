@@ -19,37 +19,17 @@ type MateriCardProps = {
   index: number;
 };
 
-// Ikuti palet landing: indigo utama, aksen sesuai level
-const LEVEL_CONFIG = {
-  Dasar: {
-    color: "#10B981",      // emerald-500
-    bg: "#F0FDF4",
-    border: "#A7F3D0",
-    dot: "bg-emerald-400",
-    badge: "text-emerald-700 bg-emerald-50 border-emerald-200",
-  },
-  Menengah: {
-    color: "#4F46E5",      // indigo-600 (warna utama landing)
-    bg: "#EEF2FF",
-    border: "#C7D2FE",
-    dot: "bg-indigo-400",
-    badge: "text-indigo-700 bg-indigo-50 border-indigo-200",
-  },
-  Ekspert: {
-    color: "#F59E0B",      // amber — sama seperti sebelumnya
-    bg: "#FFFBEB",
-    border: "#FDE68A",
-    dot: "bg-amber-400",
-    badge: "text-amber-700 bg-amber-50 border-amber-200",
-  },
-} as const;
-
-type Level = keyof typeof LEVEL_CONFIG;
+// Gunakan palet indigo seragam untuk semua kartu
+const CARD_STYLE = {
+  color: "#4F46E5",
+  bg: "#EEF2FF",
+  border: "#C7D2FE",
+};
 
 export default function MateriCard({ materi, index }: MateriCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [hovered, setHovered] = useState(false);
-  const cfg = LEVEL_CONFIG[materi.level as Level] || LEVEL_CONFIG.Dasar;
+  const cfg = CARD_STYLE;
 
   // 3-D tilt on hover (sama seperti MateriCard di ContentSections)
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -97,19 +77,14 @@ export default function MateriCard({ materi, index }: MateriCardProps) {
           />
 
           <div className="p-6">
-            {/* Icon + level badge */}
-            <div className="flex items-start justify-between mb-5">
+            {/* Icon */}
+            <div className="mb-5">
               <div
                 className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl font-bold"
                 style={{ background: cfg.bg, border: `1px solid ${cfg.border}`, color: cfg.color }}
               >
                 {materi.icon}
               </div>
-              <span
-                className={`text-xs font-medium px-2.5 py-1 rounded-full border ${cfg.badge}`}
-              >
-                {materi.level}
-              </span>
             </div>
 
             {/* Title + description */}
@@ -135,16 +110,7 @@ export default function MateriCard({ materi, index }: MateriCardProps) {
 
             {/* Footer */}
             <div className="flex items-center justify-between mt-5 pt-4 border-t border-gray-100">
-              <div className="flex gap-5">
-                <div>
-                  <p className="text-gray-400 text-xs tracking-widest uppercase mb-0.5">Durasi</p>
-                  <p className="text-gray-700 text-sm font-semibold">{materi.duration}</p>
-                </div>
-                <div>
-                  <p className="text-gray-400 text-xs tracking-widest uppercase mb-0.5">Soal</p>
-                  <p className="text-gray-700 text-sm font-semibold">{materi.exercises}</p>
-                </div>
-              </div>
+              
 
               <motion.div
                 animate={{ x: hovered ? 4 : 0, opacity: hovered ? 1 : 0.3 }}

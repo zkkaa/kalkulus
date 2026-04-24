@@ -176,7 +176,7 @@ export const featuresData: Feature[] = [
     description:
       "SIGMA (Smart Interactive Graphing & Math Application) adalah platform pembelajaran matematika berbasis teknologi yang membantu pengguna memahami konsep secara lebih mudah dan interaktif.",
     cta: "lihat semuanya",
-    video: "/videos/game.mp4",
+    video: "/team/team-1.webp",
   },
   {
     id: 1,
@@ -185,7 +185,7 @@ export const featuresData: Feature[] = [
     description:
       "Pelajari konsep kalkulus dari dasar hingga mahir. Setiap materi dilengkapi visualisasi interaktif, rumus yang bisa dieksplorasi, dan contoh soal yang membuat belajar terasa menyenangkan.",
     cta: "lihat semuanya",
-    video: "/videos/materi.mp4",
+    video: "/team/team-2.webp",
   },
   {
     id: 2,
@@ -194,7 +194,7 @@ export const featuresData: Feature[] = [
     description:
       "Uji pemahamanmu dengan soal-soal latihan yang disertai pembahasan lengkap. Dapatkan feedback instan dan lacak perkembangan belajarmu dari waktu ke waktu.",
     cta: "lihat semuanya",
-    video: "/videos/latihan.mp4",
+    video: "/team/team-1.webp",
   },
 ];
 
