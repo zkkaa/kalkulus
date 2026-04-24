@@ -292,15 +292,15 @@ export default function MateriFeature() {
       >
 
         {/* ── Kiri: Chart (bg putih bersih) ─────────────────────────────── */}
-        <div className="relative min-h-[360px] bg-gray-50 overflow-hidden border-r border-gray-100">
+        <div className="relative min-h-90 bg-gray-50 overflow-hidden border-r border-gray-100">
           <SeriesChart mode={mode} a={a} r={r} N={N} />
 
           {/* Edge fades — lebih subtle di bg terang */}
           <div className="absolute inset-0 pointer-events-none">
-            <div className="absolute inset-y-0 left-0 w-6 bg-gradient-to-r from-gray-50 to-transparent" />
-            <div className="absolute inset-y-0 right-0 w-6 bg-gradient-to-l from-gray-50 to-transparent" />
-            <div className="absolute inset-x-0 top-0 h-6 bg-gradient-to-b from-gray-50 to-transparent" />
-            <div className="absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-gray-50 to-transparent" />
+            <div className="absolute inset-y-0 left-0 w-6 bg-linier-to-r from-gray-50 to-transparent" />
+            <div className="absolute inset-y-0 right-0 w-6 bg-linier-to-l from-gray-50 to-transparent" />
+            <div className="absolute inset-x-0 top-0 h-6 bg-linier-to-b from-gray-50 to-transparent" />
+            <div className="absolute inset-x-0 bottom-0 h-10 bg-linier-to-t from-gray-50 to-transparent" />
           </div>
 
           {/* Formula chips */}
@@ -354,7 +354,7 @@ export default function MateriFeature() {
             </h2>
 
             {/* Deskripsi */}
-            <p className="text-gray-500 text-[13px] leading-relaxed max-w-[280px] mb-3">
+            <p className="text-gray-500 text-[13px] leading-relaxed max-w-70 mb-3">
               Amati bagaimana suku-suku barisan membentuk jumlah parsial yang perlahan
               mendekati limit konvergensi —&nbsp;<em className="text-indigo-500">S∞</em>.
               Ubah parameter untuk melihat perubahan secara langsung.
