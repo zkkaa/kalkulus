@@ -1,9 +1,9 @@
 "use client"
 
 import MathParticles from '@/components/ui/MathParticles'
-import Navbar from '@/components/landing/Navbar'
+import Navbar from '@/components/ui/Navbar'
 import HeroSection from '@/components/landing/HeroSection'
-import { Footer } from '@/components/landing/Footer'
+import { Footer } from '@/components/ui/Footer'
 // import Quote from '@/components/landing/Quote'
 import Teamm from '@/components/landing/Teamm'
 import ScrollAnim from '@/components/common/ScrollAnim'

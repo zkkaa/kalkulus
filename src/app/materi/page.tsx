@@ -1,40 +1,34 @@
-// src/app/page.tsx
-// ─────────────────────────────────────────────
-//  Landing Page — SIGMA
-//  Merakit semua komponen section
-// ─────────────────────────────────────────────
-'use client'
-import MathParticles from '@/components/ui/MathParticles'
-import Navbar from '@/components/landing/Navbar'
-import HeroSection from '@/components/materi/HeroSection'
-import { useState } from 'react'
-import { MenuMateri } from '@/components/materi/MenuMateri'
+"use client";
 
-export default function Home() {
-  const [showExpand, setShowExpand] = useState(false)
+import MathParticles from "@/components/ui/MathParticles";
+import Navbar from "@/components/ui/Navbar";
+import MateriHero from "@/components/materi/MateriHero";
+import MateriFilter from "@/components/materi/MateriFilter";
+import MateriGrid from "@/components/materi/MateriGrid";
+import MateriFeature from "@/components/materi/MateriFeature";
+import ScrollAnim from "@/components/common/ScrollAnim";
+import { Footer } from "@/components/ui/Footer";
+import { useState } from "react";
 
-  function handleShowAll() {
-    setShowExpand(true)
-  }
+export default function MateriPage() {
+  const [activeFilter, setActiveFilter] = useState("semua");
 
   return (
-    <main className="relative bg-white min-h-screen overflow-x-hidden">
-
-      {/*
-        MathParticles — background partikel simbol matematika
-        Reusable: tinggal panggil <MathParticles /> di halaman lain
-        Props: count (jumlah), opacity (ketebalan)
-      */}
+    // bg-white sesuai landing, bukan bg-black
+    <main className="relative min-h-screen bg-white text-gray-900 overflow-x-hidden">
+      {/* Particles lebih subtle di bg terang */}
       <div className="fixed inset-0 pointer-events-none z-0">
-        <MathParticles count={40} opacity={0.045} />
+        <MathParticles count={20} opacity={0.04} />
       </div>
 
-      {/* Semua konten di atas partikel */}
-      <div className="relative z-10">
+      <ScrollAnim>
         <Navbar />
-        <HeroSection onShowAll={handleShowAll} />
-        <MenuMateri />
-      </div>
+        <MateriHero />
+        <MateriFeature />
+        <MateriFilter activeFilter={activeFilter} setActiveFilter={setActiveFilter} />
+        <MateriGrid activeFilter={activeFilter} />
+        <Footer />
+      </ScrollAnim>
     </main>
-  )
+  );
 }

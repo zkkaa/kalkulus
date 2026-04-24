@@ -50,13 +50,18 @@ export function Footer() {
             </ul>
           </div>
         </div>
-
-        <div className="border-t border-gray-100 pt-6 flex items-center justify-center">
-          <p className="text-xs text-gray-400">
-            © {FOOTER.year} {SITE_NAME}. all rights reserved.
-          </p>
-        </div>
+        <FooterCopyright />
       </div>
     </footer>
+  )
+}
+
+export function FooterCopyright() {
+  return (
+    <div className="border-t border-gray-200 py-4">
+      <p className="text-center text-xs text-gray-400">
+        &copy; {new Date().getFullYear()} {SITE_NAME}. All rights reserved.
+      </p>
+    </div>
   )
 }
