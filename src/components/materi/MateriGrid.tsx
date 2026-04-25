@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import MateriCard from "./MateriCard";
+import MateriCard from "./Materi1/MateriCard";
 import TextHeading from "@/components/ui/TextHeading";
 
 export const MATERI_DATA = [
