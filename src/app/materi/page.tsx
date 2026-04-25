@@ -10,9 +10,7 @@ import { FooterCopyright } from "@/components/ui/Footer";
 
 export default function MateriPage() {
   return (
-    // bg-white sesuai landing, bukan bg-black
     <main className="relative min-h-screen bg-white text-gray-900">
-      {/* Particles lebih subtle di bg terang */}
       <div className="fixed inset-0 pointer-events-none z-0">
         <MathParticles count={20} opacity={0.04} />
       </div>
