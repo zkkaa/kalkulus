@@ -170,8 +170,8 @@ function MateriCard({ materi, index }: { materi: MateriItem; index: number }) {
   );
 }
 
-// ─── MateriGrid ───────────────────────────────────────────────────────────────
-export default function MateriGrid() {
+// ─── MenuMateri ───────────────────────────────────────────────────────────────
+export default function MenuMateri() {
   return (
     <section className="relative z-10 px-6 md:px-16 lg:px-24 pb-24 pt-32 bg-white">
       <div className="mb-10">
