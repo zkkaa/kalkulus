@@ -110,7 +110,6 @@ export default function MateriCard({ materi, index }: MateriCardProps) {
 
             {/* Footer */}
             <div className="flex items-center justify-between mt-5 pt-4 border-t border-gray-100">
-              
 
               <motion.div
                 animate={{ x: hovered ? 4 : 0, opacity: hovered ? 1 : 0.3 }}
