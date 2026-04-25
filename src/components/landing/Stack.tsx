@@ -1,5 +1,6 @@
 "use client";
 
+import Image from 'next/image';
 import { motion, useMotionValue, useTransform, type PanInfo } from 'framer-motion';
 import { useState, useEffect } from 'react';
 
@@ -132,17 +133,15 @@ export default function Stack({
     return defaultCards.map(({ id, src, alt }) => ({
       id,
       content: (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img
-          src={src}
-          alt={alt}
-          style={{
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover',
-            display: 'block',
-          }}
-        />
+        <div className="relative w-full h-full">
+          <Image
+            src={src}
+            alt={alt}
+            fill
+            style={{ objectFit: 'cover' }}
+            sizes="100vw"
+          />
+        </div>
       ),
     }));
   });

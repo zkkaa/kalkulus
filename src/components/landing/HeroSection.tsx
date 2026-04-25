@@ -114,7 +114,8 @@ export default function HeroSection() {
         {/* Badge sigma */}
         <div ref={badgeRef} className="flex justify-center items-center gap-2 -mb-3">
           <div className="flex items-center justify-center -mb-2">
-            <Image src="/logo.png" alt="Sigma Badge" width={30} height={30} unoptimized />
+            <Image src="/logo.png" alt="Sigma" width={24} height={24} unoptimized
+              style={{ width: "24px", height: "auto" }} />
           </div>
           <span className="text-xl tracking-wide font-medium text-gray-700">
             𝖘𝖎𝖌𝖒𝖆

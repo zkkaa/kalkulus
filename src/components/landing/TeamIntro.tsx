@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import TextHeading from "@/components/ui/TextHeading";
-import Stack from "@/components/ui/Stack";
+import Stack from "@/components/landing/Stack";
 
 gsap.registerPlugin(ScrollTrigger);
 
