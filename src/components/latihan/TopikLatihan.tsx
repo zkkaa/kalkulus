@@ -50,7 +50,7 @@ export const MATERI_DATA = [
   },
 ];
 
-// STYLE ───────────────────────────────────────────── 
+// STYLE ─────────────────────────────────────────────
 
 const CARD_STYLE = {
   color: "#4F46E5",
@@ -60,7 +60,7 @@ const CARD_STYLE = {
 
 type MateriItem = (typeof MATERI_DATA)[number];
 
-// HELPER ───────────────────────────────────────────── 
+// HELPER ─────────────────────────────────────────────
 
 function getLevelColor(level: string) {
   if (level === "EASY") {
@@ -95,34 +95,24 @@ function getButton(materi: MateriItem) {
   };
 }
 
-  // CARD ───────────────────────────────────────────── 
+// CARD ─────────────────────────────────────────────
 
-function MateriCard({
-  materi,
-  index,
-}: {
-  materi: MateriItem;
-  index: number;
-}) {
+function MateriCard({ materi, index }: { materi: MateriItem; index: number }) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [hovered, setHovered] = useState(false);
 
   const cfg = CARD_STYLE;
   const btn = getButton(materi);
 
-  const handleMouseMove = (
-    e: React.MouseEvent<HTMLDivElement>
-  ) => {
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const el = cardRef.current;
     if (!el) return;
 
     const rect = el.getBoundingClientRect();
 
-    const x =
-      ((e.clientX - rect.left) / rect.width - 0.5) * 8;
+    const x = ((e.clientX - rect.left) / rect.width - 0.5) * 8;
 
-    const y =
-      ((e.clientY - rect.top) / rect.height - 0.5) * -8;
+    const y = ((e.clientY - rect.top) / rect.height - 0.5) * -8;
 
     gsap.to(el, {
       rotateX: y,
@@ -164,9 +154,7 @@ function MateriCard({
           <div
             className="h-1 w-full rounded-full mb-5"
             style={{
-              background: hovered
-                ? cfg.color
-                : cfg.border,
+              background: hovered ? cfg.color : cfg.border,
             }}
           />
 
@@ -185,7 +173,7 @@ function MateriCard({
 
             <span
               className={`text-xs px-3 py-1 rounded-full font-semibold ${getLevelColor(
-                materi.level
+                materi.level,
               )}`}
             >
               {materi.level}
@@ -205,7 +193,6 @@ function MateriCard({
           {/* Progress */}
           <div className="text-xs text-gray-500 mb-2">
             Progress Belajar
-
             <span className="float-right font-medium text-green-600">
               {materi.doneSoal}/{materi.totalSoal} Soal
             </span>
@@ -239,18 +226,17 @@ export default function MenuMateri() {
         {/* Heading */}
         <div className="mb-10">
           <TextHeading
-            subtitle="Pilih Topik Latihan" title="Selesaikan modul untuk membuka lencana spesial" subtitleSize="xl" titleSize="sm"
+            subtitle="Pilih Topik Latihan"
+            title="Selesaikan modul untuk membuka lencana spesial"
+            subtitleSize="sm"
+            titleSize="md"
           />
         </div>
 
         {/* Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {MATERI_DATA.map((materi, index) => (
-            <MateriCard
-              key={materi.id}
-              materi={materi}
-              index={index}
-            />
+            <MateriCard key={materi.id} materi={materi} index={index} />
           ))}
         </div>
       </div>
