@@ -58,7 +58,7 @@ export function Footer() {
 
 export function FooterCopyright() {
   return (
-    <div className="border-t border-gray-200 py-4">
+    <div className="border-t border-gray-200 py-4 relative bg-gray-100">
       <p className="text-center text-xs text-gray-400">
         &copy; {new Date().getFullYear()} {SITE_NAME}. All rights reserved.
       </p>

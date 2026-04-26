@@ -11,7 +11,7 @@ gsap.registerPlugin(ScrollTrigger);
 // ── Stats ──────────────────────────────────────────────────────────────────────
 const STATS = [
   { value: "6", label: "Anggota" },
-  { value: "1", label: "Semester" },
+  { value: "2", label: "Semester" },
   { value: "∞", label: "Kopi" },
 ];
 

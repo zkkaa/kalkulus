@@ -1,6 +1,6 @@
 import TampilanUtama from "@/components/latihan/TampilanUtama";
 import TopikLatihan from "@/components/latihan/TopikLatihan";
-import Navbar from "@/components/Navbar";
+import Navbar from "@/components/ui/Navbar";
 
 export default function LatihanPage() {
     return (

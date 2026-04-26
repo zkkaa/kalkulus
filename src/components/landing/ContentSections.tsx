@@ -4,7 +4,7 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import TextHeading from "@/components/ui/TextHeading";
-import AnimatedButton from "../common/AnimatedButton";
+import AnimatedButton from "../ui/AnimatedButton";
 import { featuresData, materiCardsData, type MateriCard } from "@/data/landing";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -135,7 +135,7 @@ function FeatureCarousel() {
           >
             {feat.title}
           </h2>
-          <span className="text-2xl md:text-3xl text-gray-400 group-hover:translate-x-1 transition-transform duration-200">
+          <span className="text-2xl md:text-3xl text-gray-400 group-hover:translate-x-1 transition-transform duration-200 cursor-pointer">
             ›
           </span>
         </button>
@@ -146,7 +146,7 @@ function FeatureCarousel() {
 
         <a
           ref={ctaRef}
-          href="#"
+          href={feat.href}
           className="text-sm text-gray-400 hover:text-gray-700 transition-colors duration-200 underline underline-offset-4"
         >
           {feat.cta} →
@@ -161,7 +161,7 @@ function FeatureCarousel() {
                 if (i === active || animating) return;
                 setActive(i);
               }}
-              className={`h-1.5 rounded-full transition-all duration-300 ${i === active
+              className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${i === active
                   ? "w-6 bg-gray-800"
                   : "w-2 bg-gray-300 hover:bg-gray-400"
                 }`}
@@ -189,7 +189,7 @@ function MateriCards() {
       </div>
 
       {/* Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 stagger-container">
+      <div className="grid grid-cols-1 sm:grid-cols-2  gap-5 stagger-container">
         {materiCardsData.map((card, i) => (
           <MateriCard key={i} card={card} index={i} />
         ))}

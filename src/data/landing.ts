@@ -165,6 +165,7 @@ export interface Feature {
   title: string;
   description: string;
   cta: string;
+  href: string;
   video: string;
 }
 
@@ -175,7 +176,8 @@ export const featuresData: Feature[] = [
     title: "Game",
     description:
       "SIGMA (Smart Interactive Graphing & Math Application) adalah platform pembelajaran matematika berbasis teknologi yang membantu pengguna memahami konsep secara lebih mudah dan interaktif.",
-    cta: "lihat semuanya",
+    cta: "lihat lebih lengkap",
+    href: "/games",
     video: "/team/team-1.webp",
   },
   {
@@ -184,7 +186,8 @@ export const featuresData: Feature[] = [
     title: "Materi",
     description:
       "Pelajari konsep kalkulus dari dasar hingga mahir. Setiap materi dilengkapi visualisasi interaktif, rumus yang bisa dieksplorasi, dan contoh soal yang membuat belajar terasa menyenangkan.",
-    cta: "lihat semuanya",
+    cta: "lihat lebih lengkap",
+    href: "/materi",
     video: "/team/team-2.webp",
   },
   {
@@ -193,7 +196,8 @@ export const featuresData: Feature[] = [
     title: "Latihan",
     description:
       "Uji pemahamanmu dengan soal-soal latihan yang disertai pembahasan lengkap. Dapatkan feedback instan dan lacak perkembangan belajarmu dari waktu ke waktu.",
-    cta: "lihat semuanya",
+    cta: "lihat lebih lengkap",
+    href: "/latihan",
     video: "/team/team-1.webp",
   },
 ];
@@ -217,13 +221,6 @@ export const materiCardsData: MateriCard[] = [
   },
   {
     id: 1,
-    symbol: "f'(x)",
-    title: "Turunan",
-    description: "Laju perubahan fungsi terhadap variabelnya.",
-    color: "text-indigo-500",
-  },
-  {
-    id: 2,
     symbol: "f'(x)",
     title: "Turunan",
     description: "Laju perubahan fungsi terhadap variabelnya.",

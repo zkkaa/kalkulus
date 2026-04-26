@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import AnimatedButton from "../common/AnimatedButton";
+import AnimatedButton from "../ui/AnimatedButton";
 import Image from "next/image";
 
 gsap.registerPlugin(ScrollTrigger);

@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import AnimatedButton from "../common/AnimatedButton";
+import AnimatedButton from "../ui/AnimatedButton";
 import Image from "next/image";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -106,7 +106,7 @@ export default function HeroSection() {
     <section
       ref={sectionRef}
       id="tentang"
-      className="sticky top-0 min-h-[80vh] flex flex-col items-center justify-center text-center px-6 pt-28 pb-0 overflow-hidden -z-10y"
+      className="sticky top-0 min-h-[80vh] flex flex-col items-center justify-center text-center px-6 pt-28 pb-0 overflow-hidden -z-10"
     >
       {/* ── Konten utama ─────────────────────────────────────────────────── */}
       <div className="sticky z-10 flex flex-col items-center gap-6 max-w-3xl w-full">

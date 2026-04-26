@@ -16,7 +16,7 @@ export default function Home() {
 
     <main>
 
-      <div className="fixed inset-0 pointer-events-none z-0">
+      <div className="fixed inset-0 pointer-events-none">
         <MathParticles count={30} opacity={0.15} />
       </div>
 
