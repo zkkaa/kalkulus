@@ -5,7 +5,6 @@ import { useEffect, useRef } from "react";
 // ── Duel Canvas ───────────────────────────────────────────────
 export function DuelCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const animRef = useRef<number>(0);
 
   useEffect(() => {
     const c = canvasRef.current;
@@ -75,10 +74,15 @@ export function RoyaleCanvas() {
     const c = canvasRef.current;
     if (!c) return;
 
-    const tick = 0;
-
     const SYMS = ["∫", "∑", "lim", "d²/dx²", "∂f", "→", "∞", "Δ"];
-    type Particle = { angle: number; r: number; sym: string; size: number; opacity: number; speed: number };
+    type Particle = {
+      angle: number;
+      r: number;
+      sym: string;
+      size: number;
+      opacity: number;
+      speed: number;
+    };
 
     const particles: Particle[] = SYMS.map((sym, i) => ({
       angle: (i / SYMS.length) * Math.PI * 2,

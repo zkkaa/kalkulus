@@ -7,7 +7,7 @@ import { DuelCanvas, RoyaleCanvas } from "./GameCanvases";
 
 gsap.registerPlugin(ScrollTrigger);
 
-// ── Data game ──────────────────────────────────────────────────────────────────
+// ── Data game ──────────────────────────────────────────────────
 const GAMES = [
   {
     id: "duel",
@@ -23,7 +23,6 @@ const GAMES = [
     desc: "Duel head-to-head dengan temanmu. Lima pertanyaan kalkulus, siapa yang lebih cepat dan benar — dialah pemenangnya. Tidak ada ampun, tidak ada jalan pintas.",
     tags: ["Speed battle", "5 soal", "Head-to-head", "2 pemain"],
     meta: "2 pemain · ~5 menit",
-    // Video path: tampil saat hover card
     video: "/videos/game-bg.mp4",
     canvas: <DuelCanvas />,
     href: "/games/duel",
@@ -54,13 +53,25 @@ export default function GameShowcase() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Header animasi
-      gsap.from(".showcase-header > *", {
-        y: 20,
+
+      // ── Header: label slide kiri, judul clip-path reveal ──
+      gsap.from(".showcase-label", {
+        x: -20,
         opacity: 0,
-        stagger: 0.1,
-        duration: 0.7,
+        duration: 0.6,
         ease: "power3.out",
+        scrollTrigger: {
+          trigger: ".showcase-header",
+          start: "top 84%",
+          toggleActions: "play none none reverse",
+        },
+      });
+
+      gsap.from(".showcase-title", {
+        clipPath: "inset(0 100% 0 0)",
+        opacity: 0,
+        duration: 1.0,
+        ease: "power4.out",
         scrollTrigger: {
           trigger: ".showcase-header",
           start: "top 82%",
@@ -68,19 +79,33 @@ export default function GameShowcase() {
         },
       });
 
-      // Cards masuk stagger
-      gsap.from(".game-card-item", {
-        y: 40,
+      gsap.from(".showcase-subtitle", {
+        x: 30,
         opacity: 0,
-        stagger: 0.15,
-        duration: 0.85,
+        duration: 0.7,
         ease: "power3.out",
         scrollTrigger: {
-          trigger: ".game-cards-grid",
+          trigger: ".showcase-header",
           start: "top 80%",
           toggleActions: "play none none reverse",
         },
       });
+
+      // ── Cards: masuk dari bawah dengan stagger + scale ────
+      gsap.from(".game-card-item", {
+        y: 50,
+        opacity: 0,
+        scale: 0.96,
+        stagger: 0.18,
+        duration: 0.9,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ".game-cards-grid",
+          start: "top 82%",
+          toggleActions: "play none none reverse",
+        },
+      });
+
     }, sectionRef);
 
     return () => ctx.revert();
@@ -94,19 +119,19 @@ export default function GameShowcase() {
     >
       {/* ── Header ─────────────────────────────────────────── */}
       <div className="showcase-header mb-14">
-        <p className="text-[10px] tracking-[0.16em] uppercase text-indigo-500 font-semibold mb-3">
+        <p className="showcase-label text-[10px] tracking-[0.16em] uppercase text-indigo-500 font-semibold mb-3">
           Pilih permainan
         </p>
         <div className="flex items-end justify-between gap-8">
           <h2
-            className="text-3xl md:text-4xl font-bold text-gray-900 leading-[1.1]"
+            className="showcase-title text-3xl md:text-4xl font-bold text-gray-900 leading-[1.1]"
             style={{ fontFamily: "Georgia, serif" }}
           >
             Arena <em className="italic text-indigo-500">kalkulus</em>
             <br />
             menunggumu
           </h2>
-          <p className="hidden md:block text-sm text-gray-400 text-right max-w-55 leading-relaxed pb-1">
+          <p className="showcase-subtitle hidden md:block text-sm text-gray-400 text-right max-w-55 leading-relaxed pb-1">
             Dua mode berbeda,<br />satu tujuan — kuasai kalkulus.
           </p>
         </div>
@@ -122,35 +147,82 @@ export default function GameShowcase() {
   );
 }
 
-// ── GameCard ───────────────────────────────────────────────────────────────────
+// ── GameCard ──────────────────────────────────────────────────
 type Game = (typeof GAMES)[0];
 
 function GameCard({ game }: { game: Game }) {
-  const cardRef = useRef<HTMLDivElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const cardRef       = useRef<HTMLDivElement>(null);
+  const videoRef      = useRef<HTMLVideoElement>(null);
   const canvasWrapRef = useRef<HTMLDivElement>(null);
+  const numRef        = useRef<HTMLDivElement>(null);
+  const infoRef       = useRef<HTMLDivElement>(null);
   const [hovered, setHovered] = useState(false);
 
-  // Hover: tampilkan video, sembunyikan canvas
+  // Hover masuk
   const handleMouseEnter = () => {
     setHovered(true);
+
+    // video fade in
     if (videoRef.current) {
       videoRef.current.currentTime = 0;
-      videoRef.current.play().catch(() => { });
+      videoRef.current.play().catch(() => {});
     }
     gsap.to(canvasWrapRef.current, { opacity: 0, duration: 0.35 });
-    gsap.to(videoRef.current, { opacity: 1, duration: 0.35 });
+    gsap.to(videoRef.current,      { opacity: 1, duration: 0.35 });
 
-    // Subtle scale
-    gsap.to(cardRef.current, { scale: 1.015, duration: 0.4, ease: "power2.out" });
+    // Card lift + shadow
+    gsap.to(cardRef.current, {
+      scale: 1.018,
+      y: -4,
+      duration: 0.4,
+      ease: "power2.out",
+    });
+
+    // Nomor besar: drift ke atas + sedikit lebih besar
+    gsap.to(numRef.current, {
+      y: -8,
+      scale: 1.06,
+      opacity: 0.18,
+      duration: 0.5,
+      ease: "power2.out",
+    });
+
+    // Info section: slide sedikit ke atas
+    gsap.to(infoRef.current, {
+      y: -3,
+      duration: 0.4,
+      ease: "power2.out",
+    });
   };
 
+  // Hover keluar
   const handleMouseLeave = () => {
     setHovered(false);
+
     if (videoRef.current) videoRef.current.pause();
     gsap.to(canvasWrapRef.current, { opacity: 1, duration: 0.4 });
-    gsap.to(videoRef.current, { opacity: 0, duration: 0.3 });
-    gsap.to(cardRef.current, { scale: 1, duration: 0.4, ease: "power2.out" });
+    gsap.to(videoRef.current,      { opacity: 0, duration: 0.3 });
+
+    gsap.to(cardRef.current, {
+      scale: 1,
+      y: 0,
+      duration: 0.45,
+      ease: "power2.out",
+    });
+
+    gsap.to(numRef.current, {
+      y: 0,
+      scale: 1,
+      opacity: 1,
+      duration: 0.45,
+      ease: "power2.out",
+    });
+
+    gsap.to(infoRef.current, {
+      y: 0,
+      duration: 0.4,
+      ease: "power2.out",
+    });
   };
 
   return (
@@ -160,16 +232,16 @@ function GameCard({ game }: { game: Game }) {
         overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 cursor-pointer`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      style={{ transformOrigin: "center center" }}
+      style={{ transformOrigin: "center center", willChange: "transform" }}
     >
-      {/* ── Visual area (atas card) ───────────────────────── */}
+      {/* ── Visual area ──────────────────────────────────── */}
       <div className="relative w-full h-56 md:h-64 overflow-hidden bg-gray-50">
-        {/* Canvas (default visible) */}
+        {/* Canvas default */}
         <div ref={canvasWrapRef} className="absolute inset-0">
           {game.canvas}
         </div>
 
-        {/* Video (hidden, muncul saat hover) */}
+        {/* Video muncul saat hover */}
         <video
           ref={videoRef}
           src={game.video}
@@ -181,8 +253,9 @@ function GameCard({ game }: { game: Game }) {
           style={{ opacity: 0 }}
         />
 
-        {/* Nomor besar background */}
+        {/* Nomor besar */}
         <div
+          ref={numRef}
           className="absolute top-3 left-4 font-serif text-[64px] font-bold text-gray-100 leading-none select-none pointer-events-none z-10"
           style={{ fontFamily: "Georgia, serif" }}
           aria-hidden="true"
@@ -190,7 +263,7 @@ function GameCard({ game }: { game: Game }) {
           {game.num}
         </div>
 
-        {/* Badge atas kanan */}
+        {/* Badge */}
         <div className="absolute top-4 right-4 z-10">
           <span
             className={`text-[10px] font-semibold px-3 py-1 rounded-full tracking-wide uppercase ${game.badgeColor}`}
@@ -200,14 +273,16 @@ function GameCard({ game }: { game: Game }) {
         </div>
       </div>
 
-      {/* ── Info area (bawah card) ────────────────────────── */}
-      <div className="p-6">
+      {/* ── Info area ─────────────────────────────────────── */}
+      <div ref={infoRef} className="p-6">
         {/* Logo + nama */}
         <div className="flex items-center gap-3 mb-3">
           <div
             className={`w-9 h-9 rounded-xl flex items-center justify-center text-base font-bold ${game.logoColor}`}
-            style={{transition: 'transform 0.35s cubic-bezier(0.34,1.56,0.64,1)',
-              transform: hovered ? 'scale(1.1) rotate(-6deg)' : 'scale(1) rotate(0deg)',}}
+            style={{
+              transition: "transform 0.35s cubic-bezier(0.34,1.56,0.64,1)",
+              transform: hovered ? "scale(1.1) rotate(-6deg)" : "scale(1) rotate(0deg)",
+            }}
           >
             {game.icon}
           </div>
@@ -218,11 +293,9 @@ function GameCard({ game }: { game: Game }) {
             {game.name}
           </span>
         </div>
-        
+
         {/* Deskripsi */}
-        <p className="text-gray-500 text-sm leading-relaxed mb-4">
-          {game.desc}
-        </p>
+        <p className="text-gray-500 text-sm leading-relaxed mb-4">{game.desc}</p>
 
         {/* Tags */}
         <div className="flex flex-wrap gap-2 mb-5">
@@ -249,7 +322,7 @@ function GameCard({ game }: { game: Game }) {
       </div>
 
       {/* Bottom accent line */}
-      <div className={`absolute bottom-0 left-6 right-6 h-px bg-indigo-200 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left`} />
+      <div className="absolute bottom-0 left-6 right-6 h-px bg-indigo-200 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
     </div>
   );
 }
