@@ -96,22 +96,6 @@ export default function TeamIntro() {
 
       <div className="relative max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-center gap-16 md:gap-36">
 
-        {/* ── Kiri: Stack foto ───────────────────────────────────────────── */}
-        <div
-          ref={photoRef}
-          className="shrink-0 w-56 h-56 md:w-72 md:h-72 lg:w-96 lg:h-96"
-        >
-          <Stack
-            randomRotation={true}
-            sensitivity={200}
-            sendToBackOnClick={true}
-            autoplay={true}
-            autoplayDelay={3000}
-            pauseOnHover={true}
-            mobileClickOnly={true}
-          />
-        </div>
-
         {/* ── Kanan: Teks ────────────────────────────────────────────────── */}
         <div className="flex flex-col gap-5 max-w-lg">
 

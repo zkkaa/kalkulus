@@ -149,7 +149,7 @@ export default function HeroSection() {
         </p>
 
         <div ref={ctaRef}>
-          <AnimatedButton href="/projects" className="" variant="sigma" size="sm">
+          <AnimatedButton href="#" className="" variant="sigma" size="sm">
             Lihat Lebih Lanjut
           </AnimatedButton>
         </div>

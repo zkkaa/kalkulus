@@ -75,10 +75,9 @@ export default function AnimatedButton({
         before:rounded-full before:-z-10 before:aspect-square 
         before:hover:scale-150 before:hover:duration-700 
         relative z-10 overflow-hidden border border-gray-400 rounded-full group
-        transition-all duration-300
+        transition-all duration-300 cursor-pointer
         ${sizeClasses[size]}
         ${variantClasses[variant]}
-        ${disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}
         ${className}
       `}
     >
