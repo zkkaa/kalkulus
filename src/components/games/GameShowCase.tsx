@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { DuelCanvas, RoyaleCanvas } from "./GameCanvases";
+import AnimatedButton from "../ui/AnimatedButton";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -19,7 +20,6 @@ const GAMES = [
     logoColor: "bg-emerald-50 text-emerald-600",
     accentColor: "text-emerald-500",
     borderHover: "hover:border-emerald-100",
-    btnColor: "bg-gray-900 hover:bg-emerald-600",
     desc: "Duel head-to-head dengan temanmu. Lima pertanyaan kalkulus, siapa yang lebih cepat dan benar — dialah pemenangnya. Tidak ada ampun, tidak ada jalan pintas.",
     tags: ["Speed battle", "5 soal", "Head-to-head", "2 pemain"],
     meta: "2 pemain · ~5 menit",
@@ -37,7 +37,6 @@ const GAMES = [
     logoColor: "bg-indigo-50 text-indigo-600",
     accentColor: "text-indigo-500",
     borderHover: "hover:border-indigo-100",
-    btnColor: "bg-gray-900 hover:bg-indigo-600",
     desc: "Battle kalkulus bersama teman-temanmu. Jawab soal tercepat, raih poin terbanyak, dan buktikan bahwa kamu yang terhebat di antara semuanya.",
     tags: ["Real-time", "Kompetitif", "2–8 pemain", "Leaderboard"],
     meta: "2–8 pemain · ~10 menit",
@@ -122,7 +121,7 @@ export default function GameShowcase() {
         <p className="showcase-label text-[10px] tracking-[0.16em] uppercase text-indigo-500 font-semibold mb-3">
           Pilih permainan
         </p>
-        <div className="flex items-end justify-between gap-8">
+        <div className="flex items-end">
           <h2
             className="showcase-title text-3xl md:text-4xl font-bold text-gray-900 leading-[1.1]"
             style={{ fontFamily: "Georgia, serif" }}
@@ -131,9 +130,6 @@ export default function GameShowcase() {
             <br />
             menunggumu
           </h2>
-          <p className="showcase-subtitle hidden md:block text-sm text-gray-400 text-right max-w-55 leading-relaxed pb-1">
-            Dua mode berbeda,<br />satu tujuan — kuasai kalkulus.
-          </p>
         </div>
       </div>
 
@@ -311,12 +307,9 @@ function GameCard({ game }: { game: Game }) {
 
         {/* Bottom: tombol + meta */}
         <div className="flex items-center justify-between gap-3">
-          <a
-            href={game.href}
-            className={`${game.btnColor} text-white text-sm font-medium px-5 py-2 rounded-full transition-colors duration-300`}
-          >
-            Mainkan sekarang
-          </a>
+          <AnimatedButton onClick={() => document.getElementById(game.href)?.scrollIntoView({ behavior: "smooth" })} variant="sigma" size="sm">
+            Mainkan Sekarang
+          </AnimatedButton>
           <span className="text-xs text-gray-400">{game.meta}</span>
         </div>
       </div>

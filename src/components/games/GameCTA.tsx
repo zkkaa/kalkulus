@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import AnimatedButton from "../ui/AnimatedButton";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -167,19 +168,10 @@ export default function GameCTA() {
         </div>
 
         {/* Kanan: buttons */}
-        <div ref={btnsRef} className="relative z-10 flex flex-col gap-3 shrink-0">
-          <a
-            href="#game-showcase"
-            className="w-full md:w-auto text-center px-8 py-3 rounded-full bg-gray-900 text-white text-sm font-medium hover:bg-indigo-600 transition-colors duration-300 cursor-pointer whitespace-nowrap"
-          >
-            Mulai bermain
-          </a>
-          <a
-            href="/materi"
-            className="w-full md:w-auto text-center px-8 py-3 rounded-full bg-white text-gray-500 text-sm border border-gray-200 hover:border-gray-400 hover:text-gray-900 transition-all duration-200 cursor-pointer whitespace-nowrap"
-          >
-            Pelajari materi dulu
-          </a>
+        <div ref={btnsRef} className="relative z-40 flex items-center gap-4">
+          <AnimatedButton onClick={() => document.getElementById("materi-section")?.scrollIntoView({ behavior: "smooth" })} variant="sigma" size="sm">
+            Pelajari Materi Dulu
+          </AnimatedButton>
         </div>
       </div>
     </section>

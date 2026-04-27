@@ -15,26 +15,12 @@ const STATS = [
 
 export default function GameWhy() {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const labelRef   = useRef<HTMLParagraphElement>(null);
   const titleRef   = useRef<HTMLHeadingElement>(null);
   const descRef    = useRef<HTMLParagraphElement>(null);
   const statsRef   = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-
-      // ── Label: slide dari kiri tipis ──────────────────────
-      gsap.from(labelRef.current, {
-        x: -20,
-        opacity: 0,
-        duration: 0.6,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: labelRef.current,
-          start: "top 85%",
-          toggleActions: "play none none reverse",
-        },
-      });
 
       // ── Judul: per kata muncul dari bawah (word reveal) ───
       if (titleRef.current) {
@@ -114,20 +100,14 @@ export default function GameWhy() {
     >
       {/* ── Header ──────────────────────────────────────────── */}
       <div className="mb-14">
-        <p
-          ref={labelRef}
-          className="text-[10px] tracking-[0.16em] uppercase text-indigo-500 font-medium mb-3"
-        >
-          Kenapa game?
-        </p>
         <h2
           ref={titleRef}
           className="text-3xl md:text-4xl font-bold leading-[1.1] text-gray-900 mb-4 max-w-xl"
           style={{ fontFamily: "Georgia, serif" }}
         >
           Kenapa belajar sambil{" "}
-          <em className="italic text-indigo-500">bermain</em>
-          <br />
+          <em className="italic text-5xl text-indigo-500">bermain </em>
+          {/* <br /> */}
           bisa membuatmu lebih mudah paham?
         </h2>
         <p
