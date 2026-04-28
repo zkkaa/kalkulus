@@ -50,7 +50,9 @@ export default function MateriHero() {
       const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
       // Badge slide down
-      tl.from(badgeRef.current, { y: -30, opacity: 0, duration: 0.6 });
+      if (badgeRef.current) {
+        tl.from(badgeRef.current, { y: -30, opacity: 0, duration: 0.6 });
+      }
 
       // Line 1 chars stagger
       if (line1Ref.current) {
@@ -65,12 +67,20 @@ export default function MateriHero() {
       }
 
       // Decorative line expand
-      tl.from(decorLineRef.current, { scaleX: 0, transformOrigin: "left", duration: 1.2, ease: "expo.out" }, "-=0.3");
+      if (decorLineRef.current) {
+        tl.from(decorLineRef.current, { scaleX: 0, transformOrigin: "left", duration: 1.2, ease: "expo.out" }, "-=0.3");
+      }
 
       // Desc and meta
-      tl.from(descRef.current, { y: 20, opacity: 0, duration: 0.6 }, "-=0.6");
-      tl.from(metaRef.current, { y: 16, opacity: 0, duration: 0.6 }, "-=0.4");
-      tl.from(scrollHintRef.current, { opacity: 0, duration: 0.8 }, "-=0.2");
+      if (descRef.current) {
+        tl.from(descRef.current, { y: 20, opacity: 0, duration: 0.6 }, "-=0.6");
+      }
+      if (metaRef.current) {
+        tl.from(metaRef.current, { y: 16, opacity: 0, duration: 0.6 }, "-=0.4");
+      }
+      if (scrollHintRef.current) {
+        tl.from(scrollHintRef.current, { opacity: 0, duration: 0.8 }, "-=0.2");
+      }
     }, sectionRef);
 
     return () => ctx.revert();

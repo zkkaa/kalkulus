@@ -46,11 +46,13 @@ export default function GameHero() {
       const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
       // 1. Badge: jatuh dari atas + fade
-      tl.from(badgeRef.current, {
-        y: -30,
-        opacity: 0,
-        duration: 0.7,
-      });
+      if (badgeRef.current) {
+        tl.from(badgeRef.current, {
+          y: -30,
+          opacity: 0,
+          duration: 0.7,
+        });
+      }
 
       // 2. Baris 1: per karakter naik dari bawah (text reveal clip)
       if (line1Ref.current) {
@@ -85,30 +87,34 @@ export default function GameHero() {
       }
 
       // 4. Deskripsi: slide dari kiri + blur to clear
-      tl.from(
-        descRef.current,
-        {
-          x: -48,
-          opacity: 0,
-          filter: "blur(4px)",
-          duration: 0.8,
-          ease: "power3.out",
-        },
-        "-=0.2"
-      );
+      if (descRef.current) {
+        tl.from(
+          descRef.current,
+          {
+            x: -48,
+            opacity: 0,
+            filter: "blur(4px)",
+            duration: 0.8,
+            ease: "power3.out",
+          },
+          "-=0.2"
+        );
+      }
 
       // 5. Button: muncul dari bawah + sedikit bounce
-      tl.from(
-        btnRef.current,
-        {
-          y: 22,
-          opacity: 0,
-          scale: 0.9,
-          duration: 0.65,
-          ease: "back.out(1.8)",
-        },
-        "-=0.4"
-      );
+      if (btnRef.current) {
+        tl.from(
+          btnRef.current,
+          {
+            y: 22,
+            opacity: 0,
+            scale: 0.9,
+            duration: 0.65,
+            ease: "back.out(1.8)",
+          },
+          "-=0.4"
+        );
+      }
     }, contentRef);
 
     return () => ctx.revert();

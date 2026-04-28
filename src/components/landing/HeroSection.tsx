@@ -57,11 +57,13 @@ export default function HeroSection() {
       const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
       // 1. Badge sigma: slide dari atas ke bawah
-      tl.from(badgeRef.current, {
-        y: -40,
-        opacity: 0,
-        duration: 0.7,
-      });
+      if (badgeRef.current) {
+        tl.from(badgeRef.current, {
+          y: -40,
+          opacity: 0,
+          duration: 0.7,
+        });
+      }
 
       // 2. Judul baris 1: stagger per .char
       if (line1Ref.current) {
@@ -84,15 +86,23 @@ export default function HeroSection() {
       }
 
       // 4. Deskripsi: fade in + slide naik
-      tl.from(descRef.current, { y: 22, opacity: 0, duration: 0.7 }, "-=0.15");
+      if (descRef.current) {
+        tl.from(descRef.current, { y: 22, opacity: 0, duration: 0.7 }, "-=0.15");
+      }
 
       // 5. CTA button
-      tl.from(ctaRef.current, { y: 20, opacity: 0, duration: 0.6 }, "-=0.3");
+      if (ctaRef.current) {
+        tl.from(ctaRef.current, { y: 20, opacity: 0, duration: 0.6 }, "-=0.3");
+      }
 
       // 6. Peek box (kotak abu di bawah): fade in lambat
-      tl.from(peekRef.current, { opacity: 0, duration: 1 }, "-=0.2");
+      if (peekRef.current) {
+        tl.from(peekRef.current, { opacity: 0, duration: 1 }, "-=0.2");
+      }
 
-      tl.from(sectionRef.current, {}, "-=0.2000");
+      if (sectionRef.current) {
+        tl.from(sectionRef.current, {}, "-=0.2000");
+      }
 
       // Hero harus tetap sticky di tempatnya.
       // Tidak perlu memindahkan hero dengan GSAP karena efek tertutup
