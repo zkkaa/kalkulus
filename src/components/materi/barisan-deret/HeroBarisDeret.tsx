@@ -121,7 +121,7 @@ export default function HeroBarisDeret() {
             </AnimatePresence>
             <button
               onClick={() => setExpanded(!expanded)}
-              className="mt-2 text-sm font-semibold text-indigo-500 hover:text-indigo-700 transition-colors duration-200 flex items-center gap-1"
+              className="mt-2 text-sm font-semibold text-indigo-500 hover:text-indigo-700 transition-colors duration-200 flex items-center gap-1 cursor-pointer"
             >
               <motion.span animate={{ rotate: expanded ? 180 : 0 }} transition={{ duration: 0.3 }}>
                 ↓

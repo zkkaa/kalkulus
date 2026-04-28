@@ -271,8 +271,7 @@ export default function HorizontalExplorer() {
 
                 {/* ✅ Bar visual — explicit px height on both container and bar */}
                 <div
-                  className={`rounded-2xl flex items-end px-4 mb-4 overflow-hidden ${
-                    isArith ? "bg-emerald-50" : "bg-amber-50"
+                  className={`rounded-2xl flex items-end px-4 mb-4 overflow-hidden
                   }`}
                   style={{ height: `${BAR_MAX_PX}px` }}
                 >
