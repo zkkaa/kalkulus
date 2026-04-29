@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { motion, AnimatePresence } from "framer-motion";
+import { SplitChars } from "@/components/ui/SplitChars";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -145,8 +146,8 @@ function SoalCard({ soal }: { soal: (typeof SOAL)[0] }) {
             {revealedSteps === 0
               ? "Mulai Pembahasan →"
               : revealedSteps < soal.steps.length
-              ? `Langkah ${revealedSteps + 1} →`
-              : "Lihat Jawaban ✓"}
+                ? `Langkah ${revealedSteps + 1} →`
+                : "Lihat Jawaban ✓"}
           </button>
         ) : (
           <button
@@ -187,15 +188,25 @@ export default function ContohSoal() {
     >
       <div className="max-w-7xl mx-auto">
         <div className="contoh-heading mb-14">
-          <span className="text-xs font-semibold tracking-widest text-indigo-400 uppercase">
-            Latihan · 04
-          </span>
-          <h2
-            className="mt-3 text-4xl md:text-5xl font-black text-gray-900"
-            style={{ fontFamily: '"Georgia", serif' }}
-          >
-            Contoh{" "}
-            <span className="text-indigo-500 italic">Soal</span>
+          <h2 className="leading-[1.05] tracking-tight text-gray-900 select-none mb-2" style={{ fontFamily: '"Georgia", serif' }}>
+            <span className="block text-3xl md:text-4xl lg:text-5xl font-semibold ">
+              <SplitChars
+                text="Contoh"
+                animateOn="immediate"
+                delay={0.20}
+                duration={0.7}
+                stagger={0.022}
+              />
+              <span className="text-indigo-500 italic ml-4">
+                <SplitChars
+                  text="Soal"
+                  animateOn="immediate"
+                  delay={0.30}
+                  duration={0.7}
+                  stagger={0.022}
+                />
+              </span>
+            </span>
           </h2>
           <p className="mt-4 text-gray-500 text-lg max-w-xl leading-relaxed">
             Klik &quot;Mulai Pembahasan&quot; dan ikuti tiap langkah penyelesaiannya satu per satu.

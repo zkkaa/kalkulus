@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import React from "react";
+import { SplitChars } from "@/components/ui/SplitChars";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -112,12 +113,25 @@ export default function JenisBarisan() {
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Heading */}
         <div className="jenis-heading mb-16">
-          <h2
-            className="mt-3 text-4xl md:text-5xl font-black text-gray-900"
-            style={{ fontFamily: '"Georgia", serif' }}
-          >
-            Dua Jenis{" "}
-            <span className="text-indigo-500 italic">Barisan</span>
+          <h2 className="leading-[1.05] tracking-tight text-gray-900 select-none" style={{ fontFamily: '"Georgia", serif' }}>
+            <span className="block text-3xl md:text-4xl lg:text-5xl font-semibold ">
+              <SplitChars
+                text="Dua Jenis"
+                animateOn="immediate"
+                delay={0.20}
+                duration={0.7}
+                stagger={0.022}
+              />
+              <span className="text-indigo-500 italic ml-4">
+                <SplitChars
+                  text="Barisan"
+                  animateOn="immediate"
+                  delay={0.30}
+                  duration={0.7}
+                  stagger={0.022}
+                />
+              </span>
+            </span>
           </h2>
           <p className="mt-4 text-gray-500 text-lg max-w-2xl leading-relaxed">
             Barisan dibedakan menjadi dua berdasarkan pola pertumbuhannya — linier atau eksponensial.

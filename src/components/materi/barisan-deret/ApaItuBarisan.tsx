@@ -5,6 +5,7 @@ import Image from "next/image";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import React from "react";
+import { SplitChars } from "@/components/ui/SplitChars";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -97,20 +98,32 @@ export default function ApaItuBarisan() {
 
             {/* Floating note */}
             <div className="absolute -top-5 -right-8 bg-white border border-indigo-100 shadow-sm rounded-xl px-3 py-2">
-              <span className="text-xs text-indigo-600 font-mono">{ "{a₁, a₂, a₃, ...}" }</span>
+              <span className="text-xs text-indigo-600 font-mono">{"{a₁, a₂, a₃, ...}"}</span>
             </div>
           </div>
         </div>
 
         {/* RIGHT: Content */}
         <div ref={contentRef} className="flex-1 min-w-0">
-
-          <h2
-            className="mt-3 text-4xl md:text-5xl font-black text-gray-900 mb-6"
-            style={{ fontFamily: '"Georgia", serif' }}
-          >
-            Apa itu{" "}
-            <span className="text-indigo-500 italic">Barisan?</span>
+          <h2 className="leading-[1.05] tracking-tight text-gray-900 select-none mb-2" style={{ fontFamily: '"Georgia", serif' }}>
+            <span className="block text-3xl md:text-4xl lg:text-5xl font-semibold ">
+              <SplitChars
+                text="Apa Itu"
+                animateOn="immediate"
+                delay={0.20}
+                duration={0.7}
+                stagger={0.022}
+              />
+              <span className="text-indigo-500 italic ml-4">
+                <SplitChars
+                  text="Barisan"
+                  animateOn="immediate"
+                  delay={0.30}
+                  duration={0.7}
+                  stagger={0.022}
+                />
+              </span>
+            </span>
           </h2>
 
           <p className="text-gray-500 text-lg leading-relaxed mb-8 max-w-xl">

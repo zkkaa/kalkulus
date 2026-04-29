@@ -5,23 +5,9 @@ import Image from "next/image";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { motion, AnimatePresence } from "framer-motion";
+import { SplitChars } from "@/components/ui/SplitChars";
 
 gsap.registerPlugin(ScrollTrigger);
-
-function SplitChars({ text, className = "" }: { text: string; className?: string }) {
-  return (
-    <span className={className} aria-label={text}>
-      {text.split(" ").map((word, wi) => (
-        <span key={wi} className="inline-block overflow-hidden">
-          {word.split("").map((char, ci) => (
-            <span key={ci} className="char inline-block" aria-hidden="true">{char}</span>
-          ))}
-          {wi < text.split(" ").length - 1 && <span className="inline-block">&nbsp;</span>}
-        </span>
-      ))}
-    </span>
-  );
-}
 
 const FULL_DESC = `Belajar barisan dan deret di kalkulus lanjut sangat krusial karena materi ini menjembatani matematika teoretis dengan aplikasi praktis, terutama dalam menangani fungsi-fungsi kompleks, aproksimasi nilai, dan pemodelan dinamis. Selain itu, barisan dan deret juga sering digunakan di dunia nyata — mulai dari perhitungan bunga majemuk di perbankan, kompresi sinyal digital dalam telekomunikasi, pemodelan populasi dalam biologi, hingga algoritma machine learning yang membutuhkan konvergensi deret tak hingga.`;
 
@@ -29,30 +15,17 @@ const SHORT_DESC = `Belajar barisan dan deret di kalkulus lanjut sangat krusial 
 
 export default function HeroBarisDeret() {
   const sectionRef = useRef<HTMLElement>(null);
-  const titleRef = useRef<HTMLDivElement>(null);
   const [expanded, setExpanded] = useState(false);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
-      // Chars animate in
-      const chars = titleRef.current?.querySelectorAll(".char");
-      if (chars) {
-        tl.from(Array.from(chars), {
-          y: "110%",
-          opacity: 0,
-          duration: 0.7,
-          stagger: 0.022,
-        });
-      }
-
-      // Badge, desc, chips fade in
-      tl.from(".hero-badge", { y: -20, opacity: 0, duration: 0.5 }, "-=0.4");
-      tl.from(".hero-desc", { y: 20, opacity: 0, duration: 0.6 }, "-=0.3");
-      tl.from(".hero-chips", { y: 16, opacity: 0, duration: 0.5 }, "-=0.3");
-      tl.from(".hero-photo", { x: 60, opacity: 0, duration: 0.8, ease: "power2.out" }, "-=0.6");
+      // SplitChars animates its own chars — we handle the rest here
+      tl.from(".hero-divider",   { scaleX: 0, transformOrigin: "left", duration: 0.8, delay: 0.6 });
+      tl.from(".hero-desc",      { y: 20, opacity: 0, duration: 0.6 }, "-=0.3");
       tl.from(".hero-scroll-hint", { opacity: 0, duration: 0.6 }, "-=0.2");
+      tl.from(".hero-photo",     { x: 60, opacity: 0, duration: 0.8, ease: "power2.out" }, "-=0.8");
     }, sectionRef);
 
     return () => ctx.revert();
@@ -78,32 +51,56 @@ export default function HeroBarisDeret() {
       <div className="absolute top-0 right-0 w-125 h-125 bg-indigo-50 rounded-full blur-3xl opacity-70 pointer-events-none" />
 
       <div className="relative z-10 flex items-center gap-16 max-w-7xl">
-        {/* LEFT: text content */}
+        {/* ── LEFT: text content ── */}
         <div className="flex-1 min-w-0">
 
-          {/* Title */}
-          <div ref={titleRef}>
-            <h1
-              className="leading-[1.05] tracking-tight text-gray-900 select-none mb-6"
-              style={{ fontFamily: '"Georgia", serif' }}
-            >
-              <span className="block text-5xl md:text-6xl lg:text-7xl font-black text-gray-900">
-                <SplitChars text="Kenapa kita harus" />
-              </span>
-              <span className="block text-5xl md:text-6xl lg:text-7xl font-black text-gray-900 mt-1">
-                <SplitChars text="belajar" />
-                <span className="text-indigo-500 italic ml-4">
-                  <SplitChars text="Barisan" />
-                </span>
-              </span>
-              <span className="block text-5xl md:text-6xl lg:text-7xl font-black text-indigo-500 italic mt-1">
-                <SplitChars text="& Deret?" />
-              </span>
-            </h1>
-          </div>
+          {/* Title — each line uses SplitChars with immediate mode */}
+          <h1
+            className="leading-[1.05] tracking-tight text-gray-900 select-none mb-6"
+            style={{ fontFamily: '"Georgia", serif' }}
+          >
+            <span className="block text-5xl md:text-6xl lg:text-7xl font-black text-gray-900">
+              <SplitChars
+                text="Kenapa kita harus"
+                animateOn="immediate"
+                delay={0}
+                duration={0.7}
+                stagger={0.022}
+              />
+            </span>
 
-          {/* Decorative line */}
-          <div className="h-px bg-linear-to-r from-indigo-300 via-indigo-100 to-transparent mb-8 w-full" />
+            <span className="block text-5xl md:text-6xl lg:text-7xl font-black text-gray-900 mt-1">
+              <SplitChars
+                text="belajar"
+                animateOn="immediate"
+                delay={0.20}
+                duration={0.7}
+                stagger={0.022}
+              />
+              <span className="text-indigo-500 italic ml-4">
+                <SplitChars
+                  text="Barisan"
+                  animateOn="immediate"
+                  delay={0.30}
+                  duration={0.7}
+                  stagger={0.022}
+                />
+              </span>
+            </span>
+
+            <span className="block text-5xl md:text-6xl lg:text-7xl font-black text-indigo-500 italic mt-1">
+              <SplitChars
+                text="& Deret?"
+                animateOn="immediate"
+                delay={0.40}
+                duration={0.7}
+                stagger={0.022}
+              />
+            </span>
+          </h1>
+
+          {/* Decorative divider */}
+          <div className="hero-divider h-px bg-linear-to-r from-indigo-300 via-indigo-100 to-transparent mb-8 w-full" />
 
           {/* Description with expand/collapse */}
           <div className="hero-desc max-w-2xl mb-6">
@@ -123,7 +120,10 @@ export default function HeroBarisDeret() {
               onClick={() => setExpanded(!expanded)}
               className="mt-2 text-sm font-semibold text-indigo-500 hover:text-indigo-700 transition-colors duration-200 flex items-center gap-1 cursor-pointer"
             >
-              <motion.span animate={{ rotate: expanded ? 180 : 0 }} transition={{ duration: 0.3 }}>
+              <motion.span
+                animate={{ rotate: expanded ? 180 : 0 }}
+                transition={{ duration: 0.3 }}
+              >
                 ↓
               </motion.span>
               {expanded ? "Sembunyikan" : "Selengkapnya"}
@@ -148,9 +148,9 @@ export default function HeroBarisDeret() {
           </div>
         </div>
 
-        {/* RIGHT: photo */}
+        {/* ── RIGHT: photo ── */}
         <div className="hero-photo shrink-0 relative hidden lg:block">
-          {/* Decorative shape behind */}
+          {/* Decorative shapes behind photo */}
           <div className="absolute -inset-4 bg-indigo-50 rounded-3xl -z-10" />
           <div className="absolute -bottom-3 -right-3 w-24 h-24 bg-indigo-100 rounded-2xl -z-10" />
 
@@ -166,11 +166,15 @@ export default function HeroBarisDeret() {
 
           {/* Name label */}
           <div className="mt-3 text-center">
-            <p className="text-xs font-semibold text-gray-700">Muhammad Azka Fakhri Fairuz</p>
-            <p className="text-[10px] text-gray-400 italic">Lead Project · 257006111019</p>
+            <p className="text-xs font-semibold text-gray-700">
+              Muhammad Azka Fakhri Fairuz
+            </p>
+            <p className="text-[10px] text-gray-400 italic">
+              Lead Project · 257006111019
+            </p>
           </div>
 
-          {/* Floating formula badge */}
+          {/* Floating formula badges */}
           <div className="absolute -top-4 -left-6 bg-white border border-indigo-100 rounded-xl px-3 py-2 shadow-sm">
             <span className="font-mono text-xs text-indigo-600">aₙ = a·rⁿ⁻¹</span>
           </div>
