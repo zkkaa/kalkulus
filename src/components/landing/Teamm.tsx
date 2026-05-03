@@ -1,7 +1,6 @@
 "use client";
 
 import { useRef, useEffect } from "react";
-import Image from "next/image";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
 import TextHeading from "../ui/TextHeading";
 import { teamData, type TeamMember } from "@/data/landing";

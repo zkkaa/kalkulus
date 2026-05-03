@@ -7,7 +7,7 @@ import HorizontalMetode from "@/components/materi/determinan/HorizontalMetode";
 import MinorKofaktor from "@/components/materi/determinan/MinorKofaktor";
 import MetodeCramer from "@/components/materi/determinan/MetodeCramer";
 import ContohSoal from "@/components/materi/determinan/ContohSoal";
-// import PlaygroundDeterminan from "@/components/materi/determinan/PlaygroundDeterminan";
+import PlaygroundDeterminan from "@/components/materi/determinan/PlaygroundDeterminan";
 import ProgressIndicator, { ProgressSection } from "@/components/ui/Progressindicator";
 
 const SECTIONS: ProgressSection[] = [
@@ -34,7 +34,7 @@ export default function DeterminanPage() {
       <MinorKofaktor sections={[]} />
       <MetodeCramer />
       <ContohSoal />
-      {/* <PlaygroundDeterminan /> */}
+      <PlaygroundDeterminan />
     </main>
   );
 }
