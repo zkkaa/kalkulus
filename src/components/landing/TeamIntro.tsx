@@ -3,9 +3,6 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import TextHeading from "@/components/ui/TextHeading";
-import Stack from "@/components/landing/Stack";
-import { head } from "framer-motion/client";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -89,13 +86,13 @@ export default function TeamIntro() {
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-screen overflow-hidden flex items-center px-10 pt-28"
+      className="relative min-h-screen overflow-hidden flex items-end px-10 pt-28"
     >
 
       {/* ── Video Background ─────────────────────────────────── */}
       <div className="absolute inset-0">
         <video
-          src="/videos/game-bg.mp4"
+          src="/videos/bg-vid.mp4"
           autoPlay
           muted
           loop
@@ -106,10 +103,10 @@ export default function TeamIntro() {
         <div className="absolute bottom-0 left-0 right-0 h-40 bg-linear-to-t from-black/10 to-transparent" />
       </div>
 
-      <div className="relative z-10 h-full flex flex-col justify-end px-10 md:px-16 lg:px-24 pb-16 md:pb-20">
+      <div className="relative z-10 h-full flex flex-col justify-end px-10 md:px-16 pb-10">
 
         {/* ── Kanan: Teks ────────────────────────────────────────────────── */}
-        <div className="flex flex-col gap-5 max-w-lg">
+        <div className="flex flex-col gap-5 max-w-3xl">
 
           {/* Label */}
           <span
@@ -120,50 +117,24 @@ export default function TeamIntro() {
           </span>
 
           {/* Judul — per karakter dari bawah */}
-        <h1
-          className="font-serif text-5xl md:text-6xl lg:text-7xl font-bold leading-none tracking-tight text-white mb-4 select-none"
-          style={{ fontFamily: "Georgia, serif" }}
-        >
-          {/* overflow-hidden di tiap baris supaya karakter tidak keluar sebelum reveal */}
-          <span className="block" style={{ overflow: "hidden", paddingBottom: "0.06em" }}>
-            <span ref={headingRef}>
-              <SplitChars text="Belajar sambil" />
-            </span>
-          </span>
-          <span className="block" style={{ overflow: "hidden", paddingBottom: "0.06em" }}>
-            <span ref={headingRef}>
-              <SplitChars text="bermain" className="text-indigo-300 italic" />
-            </span>
-          </span>
-        </h1>
-
-          {/* Deskripsi */}
-          <p
-            ref={descRef}
-            className="text-white/55 text-sm md:text-base leading-relaxed"
+          <h1
+            className="font-serif text-5xl md:text-6xl  font-bold leading-none tracking-tight text-white mb-4 select-none"
+            style={{ fontFamily: "Georgia, serif" }}
           >
-            Berawal dari tugas kelompok dan bergelas-gelas kopi, kami membangun
-            <span className="font-semibold text-indigo-300"> Sigma</span> sebagai tempat belajar
-            kalkulus yang lebih visual dan interaktif. Kami percaya, matematika nggak harus
-            serem kalau dibikin asik. 😄
-          </p>
+            {/* overflow-hidden di tiap baris supaya karakter tidak keluar sebelum reveal */}
+            <span className="block" style={{ overflow: "hidden", paddingBottom: "0.06em" }}>
+              <span ref={headingRef}>
+                <SplitChars text="Orang-Orang" /> <br />
+                <SplitChars text="Kece Dibalik" />
+              </span>
+              <span className="ml-4" ref={headingRef}>
+                <SplitChars text="Sigma" className="text-indigo-300 italic" />
+              </span>
+            </span>
 
-          {/* Divider */}
-          <div ref={dividerRef} className="w-12 h-px bg-gray-200" />
+          </h1>
 
-          {/* Stats */}
-          <div ref={statsRef} className="flex gap-8">
-            {STATS.map((stat) => (
-              <div key={stat.label} className="stat-item flex flex-col gap-0.5">
-                <span className="text-2xl md:text-3xl font-bold text-indigo-300">
-                  {stat.value}
-                </span>
-                <span className="text-xs text-white/55 tracking-wide">
-                  {stat.label}
-                </span>
-              </div>
-            ))}
-          </div>
+
         </div>
       </div>
     </section>

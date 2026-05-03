@@ -156,12 +156,20 @@ function TeamCard({ member }: TeamCardProps) {
                 className="shrink-0 relative rounded-2xl overflow-hidden bg-gray-200 shadow-sm cursor-pointer
                    w-28 h-36 sm:w-36 sm:h-48 md:w-44 md:h-56 lg:w-60 lg:h-80"
             >
-                <Image
+                {/* <video
                     src={member.image}
                     alt={member.name}
                     fill
                     className="object-cover"
                     sizes="(max-width: 640px) 112px, (max-width: 768px) 144px, (max-width: 1024px) 176px, 208px"
+                /> */}
+                <video
+                    src={member.image}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    className="object-fill (max-width: 640px) 112px, (max-width: 768px) 144px, (max-width: 1024px) 176px, 208px"
                 />
             </div>
 
