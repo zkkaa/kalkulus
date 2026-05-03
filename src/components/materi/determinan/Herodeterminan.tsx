@@ -24,8 +24,6 @@ const SHORT = `Determinan adalah nilai skalar yang diekstrak dari matriks perseg
 
 const FULL  = `${SHORT} Di dunia nyata, determinan digunakan dalam kriptografi untuk enkripsi data, dalam grafis komputer untuk transformasi 3D, dalam ekonomi untuk analisis input-output Leontief, hingga dalam engineering untuk analisis stabilitas sistem dinamik. Bahkan algoritma machine learning seperti PCA (Principal Component Analysis) menggunakan konsep determinan untuk reduksi dimensi data.`;
 
-const CHIPS = ["🔐 Kriptografi", "🎮 Grafis 3D", "📈 Ekonomi Leontief", "⚙️ Stabilitas sistem", "🤖 PCA / Machine Learning"];
-
 export default function HeroDeterminan() {
   const sectionRef = useRef<HTMLElement>(null);
   const titleRef   = useRef<HTMLDivElement>(null);
@@ -61,10 +59,6 @@ export default function HeroDeterminan() {
       <div className="relative z-10 flex items-center gap-16 max-w-7xl">
         {/* LEFT */}
         <div className="flex-1 min-w-0">
-          <div className="hd-badge flex items-center gap-2 mb-8">
-            <span className="text-xs font-semibold tracking-widest text-violet-400 uppercase">Kalkulus Lanjut · Pertemuan 7</span>
-            <span className="w-1.5 h-1.5 rounded-full bg-violet-400 animate-pulse" />
-          </div>
 
           <div ref={titleRef}>
             <h1 className="leading-[1.05] tracking-tight text-gray-900 select-none mb-6" style={{ fontFamily: '"Georgia", serif' }}>
@@ -98,12 +92,6 @@ export default function HeroDeterminan() {
               <motion.span animate={{ rotate: expanded ? 180 : 0 }} transition={{ duration: 0.3 }}>↓</motion.span>
               {expanded ? "Sembunyikan" : "Selengkapnya"}
             </button>
-          </div>
-
-          <div className="hd-chips flex flex-wrap gap-2">
-            {CHIPS.map((c) => (
-              <span key={c} className="text-sm px-4 py-1.5 rounded-full border border-violet-100 bg-violet-50 text-violet-600 font-medium">{c}</span>
-            ))}
           </div>
 
           <div className="hd-hint mt-14 flex items-center gap-3">

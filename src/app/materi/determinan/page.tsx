@@ -31,7 +31,7 @@ export default function DeterminanPage() {
       <ApaItuDeterminan />
       <DeterminanOrde2 />
       <HorizontalMetode />
-      <MinorKofaktor />
+      <MinorKofaktor sections={[]} />
       <MetodeCramer />
       <ContohSoal />
       {/* <PlaygroundDeterminan /> */}
