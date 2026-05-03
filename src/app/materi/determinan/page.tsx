@@ -1,7 +1,7 @@
 "use client";
 
-import HeroDeterminan from "@/components/materi/determinan/HeroDeterminan";
 import ApaItuDeterminan from "@/components/materi/determinan/ApaItuDeterminan";
+import HeroDeterminan from "@/components/materi/determinan/Herodeterminan";
 import DeterminanOrde2 from "@/components/materi/determinan/DeterminanOrde2";
 import HorizontalMetode from "@/components/materi/determinan/HorizontalMetode";
 import MinorKofaktor from "@/components/materi/determinan/MinorKofaktor";
