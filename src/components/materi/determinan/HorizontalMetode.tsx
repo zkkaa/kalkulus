@@ -13,7 +13,6 @@ const PANELS = [
     bg: "bg-violet-600",
     title: "3 Cara Menghitung Determinan",
     desc: "Scroll ke kanan untuk menjelajahi setiap metode. Setiap metode punya keunggulan tersendiri tergantung ukuran matriksnya.",
-    sub: "Section 04 · Horizontal Scroll",
   },
   {
     type: "method",
@@ -208,7 +207,6 @@ export default function HorizontalMetode() {
           if (panel.type === "intro") {
             return (
               <div key={idx} className={`shrink-0 w-[40vw] h-full flex flex-col justify-center px-16 ${panel.bg}`}>
-                <span className="text-violet-200 text-xs uppercase tracking-widest font-semibold mb-4 block">{panel.sub}</span>
                 <h2 className="text-3xl md:text-4xl font-black text-white mb-6" style={{ fontFamily: '"Georgia", serif' }}>{panel.title}</h2>
                 <p className="text-violet-200 text-base leading-relaxed max-w-xs">{panel.desc}</p>
                 <div className="mt-10 flex items-center gap-3 text-violet-300">

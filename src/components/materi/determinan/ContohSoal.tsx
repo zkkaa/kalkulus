@@ -144,7 +144,6 @@ export default function ContohSoal() {
     <section id="contoh-soal" ref={sectionRef} className="relative bg-white px-28 py-28 overflow-hidden">
       <div className="max-w-7xl mx-auto">
         <div className="cs-heading mb-14">
-          <span className="text-xs font-semibold tracking-widest text-violet-400 uppercase">Latihan · 05</span>
           <h2 className="mt-3 text-4xl md:text-5xl font-black text-gray-900" style={{ fontFamily: '"Georgia", serif' }}>
             Contoh <span className="text-violet-500 italic">Soal</span>
           </h2>

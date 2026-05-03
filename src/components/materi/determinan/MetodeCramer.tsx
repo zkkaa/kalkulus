@@ -79,7 +79,6 @@ export default function MetodeCramer() {
 
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="cramer-heading mb-14">
-          <span className="text-xs font-semibold tracking-widest text-violet-400 uppercase">Aplikasi · 04</span>
           <h2 className="mt-3 text-4xl md:text-5xl font-black text-gray-900" style={{ fontFamily: '"Georgia", serif' }}>
             Metode <span className="text-violet-500 italic">Cramer</span>
           </h2>
