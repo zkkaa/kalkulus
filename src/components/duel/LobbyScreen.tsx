@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { supabase } from '@/lib/supabase'
 import Button from '@/components/ui/Button'
 import Input from '@/components/ui/Input'
+import BackButton from '../ui/Backbutton'
 
 interface LobbyScreenProps {
   onRoomReady: (roomId: string, team: 'red' | 'blue') => void
@@ -174,6 +175,7 @@ export default function LobbyScreen({ onRoomReady }: LobbyScreenProps) {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-white relative overflow-hidden">
+      <BackButton href="/games" label="Games" variant="light" />
       <div className="absolute inset-0 pointer-events-none select-none">
         {calcDecorations.map((el, i) => (
           <span key={`deco-${i}`} style={{

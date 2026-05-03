@@ -9,6 +9,7 @@ import MetodeCramer from "@/components/materi/determinan/MetodeCramer";
 import ContohSoal from "@/components/materi/determinan/ContohSoal";
 import PlaygroundDeterminan from "@/components/materi/determinan/PlaygroundDeterminan";
 import ProgressIndicator, { ProgressSection } from "@/components/ui/Progressindicator";
+import BackButton from "@/components/ui/Backbutton";
 
 const SECTIONS: ProgressSection[] = [
   { id: "hero-determinan",   label: "Intro" },
@@ -26,6 +27,7 @@ const SECTIONS: ProgressSection[] = [
 export default function DeterminanPage() {
   return (
     <main className="relative bg-white min-h-screen">
+      <BackButton href="/materi" label="Materi" variant="light" />
       <ProgressIndicator sections={SECTIONS} color="violet" />
       <HeroDeterminan />
       <ApaItuDeterminan />

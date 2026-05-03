@@ -8,6 +8,7 @@ import ApaItuDeret from "@/components/materi/barisan-deret/ApaItuDeret";
 import ContohSoal from "@/components/materi/barisan-deret/ContohSoal";
 import PlaygroundVisualisasi from "@/components/materi/barisan-deret/PlaygroundVisualisasi";
 import ProgressIndicator, { ProgressSection } from "@/components/ui/Progressindicator";
+import BackButton from "@/components/ui/Backbutton";
 
 const SECTIONS: ProgressSection[] = [
   { id: "hero-section",        label: "Intro" },
@@ -22,6 +23,7 @@ const SECTIONS: ProgressSection[] = [
 export default function BadasanDeretPage() {
   return (
     <main className="relative bg-white min-h-screen">
+      <BackButton href="/materi" label="Materi" variant="light" />
       <ProgressIndicator sections={SECTIONS} color="indigo" />
       <HeroBarisDeret />
       <ApaItuBarisan />

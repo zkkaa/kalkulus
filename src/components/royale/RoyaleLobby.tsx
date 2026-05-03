@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { supabase } from '@/lib/supabase'
 import Image from 'next/image'
+import BackButton from '../ui/Backbutton'
 
 interface RoyaleLobbyProps {
   onRoomReady: (roomId: string, playerId: string, isAdmin: boolean) => void
@@ -117,6 +118,7 @@ export default function RoyaleLobby({ onRoomReady }: RoyaleLobbyProps) {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-white relative overflow-hidden">
+      <BackButton href="/games" label="Games" variant="light" />
       {/* Dekorasi background */}
       <div className="absolute inset-0 pointer-events-none select-none">
         {calcDecorations.map((el, i) => (
