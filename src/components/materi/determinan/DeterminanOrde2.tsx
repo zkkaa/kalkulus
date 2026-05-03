@@ -93,7 +93,6 @@ export default function DeterminanOrde2() {
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Heading */}
         <div className="o2-heading mb-16">
-          <span className="text-xs font-semibold tracking-widest text-violet-400 uppercase">Konsep Dasar · 02</span>
           <h2 className="mt-3 text-4xl md:text-5xl font-black text-gray-900" style={{ fontFamily: '"Georgia", serif' }}>
             Determinan <span className="text-violet-500 italic">Orde 2 (2×2)</span>
           </h2>

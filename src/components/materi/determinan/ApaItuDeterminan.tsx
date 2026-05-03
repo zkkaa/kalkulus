@@ -56,11 +56,10 @@ export default function ApaItuDeterminan() {
 
         {/* RIGHT: Content */}
         <div ref={contentRef} className="flex-1 min-w-0">
-          <span className="text-xs font-semibold tracking-widest text-violet-400 uppercase">Konsep Dasar · 01</span>
           <h2 className="mt-3 text-4xl md:text-5xl font-black text-gray-900 mb-6" style={{ fontFamily: '"Georgia", serif' }}>
             Apa itu <span className="text-violet-500 italic">Determinan?</span>
           </h2>
-          <p className="text-gray-500 text-lg leading-relaxed mb-8 max-w-xl">
+          <p className="text-gray-500 text-lg leading-relaxed mb-8 max-w-7xl">
             Determinan adalah sebuah <strong className="text-gray-700">nilai skalar</strong> yang
             dihitung dari elemen-elemen matriks persegi. Dilambangkan dengan{" "}
             <span className="font-mono text-violet-600">det(A)</span> atau{" "}
