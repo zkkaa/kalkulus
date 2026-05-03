@@ -6,7 +6,7 @@ import GameWhy from "@/components/games/GameWhy";
 import GameShowcase from "@/components/games/GameShowCase";
 import GameCTA from "@/components/games/GameCTA";
 import Navbar from "@/components/ui/Navbar";
-import ScrollAnim from "@/components/common/ScrollAnim";
+import ScrollAnim from "@/components/ui/ScrollAnim";
 import { FooterCopyright } from "@/components/ui/Footer";
 
 export default function GamePage() {

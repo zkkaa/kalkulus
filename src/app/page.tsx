@@ -4,9 +4,8 @@ import MathParticles from '@/components/ui/MathParticles'
 import Navbar from '@/components/ui/Navbar'
 import HeroSection from '@/components/landing/HeroSection'
 import { Footer } from '@/components/ui/Footer'
-// import Quote from '@/components/landing/Quote'
 import Teamm from '@/components/landing/Teamm'
-import ScrollAnim from '@/components/common/ScrollAnim'
+import ScrollAnim from '@/components/ui/ScrollAnim'
 import Quotes from '@/components/landing/quotes'
 import ContentSections from '@/components/landing/ContentSections'
 import TeamIntro from '@/components/landing/TeamIntro'
@@ -19,7 +18,6 @@ export default function Home() {
       <div className="fixed inset-0 pointer-events-none">
         <MathParticles count={30} opacity={0.15} />
       </div>
-
       <ScrollAnim >
         <Navbar />
         <HeroSection />
