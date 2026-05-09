@@ -92,7 +92,7 @@ export default function TeamIntro() {
       {/* ── Video Background ─────────────────────────────────── */}
       <div className="absolute inset-0">
         <video
-          src="/videos/bg-vid.mp4"
+          src="/bg.mp4"
           autoPlay
           muted
           loop

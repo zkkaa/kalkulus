@@ -114,7 +114,7 @@ export const teamData: TeamMember[] = [
     nim: "257006111019",
     role: "Lead Project",
     skills: ["Designer", "Full Stack Developer"],
-    image: "/team/azka.mp4",
+    image: "/team-azka.mp4",
   },
   {
     id: 2,
@@ -122,7 +122,7 @@ export const teamData: TeamMember[] = [
     nim: "257006111020",
     role: "",
     skills: ["Designer", "Front-End Developer"],
-    image: "/team/salma.mp4",
+    image: "/team-salma.mp4",
   },
   {
     id: 3,
@@ -130,7 +130,7 @@ export const teamData: TeamMember[] = [
     nim: "257006111021",
     role: "",
     skills: ["Designer", "Front-End Developer"],
-    image: "/team/aulia.mp4",
+    image: "/team-aulia.mp4",
   },
   {
     id: 4,
@@ -138,7 +138,7 @@ export const teamData: TeamMember[] = [
     nim: "257006111026",
     role: "",
     skills: ["Designer", "Front-End Developer"],
-    image: "/team/wildan.mp4",
+    image: "/team-wildan.mp4",
   },
   {
     id: 5,
@@ -146,7 +146,7 @@ export const teamData: TeamMember[] = [
     nim: "257006111028",
     role: "",
     skills: ["Designer", "Front-End Developer"],
-    image: "/team/zaky.mp4",
+    image: "/team-zaky.mp4",
   },
   {
     id: 6,
@@ -154,7 +154,7 @@ export const teamData: TeamMember[] = [
     nim: "257006111033",
     role: "",
     skills: ["Designer", "Front-End Developer"],
-    image: "/team/natasya.mp4",
+    image: "/team-natasya.mp4",
   },
 ];
 
@@ -178,7 +178,7 @@ export const featuresData: Feature[] = [
       "SIGMA (Smart Interactive Graphing & Math Application) adalah platform pembelajaran matematika berbasis teknologi yang membantu pengguna memahami konsep secara lebih mudah dan interaktif.",
     cta: "lihat lebih lengkap",
     href: "/games",
-    video: "/team/team-1.webp",
+    video: "/team/azka.png",
   },
   {
     id: 1,
@@ -188,7 +188,7 @@ export const featuresData: Feature[] = [
       "Pelajari konsep kalkulus dari dasar hingga mahir. Setiap materi dilengkapi visualisasi interaktif, rumus yang bisa dieksplorasi, dan contoh soal yang membuat belajar terasa menyenangkan.",
     cta: "lihat lebih lengkap",
     href: "/materi",
-    video: "/team/team-2.webp",
+    video: "/team/salma.png",
   },
   {
     id: 2,
@@ -198,7 +198,7 @@ export const featuresData: Feature[] = [
       "Uji pemahamanmu dengan soal-soal latihan yang disertai pembahasan lengkap. Dapatkan feedback instan dan lacak perkembangan belajarmu dari waktu ke waktu.",
     cta: "lihat lebih lengkap",
     href: "/latihan",
-    video: "/team/team-1.webp",
+    video: "/team/aulia.png",
   },
 ];
 

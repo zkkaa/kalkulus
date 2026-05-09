@@ -104,9 +104,9 @@ export default function ApaItuDeret() {
       {/* Subtle right glow */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-indigo-50 rounded-full blur-3xl opacity-50 pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto relative z-10">
+      <div className="max-w-5xl mx-auto relative z-10">
         {/* Top: heading left, photo right */}
-        <div className="flex items-start gap-16 mb-16">
+        <div className="flex items-center mb-16">
           <div ref={contentRef} className="flex-1 min-w-0">
             <h2
               className="mt-3 text-4xl md:text-5xl font-black text-gray-900 mb-6"
@@ -134,19 +134,19 @@ export default function ApaItuDeret() {
           {/* Photo right */}
           <div ref={photoRef} className="shrink-0 hidden lg:block">
             <div className="relative">
-              <div className="absolute -inset-5 bg-linear-to-bl from-amber-50 to-indigo-50 rounded-3xl -z-10" />
-              <div className="relative w-56 h-72 rounded-2xl overflow-hidden">
+              <div className="absolute -inset-5 bg-transparent rounded-3xl -z-10" />
+              <div className="relative w-90 h-110 rounded-2xl overflow-hidden">
                 <Image
-                  src="/gift/plenger2.webp"
-                  alt="Aulia Syakhira – menjelaskan deret"
+                  src="/azka.png"
+                  alt="Muhammad Azka – menjelaskan deret"
                   fill
                   className="object-cover object-top"
                   unoptimized
                 />
               </div>
               <div className="mt-3 text-center">
-                <p className="text-xs font-semibold text-gray-700">Aulia Syakhira Raina Hakim</p>
-                <p className="text-[10px] text-gray-400 italic">257006111021</p>
+                <p className="text-xs font-semibold text-gray-700">Muhammad Azka Fakhri</p>
+                <p className="text-[10px] text-gray-400 italic">Lead Project - 257006111021</p>
               </div>
               {/* Floating formula */}
               <div className="absolute -bottom-5 -left-8 bg-white border border-indigo-100 shadow-sm rounded-xl px-3 py-2">

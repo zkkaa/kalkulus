@@ -78,11 +78,11 @@ export default function ApaItuBarisan() {
         <div ref={photoRef} className="shrink-0 hidden lg:block">
           <div className="relative">
             {/* Decorative bg shape */}
-            <div className="absolute -inset-6 bg-linear-to-br from-indigo-50 to-purple-50 rounded-3xl -z-10" />
+            <div className="absolute -inset-6 bg-transparent rounded-3xl -z-10" />
 
-            <div className="relative w-56 h-72 rounded-2xl overflow-hidden">
+            <div className="relative w-96 h-115 rounded-2xl overflow-hidden">
               <Image
-                src="/gift/plenger2.webp"
+                src="/salma.png"
                 alt="Salma Fauziah – menjelaskan barisan"
                 fill
                 className="object-cover object-top"

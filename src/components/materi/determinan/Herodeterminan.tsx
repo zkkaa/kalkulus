@@ -108,10 +108,10 @@ export default function HeroDeterminan() {
         {/* RIGHT: photo */}
         <div className="hd-photo shrink-0 hidden lg:block">
           <div className="relative">
-            <div className="absolute -inset-4 bg-violet-50 rounded-3xl -z-10" />
-            <div className="absolute -bottom-3 -right-3 w-24 h-24 bg-violet-100 rounded-2xl -z-10" />
-            <div className="relative w-64 h-80 rounded-2xl overflow-hidden">
-              <Image src="/gift/plenger2.webp" alt="Wildan Nurohim" fill className="object-cover object-top" unoptimized />
+            <div className="absolute -inset-4 bg-transparent rounded-3xl -z-10" />
+            <div className="absolute -bottom-3 -right-3 w-24 h-24 bg-transparent rounded-2xl -z-10" />
+            <div className="relative w-96 h-115 rounded-2xl overflow-hidden">
+              <Image src="/wildan.png" alt="Wildan Nurohim" fill className="object-cover object-top" unoptimized />
             </div>
             <div className="mt-3 text-center">
               <p className="text-xs font-semibold text-gray-700">Wildan Nurohim</p>

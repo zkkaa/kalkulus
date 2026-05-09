@@ -151,13 +151,13 @@ export default function HeroBarisDeret() {
         {/* ── RIGHT: photo ── */}
         <div className="hero-photo shrink-0 relative hidden lg:block">
           {/* Decorative shapes behind photo */}
-          <div className="absolute -inset-4 bg-indigo-50 rounded-3xl -z-10" />
-          <div className="absolute -bottom-3 -right-3 w-24 h-24 bg-indigo-100 rounded-2xl -z-10" />
+          <div className="absolute -inset-4 bg-transparent rounded-3xl -z-10" />
+          <div className="absolute -bottom-3 -right-3 w-24 h-24 bg-transparent rounded-2xl -z-10" />
 
-          <div className="relative w-64 h-80 rounded-2xl overflow-hidden">
+          <div className="relative w-96 h-115 rounded-2xl overflow-hidden">
             <Image
-              src="/gift/plenger2.webp"
-              alt="Muhammad Azka – pose bertanya"
+              src="/natasya.png"
+              alt="natasya – pose bertanya"
               fill
               className="object-cover object-top"
               unoptimized
@@ -167,10 +167,10 @@ export default function HeroBarisDeret() {
           {/* Name label */}
           <div className="mt-3 text-center">
             <p className="text-xs font-semibold text-gray-700">
-              Muhammad Azka Fakhri Fairuz
+              Natasya Ibnaty Salsabila
             </p>
             <p className="text-[10px] text-gray-400 italic">
-              Lead Project · 257006111019
+              257006111033
             </p>
           </div>
 
