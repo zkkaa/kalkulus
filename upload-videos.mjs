@@ -21,6 +21,7 @@ const videos = [
   { name: 'team-wildan',  path: './public/Team-Wildan.mp4' },
   { name: 'team-zaky',    path: './public/Team-Zaky.mp4' },
   { name: 'team-natasya', path: './public/Team-Natasya.mp4' },
+  { name: 'bg-video',     path: './public/Bg-Video.mp4' },
 ];
 
 console.log('\n🚀 Mulai upload ulang...\n');

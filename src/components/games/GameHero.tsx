@@ -129,7 +129,7 @@ export default function GameHero() {
       {/* ── Video Background ─────────────────────────────────── */}
       <div className="absolute inset-0">
         <video
-          src="/videos/game-bg.mp4"
+          src="https://7sqr8euvtsm1cutd.public.blob.vercel-storage.com/team/bg-video.mp4"
           autoPlay
           muted
           loop
