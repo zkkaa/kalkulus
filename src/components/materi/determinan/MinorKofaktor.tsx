@@ -55,7 +55,7 @@ export default function MinorKofaktor() {
 
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Top: content left, photo right */}
-        <div className="flex items-start gap-16 mb-16">
+        <div className="flex items-center gap-16 mb-16">
           <div ref={contentRef} className="flex-1 min-w-0">
             <span className="text-xs font-semibold tracking-widest text-violet-400 uppercase">Konsep Lanjut · 03</span>
             <h2 className="mt-3 text-4xl md:text-5xl font-black text-gray-900 mb-6" style={{ fontFamily: '"Georgia", serif' }}>
@@ -101,13 +101,13 @@ export default function MinorKofaktor() {
           {/* Photo right */}
           <div ref={photoRef} className="shrink-0 hidden lg:block">
             <div className="relative">
-              <div className="absolute -inset-5 bg-gradient-to-bl from-purple-50 to-violet-50 rounded-3xl -z-10" />
-              <div className="relative w-56 h-72 rounded-2xl overflow-hidden">
-                <Image src="/gift/plenger2.webp" alt="Natasya Ibnaty Salsabila" fill className="object-cover object-top" unoptimized />
+              <div className="absolute -inset-5 bg-transparent rounded-3xl -z-10" />
+              <div className="relative w-96 h-115 rounded-2xl overflow-hidden">
+                <Image src="/aulia.png" alt="Aulia Syakhira Raina Hakim" fill className="object-cover object-top" unoptimized />
               </div>
               <div className="mt-3 text-center">
-                <p className="text-xs font-semibold text-gray-700">Natasya Ibnaty Salsabila</p>
-                <p className="text-[10px] text-gray-400 italic">257006111033</p>
+                <p className="text-xs font-semibold text-gray-700">Aulia Syakhira Raina Hakim</p>
+                <p className="text-[10px] text-gray-400 italic">257006111021</p>
               </div>
               <div className="absolute -bottom-5 -left-8 bg-white border border-violet-100 shadow-sm rounded-xl px-3 py-2">
                 <span className="font-mono text-xs text-violet-600">Cᵢⱼ = (−1)^(i+j)Mᵢⱼ</span>
