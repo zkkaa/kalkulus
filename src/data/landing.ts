@@ -114,7 +114,7 @@ export const teamData: TeamMember[] = [
     nim: "257006111019",
     role: "Lead Project",
     skills: ["Designer", "Full Stack Developer"],
-    image: "https://xxxx.public.blob.vercel-storage.com/team/team-azka.mp4", // ← URL blob
+    image: "https://7sqr8euvtsm1cutd.public.blob.vercel-storage.com/team/team-azka.mp4", 
   },
   {
     id: 2,
@@ -122,7 +122,7 @@ export const teamData: TeamMember[] = [
     nim: "257006111020",
     role: "",
     skills: ["Designer", "Front-End Developer"],
-    image: "https://xxxx.public.blob.vercel-storage.com/team/team-salma.mp4",
+    image: "https://7sqr8euvtsm1cutd.public.blob.vercel-storage.com/team/team-salma.mp4",
   },
   {
     id: 3,
@@ -130,7 +130,7 @@ export const teamData: TeamMember[] = [
     nim: "257006111021",
     role: "",
     skills: ["Designer", "Front-End Developer"],
-    image: "https://xxxx.public.blob.vercel-storage.com/team/team-aulia.mp4",
+    image: "https://7sqr8euvtsm1cutd.public.blob.vercel-storage.com/team/team-aulia.mp4",
   },
   {
     id: 4,
@@ -138,7 +138,7 @@ export const teamData: TeamMember[] = [
     nim: "257006111026",
     role: "",
     skills: ["Designer", "Front-End Developer"],
-    image: "https://xxxx.public.blob.vercel-storage.com/team/team-wildan.mp4",
+    image: "https://7sqr8euvtsm1cutd.public.blob.vercel-storage.com/team/team-wildan.mp4",
   },
   {
     id: 5,
@@ -146,7 +146,7 @@ export const teamData: TeamMember[] = [
     nim: "257006111028",
     role: "",
     skills: ["Designer", "Front-End Developer"],
-    image: "https://xxxx.public.blob.vercel-storage.com/team/team-zaky.mp4",
+    image: "https://7sqr8euvtsm1cutd.public.blob.vercel-storage.com/team/team-zaky.mp4",
   },
   {
     id: 6,
@@ -154,7 +154,7 @@ export const teamData: TeamMember[] = [
     nim: "257006111033",
     role: "",
     skills: ["Designer", "Front-End Developer"],
-    image: "https://xxxx.public.blob.vercel-storage.com/team/team-natasya.mp4", 
+    image: "https://7sqr8euvtsm1cutd.public.blob.vercel-storage.com/team/team-natasya.mp4", 
   },
 ];
 
