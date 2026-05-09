@@ -121,8 +121,6 @@ interface TeamCardProps {
 export function TeamCard({ member }: TeamCardProps) {
     const imageRef = useRef<HTMLDivElement>(null);
     const videoRef = useRef<HTMLVideoElement>(null);
-    const imgRef = useRef<HTMLImageElement>(null);
-
     const isVideo = member.image.endsWith(".mp4") || member.image.endsWith(".webm");
 
     const handleMouseEnter = () => {
@@ -162,11 +160,11 @@ export function TeamCard({ member }: TeamCardProps) {
             >
                 {isVideo ? (
                     <video
-                        ref={videoRef}
                         src={member.image}
+                        autoPlay
                         muted
                         loop
-                        autoPlay
+                        playsInline
                         // preload="metadata"
                         className="absolute inset-0 w-full h-full object-cover"
                     />
