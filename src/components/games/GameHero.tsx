@@ -2,7 +2,6 @@
 
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
-import AnimatedButton from "../ui/AnimatedButton";
 
 // ── Helper: split teks jadi span per karakter ─────────────────
 function SplitChars({
@@ -120,10 +119,6 @@ export default function GameHero() {
     return () => ctx.revert();
   }, []);
 
-  const handleScrollToGames = () => {
-    document.getElementById("game-showcase")?.scrollIntoView({ behavior: "smooth" });
-  };
-
   return (
     <section className="sticky top-0 min-h-[95vh] overflow-hidden flex items-center px-10 pt-28">
       {/* ── Video Background ─────────────────────────────────── */}
@@ -179,13 +174,6 @@ export default function GameHero() {
           Uji kemampuan kalkulus kamu lewat dua mode game yang seru dan
           kompetitif. Tantang teman, buktikan siapa yang terbaik.
         </p>
-
-        {/* Button — bounce dari bawah */}
-        <div ref={btnRef}>
-          <AnimatedButton onClick={handleScrollToGames} variant="sigma" size="md">
-            Lihat Permainannya
-          </AnimatedButton>
-        </div>
       </div>
     </section>
   );

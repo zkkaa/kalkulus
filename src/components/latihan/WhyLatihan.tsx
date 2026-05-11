@@ -86,7 +86,7 @@ export default function WhyLatihan() {
 
         {/* 3 cards */}
         <div className="wl-grid grid md:grid-cols-3 gap-6 mb-16">
-          {POINTS.map((p, i) => (
+          {POINTS.map((p) => (
             <motion.div
               key={p.num}
               className="wl-card group relative rounded-3xl p-7 border overflow-hidden cursor-default"
@@ -135,40 +135,6 @@ export default function WhyLatihan() {
               />
             </motion.div>
           ))}
-        </div>
-
-        {/* Bottom strip — flow visual */}
-        <div className="wl-bottom relative">
-          <div className="bg-gray-50 border border-gray-100 rounded-3xl px-8 py-6 overflow-hidden">
-            <p className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-6 text-center">
-              Alur Latihan
-            </p>
-            <div className="flex items-center justify-between relative">
-              {/* Connecting line */}
-              <div className="absolute top-5 left-[10%] right-[10%] h-px bg-gray-200 z-0" />
-
-              {[
-                { icon: "🎯", label: "Pilih Topik",    sub: "2 tersedia" },
-                { icon: "❓", label: "Jawab Soal",     sub: "10 soal" },
-                { icon: "⚡", label: "Cek Jawaban",    sub: "Real-time" },
-                { icon: "📖", label: "Baca Pembahasan", sub: "Jika salah" },
-                { icon: "🏁", label: "Selesai!",        sub: "Coba lagi?" },
-              ].map((step, i) => (
-                <div key={i} className="relative z-10 flex flex-col items-center gap-2 flex-1">
-                  <motion.div
-                    className="w-10 h-10 rounded-2xl bg-white border border-gray-200 flex items-center justify-center text-lg shadow-sm"
-                    whileInView={{ scale: [0.8, 1.1, 1] }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: i * 0.1 }}
-                  >
-                    {step.icon}
-                  </motion.div>
-                  <p className="text-xs font-bold text-gray-700 text-center">{step.label}</p>
-                  <p className="text-[10px] text-gray-400 text-center">{step.sub}</p>
-                </div>
-              ))}
-            </div>
-          </div>
         </div>
       </div>
     </section>

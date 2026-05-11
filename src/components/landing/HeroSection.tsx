@@ -56,16 +56,10 @@ export default function HeroSection() {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
-      // 1. Badge sigma: slide dari atas ke bawah
       if (badgeRef.current) {
-        tl.from(badgeRef.current, {
-          y: -40,
-          opacity: 0,
-          duration: 0.7,
-        });
+        tl.from(badgeRef.current, { y: -40, opacity: 0, duration: 0.7 });
       }
 
-      // 2. Judul baris 1: stagger per .char
       if (line1Ref.current) {
         const chars1 = line1Ref.current.querySelectorAll(".char");
         tl.from(
@@ -75,7 +69,6 @@ export default function HeroSection() {
         );
       }
 
-      // 3. Judul baris 2: stagger per .char
       if (line2Ref.current) {
         const chars2 = line2Ref.current.querySelectorAll(".char");
         tl.from(
@@ -85,32 +78,27 @@ export default function HeroSection() {
         );
       }
 
-      // 4. Deskripsi: fade in + slide naik
       if (descRef.current) {
         tl.from(descRef.current, { y: 22, opacity: 0, duration: 0.7 }, "-=0.15");
       }
 
-      // 5. CTA button
       if (ctaRef.current) {
         tl.from(ctaRef.current, { y: 20, opacity: 0, duration: 0.6 }, "-=0.3");
       }
 
-      // 6. Peek box (kotak abu di bawah): fade in lambat
       if (peekRef.current) {
         tl.from(peekRef.current, { opacity: 0, duration: 1 }, "-=0.2");
       }
-
-      if (sectionRef.current) {
-        tl.from(sectionRef.current, {}, "-=0.2000");
-      }
-
-      // Hero harus tetap sticky di tempatnya.
-      // Tidak perlu memindahkan hero dengan GSAP karena efek tertutup
-      // bisa dicapai oleh bagian abu yang muncul kemudian.
     }, sectionRef);
 
     return () => ctx.revert();
   }, []);
+
+  const handleScrollToContent = () => {
+    const target = document.getElementById("ContentSection");
+    if (!target) return;
+    target.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
 
   return (
     <section
@@ -118,14 +106,19 @@ export default function HeroSection() {
       id="tentang"
       className="sticky top-0 min-h-[80vh] flex flex-col items-center justify-center text-center px-6 pt-28 pb-0 overflow-hidden"
     >
-      {/* ── Konten utama ─────────────────────────────────────────────────── */}
       <div className="sticky z-10 flex flex-col items-center gap-6 max-w-3xl w-full">
 
         {/* Badge sigma */}
         <div ref={badgeRef} className="flex justify-center items-center gap-2 -mb-3">
           <div className="flex items-center justify-center -mb-2">
-            <Image src="/logo.png" alt="Sigma" width={24} height={24} unoptimized
-              style={{ width: "24px", height: "auto" }} />
+            <Image
+              src="/logo.png"
+              alt="Sigma"
+              width={24}
+              height={24}
+              unoptimized
+              style={{ width: "24px", height: "auto" }}
+            />
           </div>
           <span className="text-xl tracking-wide font-medium text-gray-700">
             𝖘𝖎𝖌𝖒𝖆
@@ -159,7 +152,11 @@ export default function HeroSection() {
         </p>
 
         <div ref={ctaRef}>
-          <AnimatedButton href="#" className="" variant="sigma" size="sm">
+          <AnimatedButton
+            variant="sigma"
+            size="sm"
+            onClick={handleScrollToContent}
+          >
             Lihat Lebih Lanjut
           </AnimatedButton>
         </div>

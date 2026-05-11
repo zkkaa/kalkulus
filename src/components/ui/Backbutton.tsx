@@ -140,7 +140,7 @@ export default function BackButton({
                   onClick={navigate}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.97 }}
-                  className="w-full py-3.5 rounded-2xl bg-gray-900 text-white text-sm font-bold"
+                  className="w-full py-3.5 rounded-2xl bg-gray-900 text-white text-sm font-bold cursor-pointer"
                 >
                   Ya, keluar
                 </motion.button>
@@ -148,7 +148,7 @@ export default function BackButton({
                   onClick={() => setShowModal(false)}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.97 }}
-                  className="w-full py-3 rounded-2xl bg-gray-100 text-gray-600 text-sm font-semibold hover:bg-gray-200 transition-colors duration-200"
+                  className="w-full py-3 rounded-2xl bg-gray-100 cursor-pointer text-gray-600 text-sm font-semibold hover:bg-gray-200 transition-colors duration-200"
                 >
                   Tidak, lanjut
                 </motion.button>

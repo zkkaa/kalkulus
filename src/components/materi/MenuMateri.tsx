@@ -10,59 +10,37 @@ import TextHeading from "@/components/ui/TextHeading";
 export const MATERI_DATA = [
   {
     id: 1,
-    slug: "limit",
-    title: "Limit",
-    description: "Pondasi utama kalkulus. Memahami perilaku fungsi saat mendekati titik tertentu.",
-    icon: "∞",
-    level: "Dasar",
-    category: "dasar",
-    duration: "30 Menit",
-    exercises: "10 Soal",
-    formula: "lim(x→a) f(x) = L",
+    slug: "barisan-deret",
+    title: "Barisan & Deret",
+    description: "Pelajari pola barisan aritmetika dan geometri, rumus suku ke-n, jumlah deret hingga konvergensi deret tak hingga.",
+    icon: "∑",
+    formula: "Sn = n/2 · (a₁ + aₙ)",
     popular: true,
   },
   {
     id: 2,
-    slug: "turunan",
-    title: "Turunan",
-    description: "Pelajari laju perubahan sesaat dan bagaimana fungsi bergerak secara dinamis.",
-    icon: "∂",
-    level: "Menengah",
-    category: "menengah",
-    duration: "120 Menit",
-    exercises: "15 Soal",
-    formula: "f'(x) = lim(h→0) [f(x+h)-f(x)]/h",
-    popular: true,
-  },
-  {
-    id: 3,
-    slug: "integral",
-    title: "Integral",
-    description: "Akumulasi area dan konsep antiturunan. Dasar dari kalkulus integral volume kompleks.",
-    icon: "∫",
-    level: "Menengah",
-    category: "menengah",
-    duration: "45 Menit",
-    exercises: "12 Soal",
-    formula: "∫ f(x) dx = F(x) + C",
+    slug: "determinan",
+    title: "Determinan",
+    description: "Kuasai perhitungan determinan matriks 2×2 dan 3×3 dengan berbagai metode serta terapannya dalam sistem persamaan linear.",
+    icon: "|A|",
+    formula: "det(A) = ad − bc",
     popular: true,
   },
 ];
 
-// ─── Card Style ───────────────────────────────────────────────────────────────
-const CARD_STYLE = {
-  color: "#4F46E5",
-  bg: "#EEF2FF",
-  border: "#C7D2FE",
-};
+// ─── Card Styles (per-item) ───────────────────────────────────────────────────
+const CARD_STYLES = [
+  { color: "#4F46E5", bg: "#EEF2FF", border: "#C7D2FE" }, // indigo — Barisan & Deret
+  { color: "#7C3AED", bg: "#F5F3FF", border: "#DDD6FE" }, // violet — Determinan
+];
 
-// ─── MateriCard (inline) ──────────────────────────────────────────────────────
+// ─── MateriCard ───────────────────────────────────────────────────────────────
 type MateriItem = (typeof MATERI_DATA)[number];
 
 function MateriCard({ materi, index }: { materi: MateriItem; index: number }) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [hovered, setHovered] = useState(false);
-  const cfg = CARD_STYLE;
+  const cfg = CARD_STYLES[index % CARD_STYLES.length];
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const el = cardRef.current;
@@ -121,8 +99,11 @@ function MateriCard({ materi, index }: { materi: MateriItem; index: number }) {
 
             {/* Title + description */}
             <h3
-              className="text-gray-900 font-bold text-lg mb-2 group-hover:text-indigo-600 transition-colors duration-200"
-              style={{ fontFamily: '"Georgia", serif' }}
+              className="text-gray-900 font-bold text-lg mb-2 transition-colors duration-200"
+              style={{
+                fontFamily: '"Georgia", serif',
+                color: hovered ? cfg.color : undefined,
+              }}
             >
               {materi.title}
             </h3>
@@ -144,7 +125,8 @@ function MateriCard({ materi, index }: { materi: MateriItem; index: number }) {
             <div className="flex items-center justify-between mt-5 pt-4 border-t border-gray-100">
               <motion.div
                 animate={{ x: hovered ? 4 : 0, opacity: hovered ? 1 : 0.3 }}
-                className="text-indigo-500 text-xl font-light"
+                className="text-xl font-light"
+                style={{ color: cfg.color }}
               >
                 →
               </motion.div>
@@ -183,7 +165,7 @@ export default function MenuMateri() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+          className="grid grid-cols-1 sm:grid-cols-2 gap-6"
         >
           {MATERI_DATA.map((m, i) => (
             <MateriCard key={m.id} materi={m} index={i} />

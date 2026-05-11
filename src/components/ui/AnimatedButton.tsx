@@ -28,11 +28,12 @@ export default function AnimatedButton({
 
   const handleClick = () => {
     if (disabled) return;
-    
+
     if (onClick) {
       onClick();
-    } else if (href) {
-    //   animatePageOut(href, router);
+    }
+    if (href) {
+      router.push(href);
     }
   };
 
@@ -58,7 +59,7 @@ export default function AnimatedButton({
     primary: "border-black dark:border-gray-200 before:bg-sky-400 hover:border-gray-800 hover:dark:border-gray-300",
     secondary: "border-purple-500 dark:border-purple-400 before:bg-purple-400 hover:border-purple-700 hover:dark:border-purple-300",
     outline: "border-gray-400 dark:border-gray-500 before:bg-gray-400 hover:border-gray-600 hover:dark:border-gray-400",
-    sigma : "hover:text-white bg-gray-900 font-bold rounded-full text-sm hover:bg-gray-700 transition-all hover:scale-105 active:scale-95 shadow-lg shadow-gray-900/20"
+    sigma: "hover:text-white bg-gray-900 font-bold rounded-full text-sm hover:bg-gray-700 transition-all hover:scale-105 active:scale-95 shadow-lg shadow-gray-900/20"
   };
 
   return (
