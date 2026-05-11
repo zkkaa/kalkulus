@@ -5,6 +5,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { DuelCanvas, RoyaleCanvas } from "./GameCanvases";
 import AnimatedButton from "../ui/AnimatedButton";
+import { useRouter } from "next/navigation";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -153,6 +154,7 @@ function GameCard({ game }: { game: Game }) {
   const numRef        = useRef<HTMLDivElement>(null);
   const infoRef       = useRef<HTMLDivElement>(null);
   const [hovered, setHovered] = useState(false);
+  const router = useRouter();
 
   // Hover masuk
   const handleMouseEnter = () => {
@@ -307,11 +309,15 @@ function GameCard({ game }: { game: Game }) {
 
         {/* Bottom: tombol + meta */}
         <div className="flex items-center justify-between gap-3">
-          <AnimatedButton onClick={() => document.getElementById(game.href)?.scrollIntoView({ behavior: "smooth" })} variant="sigma" size="sm">
-            Mainkan Sekarang
-          </AnimatedButton>
-          <span className="text-xs text-gray-400">{game.meta}</span>
-        </div>
+      <AnimatedButton 
+        onClick={() => router.push(game.href)} // Gunakan router.push
+        variant="sigma" 
+        size="sm"
+      >
+        Mainkan Sekarang
+      </AnimatedButton>
+      <span className="text-xs text-gray-400">{game.meta}</span>
+    </div>
       </div>
 
       {/* Bottom accent line */}

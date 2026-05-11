@@ -71,17 +71,16 @@ export default function GameCTA() {
         },
       });
 
-      // ── Buttons: slide dari kanan stagger ─────────────────
+      // ── Buttons: slide dari kanan ─────────────────
       if (btnsRef.current) {
-        gsap.from(btnsRef.current.children, {
+        gsap.from(btnsRef.current, { // <-- Hapus .children, langsung animasikan bungkusannya
           x: 24,
           opacity: 0,
-          stagger: 0.12,
           duration: 0.65,
           ease: "power3.out",
           scrollTrigger: {
             trigger: boxRef.current,
-            start: "top 81%",
+            start: "top 95%", // <-- Ubah ke 95% agar pasti terpicu meski di akhir halaman
             toggleActions: "play none none reverse",
           },
         });
@@ -168,8 +167,8 @@ export default function GameCTA() {
         </div>
 
         {/* Kanan: buttons */}
-        <div ref={btnsRef} className="relative z-40 flex items-center gap-4">
-          <AnimatedButton onClick={() => document.getElementById("materi-section")?.scrollIntoView({ behavior: "smooth" })} variant="sigma" size="sm">
+        <div ref={btnsRef} className="relative flex items-center gap-4">
+          <AnimatedButton href="/materi" variant="sigma" size="sm">
             Pelajari Materi Dulu
           </AnimatedButton>
         </div>
