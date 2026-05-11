@@ -166,7 +166,7 @@ export interface Feature {
   description: string;
   cta: string;
   href: string;
-  video: string;
+  Image: string;
 }
 
 export const featuresData: Feature[] = [
@@ -178,7 +178,7 @@ export const featuresData: Feature[] = [
       "SIGMA (Smart Interactive Graphing & Math Application) adalah platform pembelajaran matematika berbasis teknologi yang membantu pengguna memahami konsep secara lebih mudah dan interaktif.",
     cta: "lihat lebih lengkap",
     href: "/games",
-    video: "/team/azka.png",
+    Image: "/Game.png",
   },
   {
     id: 1,
@@ -188,7 +188,7 @@ export const featuresData: Feature[] = [
       "Pelajari konsep kalkulus dari dasar hingga mahir. Setiap materi dilengkapi visualisasi interaktif, rumus yang bisa dieksplorasi, dan contoh soal yang membuat belajar terasa menyenangkan.",
     cta: "lihat lebih lengkap",
     href: "/materi",
-    video: "/team/salma.png",
+    Image: "/Materi.png",
   },
   {
     id: 2,
@@ -198,7 +198,7 @@ export const featuresData: Feature[] = [
       "Uji pemahamanmu dengan soal-soal latihan yang disertai pembahasan lengkap. Dapatkan feedback instan dan lacak perkembangan belajarmu dari waktu ke waktu.",
     cta: "lihat lebih lengkap",
     href: "/latihan",
-    video: "/team/aulia.png",
+    Image: "/Latihan.png",
   },
 ];
 

@@ -6,16 +6,17 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import TextHeading from "@/components/ui/TextHeading";
 import AnimatedButton from "../ui/AnimatedButton";
 import { featuresData, materiCardsData, type MateriCard } from "@/data/landing";
+import Image from "next/image";
 
 gsap.registerPlugin(ScrollTrigger);
 
-// ─── VideoCard ─────────────────────────────────────────────────────────────────
-function VideoCard({
-  video,
+// ─── ImageCard ─────────────────────────────────────────────────────────────────
+function ImageCard({
+  imageSrc,
   label,
   position,
 }: {
-  video: string;
+  imageSrc: string;
   label: string;
   position: "top-left" | "mid-left" | "bottom-left";
 }) {
@@ -36,12 +37,10 @@ function VideoCard({
       className={`absolute left-0 top-0 ${posMap[position]} ${sizeMap[position]} rounded-2xl overflow-hidden shadow-xl bg-gray-300`}
       style={{ transition: "all 0.7s cubic-bezier(0.4, 0, 0.2, 1)" }}
     >
-      <video
-        src={video}
-        autoPlay
-        loop
-        muted
-        playsInline
+      <Image
+        src={imageSrc}
+        alt={label}
+        fill
         className="w-full h-full object-cover"
       />
       <div className="absolute inset-0 bg-black/10" />
@@ -109,12 +108,12 @@ function FeatureCarousel() {
 
   return (
     <div className="flex flex-col md:flex-row items-center justify-center gap-12 md:gap-20 py-16 md:py-24 px-6 md:px-16 lg:px-24">
-      {/* ── Kartu video (kiri) ─────────────────────────────────────────── */}
+      {/* ── Kartu Image (kiri) ─────────────────────────────────────────── */}
       <div className="relative w-64 h-64 md:w-80 md:h-80 shrink-0 ml-8 md:ml-16">
         {cardOrder.map((featureIdx, posIdx) => (
           <div key={featureIdx} ref={cardRefs[posIdx]}>
-            <VideoCard
-              video={featuresData[featureIdx].video}
+            <ImageCard
+              imageSrc={featuresData[featureIdx].Image}
               label={featuresData[featureIdx].label}
               position={positions[posIdx]}
             />
@@ -162,8 +161,8 @@ function FeatureCarousel() {
                 setActive(i);
               }}
               className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${i === active
-                  ? "w-6 bg-gray-800"
-                  : "w-2 bg-gray-300 hover:bg-gray-400"
+                ? "w-6 bg-gray-800"
+                : "w-2 bg-gray-300 hover:bg-gray-400"
                 }`}
             />
           ))}
@@ -207,7 +206,6 @@ function MateriCards() {
 
 function MateriCard({
   card,
-  index,
 }: {
   card: MateriCard;
   index: number;
