@@ -191,30 +191,6 @@ export default function HeroLatihan() {
                 <span className="text-base">→</span>
               </motion.button>
             </div>
-
-            <motion.button
-              className="hl-cta flex items-center gap-2 px-5 py-4 rounded-2xl text-sm font-semibold text-gray-500 border border-gray-200 bg-white hover:border-indigo-200 hover:text-indigo-600 transition-colors duration-200"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.97 }}
-            >
-              <span>📖</span> Cara Kerja
-            </motion.button>
-          </div>
-
-          {/* Stats */}
-          <div className="flex items-center gap-8 pt-8 border-t border-gray-100">
-            {[
-              { target: 2,   suffix: "",  label: "Topik Materi",    color: "#4F46E5" },
-              { target: 20,  suffix: "",  label: "Total Soal",      color: "#7C3AED" },
-              { target: 100, suffix: "%", label: "Ada Pembahasan",  color: "#059669" },
-            ].map((s) => (
-              <div key={s.label} className="hl-stats flex flex-col gap-1">
-                <div className="text-3xl" style={{ color: s.color }}>
-                  <CountUp target={s.target} suffix={s.suffix} />
-                </div>
-                <p className="text-xs text-gray-400 tracking-wide">{s.label}</p>
-              </div>
-            ))}
           </div>
         </div>
 
@@ -306,16 +282,6 @@ export default function HeroLatihan() {
           </motion.div>
         </div>
       </div>
-
-      {/* Scroll indicator */}
-      <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-        animate={{ opacity: [0.4, 1, 0.4], y: [0, 6, 0] }}
-        transition={{ duration: 2, repeat: Infinity }}
-      >
-        <span className="text-[10px] text-gray-400 uppercase tracking-widest">Scroll</span>
-        <div className="w-px h-8 bg-linear-to-b from-gray-300 to-transparent" />
-      </motion.div>
     </section>
   );
 }

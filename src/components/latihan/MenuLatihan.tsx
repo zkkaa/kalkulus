@@ -18,8 +18,6 @@ const LATIHAN = [
     desc:       "Uji pemahamanmu tentang pola barisan, rumus suku ke-n, jumlah deret aritmetika, geometri, hingga konvergensi deret tak hingga.",
     icon:       "∑",
     totalSoal:  10,
-    difficulty: 3,   // out of 5 bars
-    diffLabel:  "Medium",
     tags:       ["Barisan Aritmetika", "Barisan Geometri", "Deret", "Konvergen"],
     color: {
       primary:  "#4F46E5",
@@ -45,8 +43,6 @@ const LATIHAN = [
     desc:       "Kuasai perhitungan determinan matriks 2×2 dan 3×3 dengan berbagai metode, serta terapannya dalam sistem persamaan linear.",
     icon:       "|A|",
     totalSoal:  10,
-    difficulty: 4,   // out of 5
-    diffLabel:  "Hard",
     tags:       ["Determinan 2×2", "Metode Sarrus", "Kofaktor", "Cramer"],
     color: {
       primary:  "#7C3AED",
@@ -66,31 +62,6 @@ const LATIHAN = [
   },
 ];
 
-// ─── Difficulty meter ─────────────────────────────────────────────────────────
-function DifficultyMeter({ value, color, label }: { value: number; color: string; label: string }) {
-  return (
-    <div className="flex items-center gap-2">
-      <div className="flex gap-1">
-        {Array.from({ length: 5 }, (_, i) => (
-          <motion.div
-            key={i}
-            initial={{ scaleY: 0 }}
-            whileInView={{ scaleY: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.3, delay: i * 0.06 }}
-            style={{
-              background: i < value ? color : "#E5E7EB",
-              transformOrigin: "bottom",
-              height: 6 + i * 4,  // stepped heights
-            }}
-            className="w-2.5 rounded-sm"
-          />
-        ))}
-      </div>
-      <span className="text-xs font-semibold" style={{ color }}>{label}</span>
-    </div>
-  );
-}
 
 // ─── Preview soal carousel ────────────────────────────────────────────────────
 function SoalPreview({ previews, color }: {
@@ -229,12 +200,6 @@ function LatihanCard({ item, index }: { item: (typeof LATIHAN)[0]; index: number
               </div>
             </div>
 
-            {/* Difficulty meter */}
-            <DifficultyMeter
-              value={item.difficulty}
-              color={item.color.diff}
-              label={item.diffLabel}
-            />
           </div>
 
           {/* Description */}
@@ -360,9 +325,6 @@ export default function MenuLatihan() {
             Mau latihan{" "}
             <span className="text-indigo-500 italic">materi apa?</span>
           </h2>
-          <p className="text-gray-400 text-center mt-4 text-base max-w-md mx-auto leading-relaxed">
-            Hover card untuk preview soal. Klik &quot;Mulai&quot; saat siap.
-          </p>
         </div>
 
         {/* Cards */}
@@ -371,27 +333,6 @@ export default function MenuLatihan() {
             <LatihanCard key={item.id} item={item} index={i} />
           ))}
         </div>
-
-        {/* Bottom note */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="mt-14 flex items-center justify-center gap-6 text-xs text-gray-400"
-        >
-          {[
-            { icon: "🎯", text: "10 soal per sesi" },
-            { icon: "⚡", text: "Feedback real-time" },
-            { icon: "📖", text: "Pembahasan lengkap" },
-            { icon: "🔄", text: "Bisa diulang" },
-          ].map((item) => (
-            <div key={item.text} className="flex items-center gap-1.5">
-              <span>{item.icon}</span>
-              <span>{item.text}</span>
-            </div>
-          ))}
-        </motion.div>
       </div>
     </section>
   );
