@@ -3,60 +3,9 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { gsap } from "gsap";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
-// ─── Flip counter digit ───────────────────────────────────────────────────────
-function FlipDigit({ value }: { value: string }) {
-  return (
-    <AnimatePresence mode="wait">
-      <motion.span
-        key={value}
-        initial={{ rotateX: -90, opacity: 0 }}
-        animate={{ rotateX: 0, opacity: 1 }}
-        exit={{ rotateX: 90, opacity: 0 }}
-        transition={{ duration: 0.35, ease: "easeOut" }}
-        className="inline-block"
-        style={{ transformOrigin: "center" }}
-      >
-        {value}
-      </motion.span>
-    </AnimatePresence>
-  );
-}
 
-// ─── Animated counter ─────────────────────────────────────────────────────────
-function CountUp({ target, suffix = "" }: { target: number; suffix?: string }) {
-  const [count, setCount] = useState(0);
-  const ref = useRef<HTMLDivElement>(null);
-  const started = useRef(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !started.current) {
-          started.current = true;
-          let start = 0;
-          const step = Math.ceil(target / 40);
-          const timer = setInterval(() => {
-            start += step;
-            if (start >= target) { setCount(target); clearInterval(timer); }
-            else setCount(start);
-          }, 30);
-        }
-      },
-      { threshold: 0.5 }
-    );
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, [target]);
-
-  return (
-    <div ref={ref} className="font-black tabular-nums" style={{ fontFamily: '"Georgia", serif' }}>
-      <FlipDigit value={String(count)} />
-      {suffix}
-    </div>
-  );
-}
 
 // ─── Pulsing ring ─────────────────────────────────────────────────────────────
 function PulseRing({ color, delay = 0 }: { color: string; delay?: number }) {

@@ -274,7 +274,7 @@ export default function MateriFeature() {
     : "#EF4444";
 
   return (
-    <section ref={sectionRef} className="relative z-10 rounded-4xl mx-10 px-4 md:px-10 lg:px-20 py-16 bg-indigo-50">
+    <section ref={sectionRef} className="relative z-10 rounded-4xl px-4 md:px-10 lg:px-20 py-16 bg-indigo-50">
       {/* ── Section label (sama dengan ContentSections) ───────────────── */}
       <div className="mb-10">
         <TextHeading
