@@ -23,7 +23,7 @@ interface Question {
 }
 
 type AnswerState = "idle" | "correct" | "wrong";
-type ModalType   = "correct" | "wrong" | "pembahasan" | "result" | null;
+type ModalType = "correct" | "wrong" | "pembahasan" | "result" | null;
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 function shuffleArray<T>(arr: T[]): T[] {
@@ -43,12 +43,12 @@ function formatTime(seconds: number): string {
 
 const CATEGORY_LABEL: Record<string, string> = {
   "barisan-deret": "Barisan & Deret",
-  determinan:      "Determinan",
+  determinan: "Determinan",
 };
 
 const CATEGORY_COLOR: Record<string, { primary: string; light: string; border: string }> = {
   "barisan-deret": { primary: "#4F46E5", light: "#EEF2FF", border: "#C7D2FE" },
-  determinan:      { primary: "#7C3AED", light: "#F5F3FF", border: "#DDD6FE" },
+  determinan: { primary: "#7C3AED", light: "#F5F3FF", border: "#DDD6FE" },
 };
 
 // ─── Option button ────────────────────────────────────────────────────────────
@@ -65,7 +65,7 @@ function OptionButton({
   // Kelas non-idle — idle ditangani via inline style
   let bg = "bg-white border-gray-200 text-gray-700";
   if (selected && state === "correct") bg = "bg-emerald-50 border-emerald-400 text-emerald-800";
-  else if (selected && state === "wrong")   bg = "bg-rose-50 border-rose-400 text-rose-800";
+  else if (selected && state === "wrong") bg = "bg-rose-50 border-rose-400 text-rose-800";
   else if (!selected && state === "wrong" && isCorrect) bg = "bg-emerald-50 border-emerald-300 text-emerald-700";
   else if (state !== "idle") bg = "bg-gray-50 border-gray-200 text-gray-400";
 
@@ -85,15 +85,15 @@ function OptionButton({
       <span
         className={`w-9 h-9 rounded-xl flex items-center justify-center font-bold text-sm shrink-0
           ${selected && state === "correct" ? "bg-emerald-500 text-white"
-          : selected && state === "wrong"   ? "bg-rose-500 text-white"
-          : !selected && state === "wrong" && isCorrect ? "bg-emerald-400 text-white"
-          : "bg-gray-100 text-gray-500"}`}
+            : selected && state === "wrong" ? "bg-rose-500 text-white"
+              : !selected && state === "wrong" && isCorrect ? "bg-emerald-400 text-white"
+                : "bg-gray-100 text-gray-500"}`}
         style={selected && state === "idle" ? { background: accentColor, color: "#fff" } : {}}
       >
         {selected && state === "correct" ? "✓"
-        : selected && state === "wrong"   ? "✗"
-        : !selected && state === "wrong" && isCorrect ? "✓"
-        : label}
+          : selected && state === "wrong" ? "✗"
+            : !selected && state === "wrong" && isCorrect ? "✓"
+              : label}
       </span>
       <span className="text-sm font-medium leading-relaxed">{text}</span>
     </motion.button>
@@ -306,9 +306,9 @@ function ModalResult({
   timeSeconds: number; category: string;
   onRetry: () => void; onBack: () => void;
 }) {
-  const pct   = Math.round((correct / total) * 100);
+  const pct = Math.round((correct / total) * 100);
   const color = pct >= 70 ? "#10B981" : pct >= 40 ? "#F59E0B" : "#EF4444";
-  const msg   = pct === 100 ? "Sempurna! 🎉" : pct >= 70 ? "Bagus sekali! 🌟" : pct >= 40 ? "Lumayan! 💪" : "Ayo coba lagi! 🔄";
+  const msg = pct === 100 ? "Sempurna! 🎉" : pct >= 70 ? "Bagus sekali! 🌟" : pct >= 40 ? "Lumayan! 💪" : "Ayo coba lagi! 🔄";
 
   return (
     <motion.div
@@ -360,7 +360,7 @@ function ModalResult({
         <div className="grid grid-cols-3 gap-3">
           {[
             { label: "Benar", value: correct, color: "#10B981", bg: "#ECFDF5" },
-            { label: "Salah", value: wrong,   color: "#EF4444", bg: "#FFF1F2" },
+            { label: "Salah", value: wrong, color: "#EF4444", bg: "#FFF1F2" },
             { label: "Waktu", value: formatTime(timeSeconds), color: "#6B7280", bg: "#F9FAFB" },
           ].map((s) => (
             <div key={s.label} className="rounded-2xl p-3 text-center border"
@@ -402,26 +402,26 @@ function ModalResult({
 
 // ─── Main Page ────────────────────────────────────────────────────────────────
 export default function LatihanSoalPage() {
-  const params   = useParams();
-  const router   = useRouter();
+  const params = useParams();
+  const router = useRouter();
   const category = (params?.slug as string) ?? "";
-  const color    = CATEGORY_COLOR[category] ?? CATEGORY_COLOR["barisan-deret"];
+  const color = CATEGORY_COLOR[category] ?? CATEGORY_COLOR["barisan-deret"];
 
-  const [questions,      setQuestions]      = useState<Question[]>([]);
-  const [shuffledOpts,   setShuffledOpts]   = useState<string[][]>([]);
-  const [loading,        setLoading]        = useState(true);
-  const [error,          setError]          = useState<string | null>(null);
-  const [currentIdx,     setCurrentIdx]     = useState(0);
-  const [selected,       setSelected]       = useState<string | null>(null);
-  const [answerState,    setAnswerState]     = useState<AnswerState>("idle");
-  const [modal,          setModal]          = useState<ModalType>(null);
-  const [correct,        setCorrect]        = useState(0);
-  const [wrong,          setWrong]          = useState(0);
-  const [timer,          setTimer]          = useState(0);
-  const [timerRunning,   setTimerRunning]   = useState(false);
+  const [questions, setQuestions] = useState<Question[]>([]);
+  const [shuffledOpts, setShuffledOpts] = useState<string[][]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [currentIdx, setCurrentIdx] = useState(0);
+  const [selected, setSelected] = useState<string | null>(null);
+  const [answerState, setAnswerState] = useState<AnswerState>("idle");
+  const [modal, setModal] = useState<ModalType>(null);
+  const [correct, setCorrect] = useState(0);
+  const [wrong, setWrong] = useState(0);
+  const [timer, setTimer] = useState(0);
+  const [timerRunning, setTimerRunning] = useState(false);
 
-  const cardRef   = useRef<HTMLDivElement>(null);
-  const timerRef  = useRef<NodeJS.Timeout | null>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   // ── Fetch questions ────────────────────────────────────────────────────────
   useEffect(() => {
@@ -530,15 +530,20 @@ export default function LatihanSoalPage() {
 
   if (questions.length === 0) return null;
 
-  const q          = questions[currentIdx];
-  const opts       = shuffledOpts[currentIdx] ?? q.options;
-  const labels     = ["A", "B", "C", "D"];
-  const progress   = ((currentIdx) / questions.length) * 100;
-  const modalOpen  = modal !== null;
+  const q = questions[currentIdx];
+  const opts = shuffledOpts[currentIdx] ?? q.options;
+  const labels = ["A", "B", "C", "D"];
+  const progress = ((currentIdx) / questions.length) * 100;
+  const modalOpen = modal !== null;
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
-      <BackButton href="/latihan" label="Latihan" variant="light" />
+      <BackButton
+        href="/latihan"
+        label="Latihan"
+        variant="light"
+        confirmMessage="Kemajuan latihanmu akan hilang. Yakin mau keluar?"
+      />
 
       {/* ── Top bar ───────────────────────────────────────────────────── */}
       <header className="sticky top-0 z-30 bg-white border-b border-gray-100 px-6 py-7">

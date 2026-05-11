@@ -250,7 +250,7 @@ function LatihanCard({ item, index }: { item: (typeof LATIHAN)[0]; index: number
               <motion.button
                 whileHover={{ scale: 1.05, x: 4 }}
                 whileTap={{ scale: 0.97 }}
-                className="flex items-center gap-2.5 px-7 py-3.5 rounded-2xl text-sm font-bold text-white"
+                className="flex items-center gap-2.5 px-7 py-3.5 rounded-2xl text-sm font-bold text-white cursor-pointer"
                 style={{
                   background: `linear-gradient(135deg, ${item.color.primary}, ${item.color.hover})`,
                   fontFamily: '"Georgia", serif',

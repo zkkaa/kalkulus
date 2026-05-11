@@ -27,7 +27,7 @@ const SECTIONS: ProgressSection[] = [
 export default function DeterminanPage() {
   return (
     <main className="relative bg-white min-h-screen">
-      <BackButton href="/materi" label="Materi" variant="light" />
+      <BackButton href="/materi" label="Materi" variant="light" confirmMessage="Apakah kamu yakin ingin keluar?"/>
       <ProgressIndicator sections={SECTIONS} color="violet" />
       <HeroDeterminan />
       <ApaItuDeterminan />

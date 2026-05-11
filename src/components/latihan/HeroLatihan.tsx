@@ -133,7 +133,7 @@ export default function HeroLatihan() {
                 onClick={scrollToMenu}
                 whileHover={{ scale: 1.04 }}
                 whileTap={{ scale: 0.97 }}
-                className="relative flex items-center gap-2.5 px-7 py-4 rounded-2xl text-white text-sm font-bold tracking-wide"
+                className="relative flex items-center gap-2.5 px-7 py-4 rounded-2xl text-white text-sm font-bold tracking-wide cursor-pointer"
                 style={{ background: "#4F46E5", fontFamily: '"Georgia", serif' }}
               >
                 Pilih Latihan
