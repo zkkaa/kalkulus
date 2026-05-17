@@ -24,10 +24,6 @@ export default function GameWhy() {
 
       // ── Judul: per kata muncul dari bawah (word reveal) ───
       if (titleRef.current) {
-        // Bungkus tiap kata dengan span overflow:hidden
-        const rawText = titleRef.current.innerHTML;
-        // Kita animasikan per child element (em dan text nodes)
-        // Lebih aman: animasikan seluruh heading dengan clip path
         gsap.from(titleRef.current, {
           clipPath: "inset(0 100% 0 0)",
           opacity: 0,

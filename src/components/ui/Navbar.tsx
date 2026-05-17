@@ -57,7 +57,6 @@ export default function Navbar() {
 
   const navRef = useRef<HTMLElement>(null)
   const labelsRef = useRef<(HTMLSpanElement | null)[]>([])
-  const tlRef = useRef<gsap.core.Timeline | null>(null)
 
   // ── scroll detect ──
   useEffect(() => {
