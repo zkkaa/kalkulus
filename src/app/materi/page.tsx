@@ -4,7 +4,6 @@ import MathParticles from "@/components/ui/MathParticles";
 import Navbar from "@/components/ui/Navbar";
 import MateriHero from "@/components/materi/MateriHero";
 import MenuMateri from "@/components/materi/MenuMateri";
-import MateriFeature from "@/components/materi/MateriFeature";
 import ScrollAnim from "@/components/ui/ScrollAnim";
 import { FooterCopyright } from "@/components/ui/Footer";
 
@@ -18,7 +17,6 @@ export default function MateriPage() {
       <ScrollAnim>
         <Navbar />
         <MateriHero />
-        <MateriFeature />
         <MenuMateri />
         <FooterCopyright />
       </ScrollAnim>

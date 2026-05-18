@@ -112,8 +112,8 @@ export const teamData: TeamMember[] = [
     id: 1,
     name: "Muhammad Azka Fakhri Fairuz",
     nim: "257006111019",
-    role: "Lead Project",
-    skills: ["Designer", "Full Stack Developer"],
+    role: "Team Lead",
+    skills: [],
     image: "https://7sqr8euvtsm1cutd.public.blob.vercel-storage.com/team/team-azka.mp4", 
   },
   {
@@ -121,7 +121,7 @@ export const teamData: TeamMember[] = [
     name: "Salma Fauziah",
     nim: "257006111020",
     role: "",
-    skills: ["Designer", "Front-End Developer"],
+    skills: [],
     image: "https://7sqr8euvtsm1cutd.public.blob.vercel-storage.com/team/team-salma.mp4",
   },
   {
@@ -129,7 +129,7 @@ export const teamData: TeamMember[] = [
     name: "Aulia Syakhira Raina Hakim",
     nim: "257006111021",
     role: "",
-    skills: ["Designer", "Front-End Developer"],
+    skills: [],
     image: "https://7sqr8euvtsm1cutd.public.blob.vercel-storage.com/team/team-aulia.mp4",
   },
   {
@@ -137,7 +137,7 @@ export const teamData: TeamMember[] = [
     name: "Wildan Nurohim",
     nim: "257006111026",
     role: "",
-    skills: ["Designer", "Front-End Developer"],
+    skills: [],
     image: "https://7sqr8euvtsm1cutd.public.blob.vercel-storage.com/team/team-wildan.mp4",
   },
   {
@@ -145,7 +145,7 @@ export const teamData: TeamMember[] = [
     name: "Zaki Khoirullah",
     nim: "257006111028",
     role: "",
-    skills: ["Designer", "Front-End Developer"],
+    skills: [],
     image: "https://7sqr8euvtsm1cutd.public.blob.vercel-storage.com/team/team-zaky.mp4",
   },
   {
@@ -153,7 +153,7 @@ export const teamData: TeamMember[] = [
     name: "Natasya Ibnaty Salsabila",
     nim: "257006111033",
     role: "",
-    skills: ["Designer", "Front-End Developer"],
+    skills: [],
     image: "https://7sqr8euvtsm1cutd.public.blob.vercel-storage.com/team/team-natasya.mp4", 
   },
 ];

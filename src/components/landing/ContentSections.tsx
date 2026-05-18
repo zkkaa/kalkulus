@@ -168,7 +168,7 @@ function MateriCards() {
       {/* CTA */}
       <div className="flex justify-center mt-10">
         <AnimatedButton href="/materi" variant="sigma" size="sm">
-          Lihat semua materi
+          Lihat lebih lanjut
         </AnimatedButton>
       </div>
     </div>
