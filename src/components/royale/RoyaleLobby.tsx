@@ -62,9 +62,9 @@ export default function RoyaleLobby({ onRoomReady }: RoyaleLobbyProps) {
     const adminId = generateId(12)
 
     const { error: roomErr } = await supabase.from('royale_rooms').insert({
-      id: newRoomId,
-      status: 'waiting',
-      admin_id: adminId,
+      id: newRoomId,     // kode room unik, ini yang dibagikan ke pemain
+      status: 'waiting', // status awal, belum mulai
+      admin_id: adminId, // id admin, untuk bedain siapa host-nya
     })
 
     if (roomErr) { setError('Gagal membuat room.'); setLoading(false); return }
@@ -84,24 +84,29 @@ export default function RoyaleLobby({ onRoomReady }: RoyaleLobbyProps) {
     setError('')
 
     const code = joinCode.trim().toUpperCase()
+    // Cek apakah kode room yang diketik pemain ada di database
     const { data, error: findErr } = await supabase
       .from('royale_rooms')
       .select('*')
-      .eq('id', code)
+      .eq('id', code) // cari room dengan id = kode yang diketik
       .single()
 
+    // Kalau tidak ditemukan atau game sudah mulai, tolak
     if (findErr || !data) { setError('Room tidak ditemukan.'); setLoading(false); return }
     if (data.status !== 'waiting') { setError('Game sudah dimulai atau selesai.'); setLoading(false); return }
 
     const playerId = generateId(12)
-    const { error: playerErr } = await supabase.from('royale_players').insert({
-      id: playerId,
-      room_id: code,
-      name: name.trim(),
-      avatar,
-      score: 0,
-      is_eliminated: false,
-    })
+    // Kalau valid, daftarkan pemain ke tabel royale_players
+    const { error: playerErr } = await supabase
+      .from('royale_players')
+      .insert({
+        id: playerId,       // id unik pemain yang di-generate di browser
+        room_id: code,      // dikaitkan ke room yang dituju
+        name: name.trim(),  // nama yang diketik pemain
+        avatar,             // avatar yang dipilih
+        score: 0,           // skor awal 0
+        is_eliminated: false // belum tereliminasi
+      })
 
     if (playerErr) { setError('Gagal bergabung ke room.'); setLoading(false); return }
 
@@ -160,7 +165,7 @@ export default function RoyaleLobby({ onRoomReady }: RoyaleLobbyProps) {
                     onClick={() => setAvatar(av)}
                     className={`rounded-2xl border-2 p-1 transition-all ${avatar === av ? 'border-indigo-500 scale-110 shadow-lg' : 'border-gray-200 opacity-60 hover:opacity-100'}`}
                   >
-                    <Image src={`/gift/${av}`} alt={av} className="w-16 h-16 object-contain rounded-xl" width={64} height={64} unoptimized/>
+                    <Image src={`/gift/${av}`} alt={av} className="w-16 h-16 object-contain rounded-xl" width={64} height={64} unoptimized />
                   </button>
                 ))}
               </div>
@@ -187,7 +192,7 @@ export default function RoyaleLobby({ onRoomReady }: RoyaleLobbyProps) {
           >
             <div className="text-center">
               <div className="flex items-center justify-center gap-3 mb-1">
-                <Image src={`/gift/${avatar}`} alt={avatar} className="w-10 h-10 rounded-full object-contain" width={40} height={40} unoptimized/>
+                <Image src={`/gift/${avatar}`} alt={avatar} className="w-10 h-10 rounded-full object-contain" width={40} height={40} unoptimized />
                 <span className="font-bold text-gray-800 text-lg">{name}</span>
               </div>
               <p className="text-gray-400 text-sm">Mau buat room atau masuk room?</p>

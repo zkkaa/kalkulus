@@ -39,39 +39,43 @@ export default function WaitingRoom({ roomId, playerId, isAdmin, onGameStart }: 
 
     useEffect(() => {
         async function loadPlayers() {
+            // Ambil semua pemain yang sudah ada di room ini saat halaman dibuka
             const { data } = await supabase
                 .from('royale_players')
                 .select('id, name, avatar')
-                .eq('room_id', roomId)
+                .eq('room_id', roomId) // filter hanya pemain di room ini
             if (data) setPlayers(data)
         }
         loadPlayers()
 
-        // Realtime: ada pemain baru masuk
+        // Buka koneksi realtime, pantau tabel royale_players
+        // Kalau ada INSERT baru (pemain baru join), langsung update tampilan
         const playerChannel = supabase
-            .channel(`waiting-players-${roomId}`)
+            .channel(`waiting-players-${roomId}`) // nama channel unik per room
             .on('postgres_changes', {
-                event: 'INSERT',
+                event: 'INSERT',         // hanya pantau data baru masuk
                 schema: 'public',
                 table: 'royale_players',
-                filter: `room_id=eq.${roomId}`,
+                filter: `room_id=eq.${roomId}` // hanya room ini, bukan room lain
             }, (payload) => {
+                // payload.new berisi data pemain yang baru join
                 const p = payload.new as Player
                 setPlayers(prev => {
                     if (prev.find(x => x.id === p.id)) return prev
                     return [...prev, p]
-                })
+                }) // tambahkan ke tampilan
             })
-            .subscribe()
+            .subscribe() // mulai dengerin perubahan
 
-        // Realtime: pantau perubahan status room
+        // Pantau perubahan di tabel royale_rooms
+        // Fungsinya: tau kapan admin klik mulai
         const roomChannel = supabase
             .channel(`waiting-room-${roomId}`)
             .on('postgres_changes', {
-                event: 'UPDATE',
+                event: 'UPDATE',        // pantau kalau ada data yang diupdate
                 schema: 'public',
                 table: 'royale_rooms',
-                filter: `id=eq.${roomId}`,
+                filter: `id=eq.${roomId}`
             }, (payload) => {
                 // Ketika status berubah jadi 'countdown', semua client mulai animasi
                 if (payload.new.status === 'countdown') {
@@ -94,28 +98,34 @@ export default function WaitingRoom({ roomId, playerId, isAdmin, onGameStart }: 
         if (players.length === 0) return
         setStarting(true)
 
-        // Ambil soal acak
+        // Ambil semua id soal dari bank soal
         const { data: allQ } = await supabase.from('questions').select('id')
         if (!allQ) { setStarting(false); return }
 
-        const shuffled = allQ
-            .sort(() => Math.random() - 0.5)
-            .slice(0, 10)
-            .map(q => q.id)
+        // Acak dan ambil 10 soal
+        const shuffled = allQ.sort(() => Math.random() - 0.5).slice(0, 10).map(q => q.id)
 
-        // Set status jadi 'countdown' dulu — semua client akan mulai animasi countdown
-        await supabase.from('royale_rooms').update({
-            status: 'countdown',
-            question_ids: JSON.stringify(shuffled),
-            current_question: 0,
-        }).eq('id', roomId)
+        // Update status room jadi 'countdown' — ini yang memicu semua pemain
+        // melihat animasi countdown secara bersamaan
+        await supabase
+            .from('royale_rooms')
+            .update({
+                status: 'countdown',
+                question_ids: JSON.stringify(shuffled), // simpan urutan soal
+                current_question: 0,                    // mulai dari soal pertama
+            })
+            .eq('id', roomId)
 
-        // Setelah 5 detik (2s "segera dimulai" + 3s angka countdown), baru set 'playing'
+        // 5 detik kemudian, ubah status jadi 'playing'
+        // countdown_started_at dipakai untuk sinkronisasi timer antar pemain
         setTimeout(async () => {
-            await supabase.from('royale_rooms').update({
-                status: 'playing',
-                countdown_started_at: Date.now(),
-            }).eq('id', roomId)
+            await supabase
+                .from('royale_rooms')
+                .update({
+                    status: 'playing',
+                    countdown_started_at: Date.now(), // timestamp mulai, untuk timer soal
+                })
+                .eq('id', roomId)
         }, 5000)
     }
 
@@ -283,8 +293,8 @@ export default function WaitingRoom({ roomId, playerId, isAdmin, onGameStart }: 
                                     exit={{ opacity: 0, scale: 0.5 }}
                                     transition={{ type: 'spring', stiffness: 300, damping: 20, delay: i * 0.05 }}
                                     className={`bg-white/10 backdrop-blur border rounded-2xl p-3 flex flex-col items-center gap-2 ${player.id === playerId
-                                            ? 'border-yellow-400 bg-yellow-400/10'
-                                            : 'border-white/20'
+                                        ? 'border-yellow-400 bg-yellow-400/10'
+                                        : 'border-white/20'
                                         }`}
                                 >
                                     <Image

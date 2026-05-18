@@ -97,7 +97,7 @@ function AdminObserver({
     return () => {
       if (countdownRef.current) clearInterval(countdownRef.current)
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [room.show_result, room.current_question, allEliminated, isLastQuestion])
 
   return (
@@ -342,10 +342,11 @@ export default function RoyaleGame({ roomId, playerId, isAdmin }: RoyaleGameProp
   useEffect(() => { roomRef.current = room }, [room])
 
   const loadQuestions = useCallback(async (ids: number[]) => {
+    // Ambil detail soal berdasarkan id yang sudah disimpan di room
     const { data } = await supabase
       .from('questions')
       .select('id, question, answer, options')
-      .in('id', ids)
+      .in('id', ids) // ambil semua soal sesuai urutan yang sudah diacak
     if (!data) return
     const ordered = ids.map(id => data.find(q => q.id === id)!).filter(Boolean)
     setQuestions(ordered)
@@ -353,6 +354,7 @@ export default function RoyaleGame({ roomId, playerId, isAdmin }: RoyaleGameProp
   }, [])
 
   const loadPlayers = useCallback(async () => {
+    // Ambil data semua pemain di room ini
     const { data } = await supabase
       .from('royale_players')
       .select('*')
@@ -380,6 +382,8 @@ export default function RoyaleGame({ roomId, playerId, isAdmin }: RoyaleGameProp
 
     loadPlayers()
 
+    // CHANNEL 1: Pantau perubahan room
+    // Fungsi: tau kapan soal berganti, kapan show result, kapan game selesai
     const roomCh = supabase
       .channel(`royale-room-${roomId}`)
       .on('postgres_changes', {
@@ -395,10 +399,12 @@ export default function RoyaleGame({ roomId, playerId, isAdmin }: RoyaleGameProp
           if (!questionsLoadedRef.current) {
             await loadQuestions(JSON.parse(newRoom.question_ids))
           }
-          setPhase('playing')
+          setPhase('playing') // mulai game
         }
-        if (newRoom.status === 'finished') setPhase('finished')
+        if (newRoom.status === 'finished') setPhase('finished') // game selesai
 
+        // Kalau show_result direset, berarti soal baru dimulai
+        // reset jawaban pemain di tampilan
         if (!newRoom.show_result) {
           setSelectedAnswer(undefined)
           showResultTriggered.current = false
@@ -406,7 +412,8 @@ export default function RoyaleGame({ roomId, playerId, isAdmin }: RoyaleGameProp
       })
       .subscribe()
 
-    // Channel untuk INSERT pemain baru (realtime waiting room)
+    // CHANNEL 2: Pantau pemain baru JOIN
+    // Fungsi: update daftar pemain kalau ada yang join telat
     const playerInsertCh = supabase
       .channel(`royale-players-insert-${roomId}`)
       .on('postgres_changes', {
@@ -414,6 +421,7 @@ export default function RoyaleGame({ roomId, playerId, isAdmin }: RoyaleGameProp
         table: 'royale_players', filter: `room_id=eq.${roomId}`
       }, (payload) => {
         const p = payload.new as Player
+        // Tambahkan pemain baru ke state tanpa reload
         setPlayers(prev => {
           if (prev.find(x => x.id === p.id)) return prev
           const updated = [...prev, p]
@@ -423,13 +431,15 @@ export default function RoyaleGame({ roomId, playerId, isAdmin }: RoyaleGameProp
       })
       .subscribe()
 
-    // Channel untuk UPDATE pemain (jawaban, skor, eliminasi)
+    // CHANNEL 3: Pantau UPDATE data pemain
+    // Fungsi: update skor, jawaban, status eliminasi semua pemain secara realtime
     const playerUpdateCh = supabase
       .channel(`royale-players-update-${roomId}`)
       .on('postgres_changes', {
         event: 'UPDATE', schema: 'public',
         table: 'royale_players', filter: `room_id=eq.${roomId}`
       }, (payload) => {
+        // Update hanya pemain yang datanya berubah, sisanya tetap
         setPlayers(prev => {
           const updated = prev.map(p =>
             p.id === payload.new.id ? { ...p, ...payload.new } : p
@@ -440,13 +450,15 @@ export default function RoyaleGame({ roomId, playerId, isAdmin }: RoyaleGameProp
       })
       .subscribe()
 
+    // Penting: tutup semua channel saat komponen di-unmount
+    // supaya tidak ada memory leak / koneksi yang menggantung
     return () => {
       supabase.removeChannel(roomCh)
       supabase.removeChannel(playerInsertCh)
       supabase.removeChannel(playerUpdateCh)
       questionsLoadedRef.current = false
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [roomId])
 
   // ── Admin force show_result saat timer habis ──
@@ -507,6 +519,7 @@ export default function RoyaleGame({ roomId, playerId, isAdmin }: RoyaleGameProp
     const currentQ = questions[currentRoom.current_question]
     if (!currentQ) return
 
+    // Hitung apakah jawaban benar
     const isCorrect = !isTimeout &&
       answer.toLowerCase().trim() === currentQ.answer.toLowerCase().trim()
 
@@ -514,17 +527,21 @@ export default function RoyaleGame({ roomId, playerId, isAdmin }: RoyaleGameProp
 
     // Gunakan playersRef agar score selalu up-to-date
     const myPlayer = playersRef.current.find(p => p.id === playerId)
+    // Kirim hasil jawaban pemain ke database
+    // Channel 3 di semua client akan langsung mendeteksi perubahan ini
     await supabase.from('royale_players').update({
       current_answer: isTimeout ? '__timeout__' : answer,
       answered_at: Date.now(),
       is_correct: isCorrect,
       score: isCorrect ? (myPlayer?.score ?? 0) + 10 : (myPlayer?.score ?? 0),
       is_eliminated: !isCorrect,
-    }).eq('id', playerId)
+    }).eq('id', playerId) // hanya update data pemain ini
   }
 
   async function handleShowResult() {
     if (!isAdmin) return
+    // Admin update satu kolom show_result jadi true
+    // Semua pemain yang subscribe Channel 1 langsung lihat overlay hasil
     await supabase.from('royale_rooms').update({ show_result: true }).eq('id', roomId)
   }
 
@@ -540,10 +557,13 @@ export default function RoyaleGame({ roomId, playerId, isAdmin }: RoyaleGameProp
     const allEliminated = activePlayers.length === 0
     const isLast = nextQ >= TOTAL_QUESTIONS || allEliminated
 
+    // Reset jawaban semua pemain untuk soal berikutnya
     await supabase.from('royale_players')
       .update({ current_answer: null, answered_at: null, is_correct: false })
       .eq('room_id', roomId)
 
+    // Update room ke soal berikutnya
+    // Kalau ini soal terakhir atau semua gugur, ubah status jadi 'finished'
     await supabase.from('royale_rooms').update({
       current_question: isLast ? currentRoom.current_question : nextQ,
       show_result: false,
@@ -554,6 +574,8 @@ export default function RoyaleGame({ roomId, playerId, isAdmin }: RoyaleGameProp
   }
 
   async function handleFinish() {
+    // Hapus room dari database saat game benar-benar selesai
+    // Supaya tidak ada data sampah yang menumpuk di Supabase
     await supabase.from('royale_rooms').delete().eq('id', roomId)
     router.push('/games/royale')
   }
